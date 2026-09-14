@@ -1,7 +1,6 @@
 ---
 name: build-error-resolver
 description: Fixes build and test errors with minimal diffs. Use PROACTIVELY when builds or tests fail. No refactoring, no architecture changes.
-model: sonnet
 tools: Read, Write, Edit, Bash, Grep, Glob
 ---
 

@@ -1,7 +1,6 @@
 ---
 name: code-reviewer
 description: Reviews code for correctness, security, and convention adherence. Use PROACTIVELY after writing or modifying code.
-model: sonnet
 tools: Read, Grep, Glob, Bash
 ---
 
