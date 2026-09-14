@@ -1,7 +1,6 @@
 ---
 name: security-reviewer
 description: Detects security vulnerabilities, secrets, injection, and OWASP Top 10 issues. Use PROACTIVELY after writing code that handles user input, auth, API endpoints, or sensitive data.
-model: sonnet
 tools: Read, Grep, Glob, Bash
 ---
 

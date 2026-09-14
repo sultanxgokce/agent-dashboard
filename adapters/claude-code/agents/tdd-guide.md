@@ -1,7 +1,6 @@
 ---
 name: tdd-guide
 description: Enforces strict RED-GREEN-REFACTOR test-driven development. Use PROACTIVELY when writing new features, fixing bugs, or refactoring code.
-model: sonnet
 tools: Read, Write, Edit, Bash, Grep, Glob
 ---
 

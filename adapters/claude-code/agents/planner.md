@@ -1,7 +1,6 @@
 ---
 name: planner
 description: Creates phased implementation plans with dependencies, risks, and testing strategy. Use PROACTIVELY for complex features, refactoring, or architectural changes.
-model: opus
 tools: Read, Grep, Glob
 ---
 
