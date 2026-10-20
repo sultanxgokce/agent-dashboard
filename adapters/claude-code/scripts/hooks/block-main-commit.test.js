@@ -118,6 +118,7 @@ describe('hook integration: commit dizini komuttan çözülür (5FAWK)', () => {
     ['satır sonu ayracı', `cd ${dal}\n${G} ${C} -m x`],
     ['tırnak içindeki metin komut değildir', `bash scripts/append-note.sh f "not; ${G} ${C} yapıldı"`],
     ['tek tırnak içi metin', `echo 'ders: main üstünde ${G} ${C} yasak'`],
+    ['tek tırnak içinde ; git commit (ayraç metindir)', `echo 'not; ${G} ${C} -m x'`],
     ['commit mesajında ; git commit', `cd ${dal} && ${G} ${C} -m "a; ${G} ${C} b"`],
     ['main deposunda commit OLMAYAN git', `${G} -C ${ana} status`],
     ['$( … ) içinde iş alanında commit', `echo "$(cd ${dal} && ${G} ${C} -m x)"`],
