@@ -1,0 +1,30 @@
+{
+  "tur": 3,
+  "is": "main-commit-kancasi-komut-cozumu",
+  "pr": "",
+  "yazan": "claude",
+  "denetci": "codex",
+  "zaman": "2026-10-20T21:46:40+03:00",
+  "kanit_durumu": "sağlam (araç imzalı, sha'lar tutuyor)",
+  "yedek": null,
+  "yazan_model": "sonnet",
+  "yazan_model_kaynak": "ayar-dosyasi",
+  "yedek_model": null,
+  "kirpildi": {
+    "oldu": false,
+    "istem_bayt": 69344,
+    "esik": 110000
+  },
+  "kanit_ayiklandi": {
+    "dosya": 23,
+    "bayt": 106599
+  },
+  "kareler": null,
+  "sonuc": {
+    "kod_puani": 5,
+    "dogru_sey": "E",
+    "ozet": "Kanca, commit’in çalışacağı dizini cd, değişken, ~, git -C, ikinci cd ve bash -c biçimlerinden çözüyor; tırnak içindeki metni komut saymıyor, ayrıca önceki turdaki koşullu yürütme deliğini olası dizin kümeleriyle kapatıyor. Sultanım, araç imzalı ölçümler 10 biçimdeki 3 yanlış engel ile 2 deliğin kapandığını, genişletilmiş 53 vakalık sınavın ve takılma kapısının geçtiğini gösterdiği için kod üretime hazırdır.",
+    "bulgular": [],
+    "kanit_gorusu": "Manifest sağlam, araç imzalı ve sha değerleri tutuyor; sarı kayıt yok. Gerçek depo yollarıyla yapılan on-bicim ölçümünde önce 5 yanlış karar açıkça görülürken sonra 10/10 doğru sonuç alınmış; kanca sınavı rc=1’den rc=0’a dönmüş ve son genişletilmiş sınavlar da yeşil. Mutasyon kayıtlarının rc=0 olması tek başına yeterli sayılmadı; stdout, her bozmanın beklenen adlandırılmış vakaları düşürdüğünü ve pozitif kontrolün 53/53 geçtiğini gösteriyor."
+  }
+}
