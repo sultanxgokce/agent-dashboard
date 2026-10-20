@@ -28,3 +28,5 @@ kos bilinmez-gecirir       "branch = dalOku(hedef === BILINMEZ ? oturum : hedef)
 kos degisken-yok           "const v = Object.prototype.hasOwnProperty.call(vars, ad) ? vars[ad] : env[ad];" "const v = undefined;"
 kos ilk-surum-takilma      "    if (j === i) { t = src[i]; j = i + 1; }" "" \
                            "if (c === '(' || c === ')') { komut();" "if ((c === '(' || c === ')') && !parts) { komut();"
+kos basarisiz-cd-gecer     "if (yeni !== BILINMEZ && !dizinMi(yeni)) continue;" ""
+kos okunamayan-dal-gecer   "try { branch = dalOku(oturum); } catch { continue; }" "continue;"

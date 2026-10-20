@@ -19,6 +19,7 @@
 'use strict';
 
 const { execSync } = require('node:child_process');
+const fs = require('node:fs');
 const path = require('node:path');
 
 const BILINMEZ = Symbol('unresolved');
@@ -107,6 +108,7 @@ function genislet(parts, vars, env) {
   return out;
 }
 
+const dizinMi = d => { try { return fs.statSync(d).isDirectory(); } catch { return false; } };
 const atamaMi = parts => parts[0] && parts[0].q === '' && /^[A-Za-z_][A-Za-z0-9_]*=/.test(parts[0].t);
 const ham = parts => parts.map(p => p.t).join('');
 
@@ -141,9 +143,13 @@ function commitDizinleri(command, cwd, env = process.env, derinlik = 0) {
       while (a < words.length && /^-[LPe@]*$/.test(ham(words[a])) && ham(words[a]) !== '-') a++;
       if (a < words.length && ham(words[a]) === '--') a++;
       const hedef = a < words.length ? genislet(words[a], vars, env) : (env.HOME || BILINMEZ);
-      if (hedef === BILINMEZ || hedef === '-') cur = BILINMEZ;
-      else if (path.isAbsolute(hedef)) cur = path.resolve(hedef);
-      else cur = cur === BILINMEZ ? BILINMEZ : path.resolve(cur, hedef);
+      let yeni;
+      if (hedef === BILINMEZ || hedef === '-') yeni = BILINMEZ;
+      else if (path.isAbsolute(hedef)) yeni = path.resolve(hedef);
+      else yeni = cur === BILINMEZ ? BILINMEZ : path.resolve(cur, hedef);
+      // Kabukta olmayan dizine cd BAŞARISIZ olur ve dizin DEĞİŞMEZ: `cd /yok; git commit` eski dizinde koşar (göz tur 1)
+      if (yeni !== BILINMEZ && !dizinMi(yeni)) continue;
+      cur = yeni;
       continue;
     }
     if (KABUK.has(ad)) {
@@ -210,7 +216,8 @@ if (require.main === module && !process.stdin.isTTY) {
         try {
           branch = dalOku(hedef === BILINMEZ ? oturum : hedef);
         } catch {
-          continue;   // can't determine branch (directory missing, not a repo) — let this target through
+          // Hedefin dalı okunamadı (dizin yok / depo değil): serbest geçiş DEĞİL — oturum dizinine düş (eski temkinli davranış)
+          try { branch = dalOku(oturum); } catch { continue; }   // oturum da okunamıyorsa eski kanca gibi geçir
         }
         if (branch === 'main' || branch === 'master') {
           process.stderr.write(

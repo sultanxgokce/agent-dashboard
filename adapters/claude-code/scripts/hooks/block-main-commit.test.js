@@ -137,6 +137,9 @@ describe('hook integration: commit dizini komuttan çözülür (5FAWK)', () => {
     ['$( … ) içinde commit (oturum main)', `echo "$(${G} ${C} -m x)"`],
     ['ters tırnak içinde commit', `echo \`${G} ${C} -m x\``],
     ['alt kabuktaki cd dışarı taşınmaz', `(cd ${dal}); ${G} ${C} -m x`],
+    ['başarısız cd sonrası ; commit eski dizinde koşar (göz tur 1)', `cd ${kok}/olmayan-dizin; ${G} ${C} -m x`],
+    ['iş alanından başarısız cd ile main\'e kalan', `cd ${ana} && cd ${kok}/olmayan; ${G} ${C} -m x`],
+    ['dal okunamayan hedef → oturum dizini (temkinli)', `${G} -C ${kok}/olmayan ${C} -m x`],
   ];
   // 🔴 Kanca her Bash çağrısının önünde koşar: takılırsa bütün araç kilitlenir. İlk sürümde bitişik ')' sonsuz döngüye girdi
   //    (bellek tükendi) — bu kapı her karakterin her konumunu dener, hepsi hızlı bitmeli.
