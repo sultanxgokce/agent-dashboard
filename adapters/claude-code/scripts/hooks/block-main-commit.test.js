@@ -124,6 +124,9 @@ describe('hook integration: commit dizini komuttan çözülür (5FAWK)', () => {
     ['$( … ) içinde iş alanında commit', `echo "$(cd ${dal} && ${G} ${C} -m x)"`],
     ['alt kabukta iş alanına geçip commit', `(cd ${dal} && ${G} ${C} -m x)`],
     ['iş alanında kalınır: sonraki başarısız cd dizini değiştirmez', `cd ${dal}; cd ${kok}/olmayan; ${G} ${C} -m x`],
+    ['koşullu cd ile AYNI zincirdeki commit (cd koştuysa koşar)', `false && cd ${dal} && ${G} ${C} -m x`],
+    ['kesin cd sonrası başarısız olabilen komut, sonra ; commit', `cd ${dal} && ${G} add .; ${G} ${C} -m x`],
+    ['kesin cd, sonra && false || commit (cd koştu, commit iş alanında)', `cd ${dal} && false || ${G} ${C} -m x`],
   ];
   const engelle = [
     ['çıplak commit (oturum main)', `${G} ${C} -m x`],
@@ -141,6 +144,12 @@ describe('hook integration: commit dizini komuttan çözülür (5FAWK)', () => {
     ['başarısız cd sonrası ; commit eski dizinde koşar (göz tur 1)', `cd ${kok}/olmayan-dizin; ${G} ${C} -m x`],
     ['iş alanından başarısız cd ile main\'e kalan', `cd ${ana} && cd ${kok}/olmayan; ${G} ${C} -m x`],
     ['dal okunamayan hedef → oturum dizini (temkinli)', `${G} -C ${kok}/olmayan ${C} -m x`],
+    // göz tur 2: koşullu yürütme — koşmayabilecek cd, sonraki listedeki commit'i gizleyemez
+    ['false && cd <iş alanı>; commit (cd koşmaz)', `false && cd ${dal}; ${G} ${C} -m x`],
+    ['true || cd <iş alanı>; commit (cd koşmaz)', `true || cd ${dal}; ${G} ${C} -m x`],
+    ['boru içindeki cd üst kabuğu değiştirmez', `echo | cd ${dal}; ${G} ${C} -m x`],
+    ['arka plandaki cd üst kabuğu değiştirmez', `cd ${dal} & ${G} ${C} -m x`],
+    ['|| kolundaki commit: koşullu cd koşmamış olabilir', `false && cd ${dal} || ${G} ${C} -m x`],
   ];
   // 🔴 Kanca her Bash çağrısının önünde koşar: takılırsa bütün araç kilitlenir. İlk sürümde bitişik ')' sonsuz döngüye girdi
   //    (bellek tükendi) — bu kapı her karakterin her konumunu dener, hepsi hızlı bitmeli.

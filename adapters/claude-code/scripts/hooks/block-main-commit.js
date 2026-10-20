@@ -10,6 +10,10 @@
  * not a command. When the directory cannot be resolved (unknown variable, cd -, …) the session
  * cwd is used — the old, conservative behaviour.
  *
+ * Conditional execution is modelled (&&, ||, |, &, ( … )): the directory is a SET of possible
+ * directories, and the commit is blocked if ANY directory it may run in is on main — a cd that may
+ * not run cannot hide a commit on main (independent review, round 2).
+ *
  * Measured 2026-10-20 (session cwd = primary checkout on main, 10 shapes): the old prefix-cd
  * heuristic got 5 wrong — it blocked `W=…; cd $W && git commit`, `cd ~/…`, and a note whose
  * quoted text contained "; git commit", and it let `git -C <main> commit` and
@@ -45,12 +49,19 @@ function altKomut(src, i, kapanis) {
   return [src.slice(i, j), j + 1];
 }
 
-// Shell-like lexer → [{ words: [[{t, q}]], subs: [string] }]; q: '' unquoted · '"' · "'" (no expansion).
+// Shell-like lexer → [{ words: [[{t, q}]], subs: [string], bag, arka, boru } | { paren, bag }]
+//   q: '' unquoted · '"' · "'" (no expansion) · bag: connector BEFORE the command — 'bas' (start, ;, newline, &) · '&&' · '||' · '|'
+//   arka: followed by a single & (background subshell) · boru: followed by | (pipeline element, subshell)
 function lex(src) {
   const cmds = [];
-  let words = [], subs = [], parts = null, i = 0;
+  let words = [], subs = [], parts = null, i = 0, bag = 'bas';
   const kelime = () => { if (parts) { words.push(parts); parts = null; } };
-  const komut = () => { kelime(); if (words.length || subs.length) cmds.push({ words, subs }); words = []; subs = []; };
+  const komut = (bayrak) => {
+    kelime();
+    if (words.length || subs.length) cmds.push({ words, subs, bag });
+    if (bayrak && cmds.length) cmds[cmds.length - 1][bayrak] = true;
+    words = []; subs = [];
+  };
   const ekle = (t, q) => { (parts = parts || []).push({ t, q }); };
   while (i < src.length) {
     const c = src[i];
@@ -71,8 +82,11 @@ function lex(src) {
     if (c === '\\' && i + 1 < src.length) { if (src[i + 1] !== '\n') ekle(src[i + 1], "'"); i += 2; continue; }
     if (c === '$' && src[i + 1] === '(') { const [b, n] = altKomut(src, i + 2, ')'); subs.push(b); ekle('$(…)', ''); i = n; continue; }
     if (c === '`') { const [b, n] = altKomut(src, i + 1, '`'); subs.push(b); ekle('$(…)', ''); i = n; continue; }
-    if (AYRAC.has(c)) { komut(); i++; continue; }
-    if (c === '(' || c === ')') { komut(); cmds.push({ paren: c }); i++; continue; }   // alt kabuk sınırı
+    if (c === ';' || c === '\n') { komut(); bag = 'bas'; i++; continue; }
+    if (c === '&') { if (src[i + 1] === '&') { komut(); bag = '&&'; i += 2; } else { komut('arka'); bag = 'bas'; i++; } continue; }
+    if (c === '|') { if (src[i + 1] === '|') { komut(); bag = '||'; i += 2; } else { komut('boru'); bag = '|'; i++; } continue; }
+    if (c === '(') { komut(); cmds.push({ paren: '(', bag }); bag = 'bas'; i++; continue; }   // alt kabuk girişi
+    if (c === ')') { komut(); cmds.push({ paren: ')' }); i++; continue; }
     if (c === ' ' || c === '\t') { kelime(); i++; continue; }
     if (c === '#' && !parts) { while (i < src.length && src[i] !== '\n') i++; continue; }
     let j = i, t = '';
@@ -112,17 +126,58 @@ const dizinMi = d => { try { return fs.statSync(d).isDirectory(); } catch { retu
 const atamaMi = parts => parts[0] && parts[0].q === '' && /^[A-Za-z_][A-Za-z0-9_]*=/.test(parts[0].t);
 const ham = parts => parts.map(p => p.t).join('');
 
-/** Directories `git commit` would run in, in order. Entry: absolute path · BILINMEZ (unresolved). */
+const birlesim = (...kumeler) => [...new Set(kumeler.flat())];
+const coz = (taban, hedef) => (hedef === BILINMEZ ? BILINMEZ : path.isAbsolute(hedef) ? path.resolve(hedef)
+  : taban === BILINMEZ ? BILINMEZ : path.resolve(taban, hedef));
+
+/**
+ * Directories `git commit` would run in. Entry: absolute path · BILINMEZ (unresolved).
+ *
+ * The working directory is tracked as a SET of possible directories (göz tur 2): a cd that may not run
+ * (`false && cd X; …`, `true || cd X; …`) or that runs in a subshell (pipeline element, background &,
+ * ( … )) must not hide a commit that runs in the old directory. A commit is reported for EVERY
+ * directory it may run in; the caller blocks if any of them is on main.
+ *   · bag 'bas' (start of an and-or list): runs for sure, in the list-start set
+ *   · '&&': runs only if the previous command succeeded → the set after that command
+ *   · '||': runs after some failure → every set reached so far in the list
+ *   · '|' / arka: subshell — its cd never reaches the parent
+ * A cd to an existing directory succeeds; to a missing one it fails and changes nothing (göz tur 1).
+ */
 function commitDizinleri(command, cwd, env = process.env, derinlik = 0) {
   const sonuc = [];
   if (!command || derinlik > 3) return sonuc;
-  let cur = cwd ? path.resolve(cwd) : BILINMEZ;
+  let S = [cwd ? path.resolve(cwd) : BILINMEZ];
+  let L;   // and-or list: A = set if the last command succeeded · U = every reachable set · det = all cds surely ran
+  const yeniListe = () => { L = { A: S, U: S, det: true, kosuKesin: true, basariKesin: true, boruR: S }; };
+  const listeyiKapat = () => { S = L.det ? L.A : L.U; };
+  yeniListe();
   const vars = {}, yigin = [];
-  for (const { words, subs, paren } of lex(command)) {
-    // ( … ) alt kabuktur: içerdeki cd ve değişkenler dışarı TAŞINMAZ — girişte sakla, çıkışta geri koy
-    if (paren === '(') { yigin.push([cur, { ...vars }]); continue; }
-    if (paren === ')') { if (yigin.length) { const [c, v] = yigin.pop(); cur = c; for (const a of Object.keys(vars)) delete vars[a]; Object.assign(vars, v); } continue; }
-    for (const b of subs) sonuc.push(...commitDizinleri(b, cur === BILINMEZ ? null : cur, { ...env, ...vars }, derinlik + 1));
+  const kosul = bag => ({
+    R: bag === 'bas' ? S : bag === '&&' ? L.A : bag === '||' ? L.U : L.boruR,
+    kesin: bag === 'bas' || (bag === '&&' && L.kosuKesin && L.basariKesin),
+  });
+  const genel = (R, kesin, basari) => { L.A = R; L.kosuKesin = kesin; L.basariKesin = basari; };
+  for (const it of lex(command)) {
+    if (it.paren === '(') {
+      if (it.bag === 'bas') { listeyiKapat(); yeniListe(); }
+      const { R, kesin } = kosul(it.bag);
+      yigin.push({ S, L, vars: { ...vars }, R, kesin });
+      S = R; yeniListe();
+      continue;
+    }
+    if (it.paren === ')') {   // ( … ) alt kabuktur: içerdeki cd ve değişkenler dışarı TAŞINMAZ
+      if (!yigin.length) continue;
+      const f = yigin.pop();
+      S = f.S; L = f.L; for (const a of Object.keys(vars)) delete vars[a]; Object.assign(vars, f.vars);
+      genel(f.R, f.kesin, false);
+      continue;
+    }
+    const { words, subs, bag, arka, boru } = it;
+    if (bag === 'bas') { listeyiKapat(); yeniListe(); }
+    const { R, kesin } = kosul(bag);
+    if (boru && bag !== '|') L.boruR = R;   // boru hattının ilk öğesi: hattın her öğesi bu kümede başlar
+    const altKabuk = arka || boru || bag === '|';
+    for (const b of subs) for (const r of R) sonuc.push(...commitDizinleri(b, r === BILINMEZ ? null : r, { ...env, ...vars }, derinlik + 1));
     let k = 0;
     while (k < words.length && atamaMi(words[k])) k++;
     if (k === words.length) {   // VAR=değer satırı: aynı komut satırının sonrası için kabuk değişkeni
@@ -130,26 +185,28 @@ function commitDizinleri(command, cwd, env = process.env, derinlik = 0) {
         const ad = w[0].t.slice(0, w[0].t.indexOf('='));
         vars[ad] = genislet([{ t: w[0].t.slice(ad.length + 1), q: '' }, ...w.slice(1)], vars, env);
       }
+      genel(R, kesin, true);
       continue;
     }
     while (k < words.length && SARMALAYICI.has(ham(words[k]))) {
       k++;
       while (k < words.length && (atamaMi(words[k]) || ham(words[k]).startsWith('-'))) k++;
     }
-    if (k >= words.length) continue;
+    if (k >= words.length) { genel(R, kesin, false); continue; }
     const ad = genislet(words[k], vars, env);
-    if (ad === 'cd' || ad === 'pushd') {
+    if ((ad === 'cd' || ad === 'pushd') && !altKabuk) {
       let a = k + 1;
       while (a < words.length && /^-[LPe@]*$/.test(ham(words[a])) && ham(words[a]) !== '-') a++;
       if (a < words.length && ham(words[a]) === '--') a++;
-      const hedef = a < words.length ? genislet(words[a], vars, env) : (env.HOME || BILINMEZ);
-      let yeni;
-      if (hedef === BILINMEZ || hedef === '-') yeni = BILINMEZ;
-      else if (path.isAbsolute(hedef)) yeni = path.resolve(hedef);
-      else yeni = cur === BILINMEZ ? BILINMEZ : path.resolve(cur, hedef);
+      let hedef = a < words.length ? genislet(words[a], vars, env) : (env.HOME || BILINMEZ);
+      if (hedef === '-') hedef = BILINMEZ;
       // Kabukta olmayan dizine cd BAŞARISIZ olur ve dizin DEĞİŞMEZ: `cd /yok; git commit` eski dizinde koşar (göz tur 1)
-      if (yeni !== BILINMEZ && !dizinMi(yeni)) continue;
-      cur = yeni;
+      let hepsiVar = true;
+      const yeni = birlesim(R.map(r => { const y = coz(r, hedef); if (y !== BILINMEZ && !dizinMi(y)) { hepsiVar = false; return r; } return y; }));
+      L.A = yeni;
+      L.U = kesin ? birlesim(yeni) : birlesim(L.U, yeni);   // kesin koşan cd'den önceki dizine artık dönülemez
+      if (!kesin) L.det = false;
+      L.kosuKesin = kesin; L.basariKesin = hepsiVar;
       continue;
     }
     if (KABUK.has(ad)) {
@@ -158,27 +215,32 @@ function commitDizinleri(command, cwd, env = process.env, derinlik = 0) {
       if (a < words.length && /^-[a-z]*c[a-z]*$/.test(ham(words[a])) && a + 1 < words.length) {
         const ic = genislet(words[a + 1], vars, env);
         if (ic === BILINMEZ) { if (/\bcommit\b/.test(ham(words[a + 1]))) sonuc.push(BILINMEZ); }
-        else sonuc.push(...commitDizinleri(ic, cur === BILINMEZ ? null : cur, { ...env, ...vars }, derinlik + 1));
+        else for (const r of R) sonuc.push(...commitDizinleri(ic, r === BILINMEZ ? null : r, { ...env, ...vars }, derinlik + 1));
       }
+      genel(R, kesin, false);
       continue;
     }
-    if (ad !== 'git') continue;
-    let a = k + 1, dizin = cur;
-    while (a < words.length) {
-      const s = ham(words[a]);
-      if (s === '-C' && a + 1 < words.length) {
-        const v = genislet(words[a + 1], vars, env);
-        dizin = v === BILINMEZ || dizin === BILINMEZ ? (path.isAbsolute(String(v)) ? path.resolve(v) : BILINMEZ)
-          : path.resolve(dizin, v);
-        a += 2;
-      } else if (DEGERLI_GIT_SECENEGI.has(s)) { if (s !== '-c') dizin = BILINMEZ; a += 2; }
-      else if (/^--(git-dir|work-tree)=/.test(s)) { dizin = BILINMEZ; a++; }
-      else if (s.startsWith('-')) a++;
-      else break;
+    if (ad === 'git') {
+      let a = k + 1, C = null, belirsiz = false;
+      while (a < words.length) {
+        const s = ham(words[a]);
+        if (s === '-C' && a + 1 < words.length) { C = C === null ? [] : C; C.push(genislet(words[a + 1], vars, env)); a += 2; }
+        else if (DEGERLI_GIT_SECENEGI.has(s)) { if (s !== '-c') belirsiz = true; a += 2; }
+        else if (/^--(git-dir|work-tree)=/.test(s)) { belirsiz = true; a++; }
+        else if (s.startsWith('-')) a++;
+        else break;
+      }
+      if (a < words.length && genislet(words[a], vars, env) === 'commit') {
+        for (const r of R) {
+          let d = r;
+          for (const c of C || []) d = coz(d, c);
+          sonuc.push(belirsiz ? BILINMEZ : d);
+        }
+      }
     }
-    if (a < words.length && genislet(words[a], vars, env) === 'commit') sonuc.push(dizin);
+    genel(R, kesin, false);
   }
-  return sonuc;
+  return birlesim(sonuc);
 }
 
 function isCommitOnMain(command, branch) {

@@ -19,14 +19,19 @@ kos() {  # $1 ad · sonra (eski yeni) çiftleri
 }
 kos pozitif-kontrol
 kos tirnak-komut-sayilir   "if (c === \"'\") {" "if (false) {"
-kos cd-izlenmez            "if (ad === 'cd' || ad === 'pushd') {" "if (false) {"
+kos cd-izlenmez            "if ((ad === 'cd' || ad === 'pushd') && !altKabuk) {" "if (false) {"
 kos git-C-yok-sayilir      "if (s === '-C' && a + 1 < words.length) {" "if (false) {"
 kos bash-c-acilmaz         "if (KABUK.has(ad)) {" "if (false) {"
-kos alt-kabuk-sizar        "if (paren === ')') { if (yigin.length) {" "if (paren === ')') { if (false) {"
-kos altkomut-taranmaz      "for (const b of subs) sonuc.push(" "for (const b of []) sonuc.push("
+kos alt-kabuk-sizar        "S = f.S; L = f.L;" "L = f.L;"
+kos altkomut-taranmaz      "for (const b of subs) for (const r of R)" "for (const b of []) for (const r of R)"
 kos bilinmez-gecirir       "branch = dalOku(hedef === BILINMEZ ? oturum : hedef);" "if (hedef === BILINMEZ) continue; branch = dalOku(hedef);"
 kos degisken-yok           "const v = Object.prototype.hasOwnProperty.call(vars, ad) ? vars[ad] : env[ad];" "const v = undefined;"
 kos ilk-surum-takilma      "    if (j === i) { t = src[i]; j = i + 1; }" "" \
-                           "if (c === '(' || c === ')') { komut();" "if ((c === '(' || c === ')') && !parts) { komut();"
-kos basarisiz-cd-gecer     "if (yeni !== BILINMEZ && !dizinMi(yeni)) continue;" ""
+                           "if (c === '(') { komut();" "if (c === '(' && !parts) { komut();" \
+                           "if (c === ')') { komut();" "if (c === ')' && !parts) { komut();"
+kos basarisiz-cd-gecer     "if (y !== BILINMEZ && !dizinMi(y)) { hepsiVar = false; return r; }" ""
 kos okunamayan-dal-gecer   "try { branch = dalOku(oturum); } catch { continue; }" "continue;"
+kos kosul-yok-sayilir      "if (!kesin) L.det = false;" ""
+kos alt-kabukta-cd-etkili  "if ((ad === 'cd' || ad === 'pushd') && !altKabuk) {" "if (ad === 'cd' || ad === 'pushd') {"
+kos veya-kolu-dar          "bag === '||' ? L.U :" "bag === '||' ? L.A :"
+kos kesin-cd-oncesi-kalir  "L.U = kesin ? birlesim(yeni) : birlesim(L.U, yeni);" "L.U = birlesim(L.U, yeni);"
