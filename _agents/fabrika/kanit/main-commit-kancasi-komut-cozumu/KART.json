@@ -1,0 +1,24 @@
+{
+  "is": "main-commit-kancasi-komut-cozumu",
+  "cumle": "block-main-commit kancası commit'in koşacağı dizini komutun kendisinden çözsün (cd/değişken/~/git -C/ikinci cd/bash -c) ve tırnak içindeki metni komut saymasın: 20 Eki ölçümü 10 biçimde 3 yanlış engel + 2 delik (5FAWK)",
+  "istedi": "SERDAR",
+  "aldi": "MİRAHUR",
+  "zaman": "2026-10-20T21:28:14+03:00",
+  "sinif_cevaplari": {
+    "geri_alinamaz": "h",
+    "para": "h",
+    "dis_yuzey": "h",
+    "yetki": "?"
+  },
+  "siniflar": [
+    "yetki"
+  ],
+  "sultan": true,
+  "kanit_nerede": "",
+  "oda": "",
+  "durum": "acik",
+  "gecmis": [],
+  "canli_gerekir": false,
+  "canli_sebep": "--canli h (sahip: canlı kanıt gerekmez dedi)",
+  "kapsam_uyarilari": []
+}
