@@ -123,6 +123,7 @@ describe('hook integration: commit dizini komuttan çözülür (5FAWK)', () => {
     ['main deposunda commit OLMAYAN git', `${G} -C ${ana} status`],
     ['$( … ) içinde iş alanında commit', `echo "$(cd ${dal} && ${G} ${C} -m x)"`],
     ['alt kabukta iş alanına geçip commit', `(cd ${dal} && ${G} ${C} -m x)`],
+    ['iş alanında kalınır: sonraki başarısız cd dizini değiştirmez', `cd ${dal}; cd ${kok}/olmayan; ${G} ${C} -m x`],
   ];
   const engelle = [
     ['çıplak commit (oturum main)', `${G} ${C} -m x`],
