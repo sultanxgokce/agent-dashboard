@@ -1,0 +1,14 @@
+$ bash _agents/fabrika/kanit/main-commit-kancasi-komut-cozumu/kanca-olc.sh adapters/claude-code/scripts/hooks/block-main-commit.js /config/projects/_wt/Sx-Claude-Skills-retro-cok-depo
+# rc=0 sure=3.5s zaman=2026-10-20T21:33:35+03:00
+--- stdout ---
+DOGRU  beklenen=GECIR   kanca=GECIR   :: cd /config/projects/_wt/Sx-Claude-Skills-retro-cok-depo && git commit -m x
+DOGRU  beklenen=GECIR   kanca=GECIR   :: git -C /config/projects/_wt/Sx-Claude-Skills-retro-cok-depo commit -m x
+DOGRU  beklenen=GECIR   kanca=GECIR   :: W=/config/projects/_wt/Sx-Claude-Skills-retro-cok-depo; cd $W && git commit -m x
+DOGRU  beklenen=GECIR   kanca=GECIR   :: cd ~/projects/_wt/Sx-Claude-Skills-retro-cok-depo && git commit -m x
+DOGRU  beklenen=GECIR   kanca=GECIR   :: bash scripts/append-note.sh f "not; git commit yapıldı"
+DOGRU  beklenen=GECIR   kanca=GECIR   :: echo 'ders: main üstünde git commit yasak'
+DOGRU  beklenen=ENGELLE kanca=ENGELLE :: git commit -m x
+DOGRU  beklenen=ENGELLE kanca=ENGELLE :: cd /config/projects/Nexus && git commit -m x
+DOGRU  beklenen=ENGELLE kanca=ENGELLE :: git -C /config/projects/Nexus commit -m x
+DOGRU  beklenen=ENGELLE kanca=ENGELLE :: cd /config/projects/_wt/Sx-Claude-Skills-retro-cok-depo && cd /config/projects/Nexus && git commit -m x
+--- stderr ---

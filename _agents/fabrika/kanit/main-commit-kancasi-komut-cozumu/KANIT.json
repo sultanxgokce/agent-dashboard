@@ -1,0 +1,116 @@
+{
+  "is": "main-commit-kancasi-komut-cozumu",
+  "arac": "kanit.py/0.5.0",
+  "guncelleme": "2026-10-20T21:36:20+03:00",
+  "kayitlar": [
+    {
+      "tur": "olcum",
+      "etiket": "kanca-sinavi",
+      "asama": "once",
+      "dosya": "olcum-kanca-sinavi-once.txt",
+      "sha256": "981f91e2149cb1639995a083921a48cb3934679aa1edcbfae230b67f35be3090",
+      "komut": [
+        "node",
+        "--test",
+        "adapters/claude-code/scripts/hooks/block-main-commit.test.js"
+      ],
+      "rc": 1,
+      "renk": "kirmizi",
+      "zaman": "2026-10-20T21:29:08+03:00",
+      "sure_sn": 1.1,
+      "boru_denetimi": "kapsam-dışı (kabuk -c değil; dosya betiği içeriği denetlenmez)",
+      "olcum_id": "ec062c1ba3584ad4be3b1ae1d0d5802f"
+    },
+    {
+      "tur": "olcum",
+      "etiket": "on-bicim",
+      "asama": "once",
+      "dosya": "olcum-on-bicim-once.txt",
+      "sha256": "148531a98015f775e23127507a11bb9a53dcbed3eb941e45433cd6e77acd0470",
+      "komut": [
+        "bash",
+        "_agents/fabrika/kanit/main-commit-kancasi-komut-cozumu/kanca-olc.sh",
+        "/config/.claude/plugins/cache/agent-dashboard/agent-dashboard/0.35.0/scripts/hooks/block-main-commit.js",
+        "/config/projects/_wt/Sx-Claude-Skills-retro-cok-depo"
+      ],
+      "rc": 0,
+      "renk": "yesil",
+      "zaman": "2026-10-20T21:33:31+03:00",
+      "sure_sn": 3.1,
+      "boru_denetimi": "kapsam-dışı (kabuk -c değil; dosya betiği içeriği denetlenmez)",
+      "olcum_id": "922140637785458b99103614bec6d7c6"
+    },
+    {
+      "tur": "olcum",
+      "etiket": "on-bicim",
+      "asama": "sonra",
+      "dosya": "olcum-on-bicim-sonra.txt",
+      "sha256": "1d1e593f81103c1d649de4ebf752ca9ce51873e49a6a348fbad530a9b2d6dab4",
+      "komut": [
+        "bash",
+        "_agents/fabrika/kanit/main-commit-kancasi-komut-cozumu/kanca-olc.sh",
+        "adapters/claude-code/scripts/hooks/block-main-commit.js",
+        "/config/projects/_wt/Sx-Claude-Skills-retro-cok-depo"
+      ],
+      "rc": 0,
+      "renk": "yesil",
+      "zaman": "2026-10-20T21:33:35+03:00",
+      "sure_sn": 3.5,
+      "boru_denetimi": "kapsam-dışı (kabuk -c değil; dosya betiği içeriği denetlenmez)",
+      "olcum_id": "2fe6a9af727e4c5d826f6bc8ab84e893"
+    },
+    {
+      "tur": "olcum",
+      "etiket": "bozma-adlari",
+      "asama": "tek",
+      "dosya": "olcum-bozma-adlari-tek.txt",
+      "sha256": "5ad95057ea2a11f7630df22111ff2d942d280d2a06f3264c21e8ffe026482f68",
+      "komut": [
+        "bash",
+        "_agents/fabrika/kanit/main-commit-kancasi-komut-cozumu/mutasyon.sh"
+      ],
+      "rc": 0,
+      "renk": "yesil",
+      "zaman": "2026-10-20T21:35:23+03:00",
+      "sure_sn": 26.0,
+      "boru_denetimi": "kapsam-dışı (kabuk -c değil; dosya betiği içeriği denetlenmez)",
+      "olcum_id": "b40f1090419844b293329f3ea4b53d00"
+    },
+    {
+      "tur": "olcum",
+      "etiket": "bozma-adlari-v2",
+      "asama": "tek",
+      "dosya": "olcum-bozma-adlari-v2-tek.txt",
+      "sha256": "dcc5d57a01355386537d5c15a13f9e4772bd157057db9e040ae9a738f694c3cb",
+      "komut": [
+        "bash",
+        "_agents/fabrika/kanit/main-commit-kancasi-komut-cozumu/mutasyon.sh"
+      ],
+      "rc": 0,
+      "renk": "yesil",
+      "zaman": "2026-10-20T21:36:07+03:00",
+      "sure_sn": 24.4,
+      "boru_denetimi": "kapsam-dışı (kabuk -c değil; dosya betiği içeriği denetlenmez)",
+      "olcum_id": "e95a4c1b20d248149da3cdbec7e79636"
+    },
+    {
+      "tur": "olcum",
+      "etiket": "kanca-sinavi",
+      "asama": "sonra",
+      "dosya": "olcum-kanca-sinavi-sonra.txt",
+      "sha256": "6da146ebc40defb614fe20a4f17d024414850c44c68b9089c898a9692c19f1d4",
+      "komut": [
+        "node",
+        "--test",
+        "adapters/claude-code/scripts/hooks/block-main-commit.test.js"
+      ],
+      "rc": 0,
+      "renk": "yesil",
+      "zaman": "2026-10-20T21:36:20+03:00",
+      "sure_sn": 1.1,
+      "boru_denetimi": "kapsam-dışı (kabuk -c değil; dosya betiği içeriği denetlenmez)",
+      "olcum_id": "f45bf15b161e433abd9f23846b9b4296"
+    }
+  ],
+  "imza": "168cf9c56c7c2c8e523975fed0aa2e986bc33655779b5eba1fc6289aaabdc17a"
+}
