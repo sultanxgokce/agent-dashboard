@@ -22,7 +22,7 @@ kos tirnak-komut-sayilir   "if (c === \"'\") {" "if (false) {"
 kos cd-izlenmez            "if ((ad === 'cd' || ad === 'pushd') && !altKabuk) {" "if (false) {"
 kos git-C-yok-sayilir      "if (s === '-C' && a + 1 < words.length) {" "if (false) {"
 kos bash-c-acilmaz         "if (KABUK.has(ad)) {" "if (false) {"
-kos alt-kabuk-sizar        "S = f.S; L = f.L;" "const ic = S; S = f.S; L = f.L;" \
+kos alt-kabuk-sizar        "S = f.S; L = f.L;" "const ic = L.A; S = f.S; L = f.L;" \
                            "genel(f.R, f.kesin, false);" "genel(ic, f.kesin, false);"
 kos altkomut-taranmaz      "for (const b of subs) for (const r of R)" "for (const b of []) for (const r of R)"
 kos bilinmez-gecirir       "branch = dalOku(hedef === BILINMEZ ? oturum : hedef);" "if (hedef === BILINMEZ) continue; branch = dalOku(hedef);"
