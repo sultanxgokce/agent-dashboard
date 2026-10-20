@@ -88,3 +88,70 @@ describe('hook integration: cwd resolution', () => {
     assert.equal(result.status, 2, `expected block but got exit ${result.status}`);
   });
 });
+
+// Commit'in koşacağı dizin KOMUTUN KENDİSİNDEN çözülür (5FAWK · 20 Eki ölçümü: oturum cwd'si main'deki birincil kopyayken
+// 10 biçimin 5'inde yanlış karar — 3 yanlış engel, 2 delik). Oturum hep main deposunda; commit'in gerçek hedefi değişir.
+describe('hook integration: commit dizini komuttan çözülür (5FAWK)', () => {
+  const kok = fs.mkdtempSync(path.join(os.tmpdir(), 'bmc-5fawk-'));
+  const ana = path.join(kok, 'ana');
+  const dal = path.join(kok, 'is-alani');
+  for (const [d, b] of [[ana, 'main'], [dal, 'is-dali']]) {
+    fs.mkdirSync(d);
+    assert.equal(spawnSync('git', ['init', '-q'], { cwd: d }).status, 0);
+    assert.equal(spawnSync('git', ['checkout', '-q', '-B', b], { cwd: d }).status, 0);
+  }
+  const G = 'git', C = 'commit';   // literal birleşik yazılmaz: bu dosyayı düzenleyen ajanın kendi kancası metni okur
+  function kos(komut, ek = {}) {
+    const r = spawnSync('node', [HOOK_PATH], {
+      input: JSON.stringify({ hook_event_name: 'PreToolUse', tool_name: 'Bash', tool_input: { command: komut }, cwd: ana }),
+      encoding: 'utf8', timeout: 5000, env: { ...process.env, ...ek },
+    });
+    return r.status === 2 ? 'ENGELLE' : r.status === 0 ? 'GECIR' : `rc=${r.status} ${r.stderr}`;
+  }
+  const gecir = [
+    ['cd <iş alanı> && commit', `cd ${dal} && ${G} ${C} -m x`],
+    ['değişkenle cd', `W=${dal}; cd $W && ${G} ${C} -m x`],
+    ['${…} biçimli değişken', `W=${dal}; cd "\${W}" && ${G} ${C} -m x`],
+    ['~ ile cd', `cd ~/is-alani && ${G} ${C} -m x`, { HOME: kok }],
+    ['göreli cd (oturum dizininden)', `cd ../is-alani && ${G} ${C} -m x`],
+    ['git -C <iş alanı>', `${G} -C ${dal} ${C} -m x`],
+    ['satır sonu ayracı', `cd ${dal}\n${G} ${C} -m x`],
+    ['tırnak içindeki metin komut değildir', `bash scripts/append-note.sh f "not; ${G} ${C} yapıldı"`],
+    ['tek tırnak içi metin', `echo 'ders: main üstünde ${G} ${C} yasak'`],
+    ['commit mesajında ; git commit', `cd ${dal} && ${G} ${C} -m "a; ${G} ${C} b"`],
+    ['main deposunda commit OLMAYAN git', `${G} -C ${ana} status`],
+    ['$( … ) içinde iş alanında commit', `echo "$(cd ${dal} && ${G} ${C} -m x)"`],
+    ['alt kabukta iş alanına geçip commit', `(cd ${dal} && ${G} ${C} -m x)`],
+  ];
+  const engelle = [
+    ['çıplak commit (oturum main)', `${G} ${C} -m x`],
+    ['cd <main> && commit', `cd ${ana} && ${G} ${C} -m x`],
+    ['git -C <main> commit', `${G} -C ${ana} ${C} -m x`],
+    ['ikinci cd main\'e döner', `cd ${dal} && cd ${ana} && ${G} ${C} -m x`],
+    ['git -c ayar commit', `${G} -c user.name=x ${C} -m x`],
+    ['env önekli', `env FOO=1 ${G} ${C} -m x`],
+    ['bash -c içinde commit', `bash -c "${G} ${C} -m x"`],
+    ['çözülemeyen değişken → oturum dizini (temkinli)', `cd $BILINMEYEN_DIZIN && ${G} ${C} -m x`],
+    ['iş alanında add, main\'de commit', `cd ${dal} && ${G} add . ; cd ${ana} && ${G} ${C} -m x`],
+    ['$( … ) içinde commit (oturum main)', `echo "$(${G} ${C} -m x)"`],
+    ['ters tırnak içinde commit', `echo \`${G} ${C} -m x\``],
+    ['alt kabuktaki cd dışarı taşınmaz', `(cd ${dal}); ${G} ${C} -m x`],
+  ];
+  // 🔴 Kanca her Bash çağrısının önünde koşar: takılırsa bütün araç kilitlenir. İlk sürümde bitişik ')' sonsuz döngüye girdi
+  //    (bellek tükendi) — bu kapı her karakterin her konumunu dener, hepsi hızlı bitmeli.
+  //    Eşzamanlı sonsuz döngü node:test zaman aşımını TETİKLEMEZ → deneme ayrı süreçte, süre ve bellek tavanıyla koşar.
+  it('hiçbir girdide takılmaz (ayraç/tırnak/parantez her konumda, 2000 rastgele komut)', () => {
+    const govde = `
+      const { commitDizinleri } = require(${JSON.stringify(path.join(__dirname, 'block-main-commit.js'))});
+      const harf = ['(', ')', '$(', '\`', '"', "'", '\\\\', ';', '&', '|', '\\n', ' ', 'cd', '/x', '~', '$W', '\${W}', 'git', 'commit', '-C', 'W=/y', 'bash', '-c', '#'];
+      let tohum = 42; const rnd = n => { tohum = (tohum * 1103515245 + 12345) % 2147483648; return tohum % n; };
+      for (let n = 0; n < 2000; n++) {
+        let s = ''; for (let k = rnd(14) + 1; k > 0; k--) s += harf[rnd(harf.length)] + (rnd(2) ? ' ' : '');
+        commitDizinleri(s, '/ana');
+      }`;
+    const r = spawnSync('node', ['--max-old-space-size=128', '-e', govde], { encoding: 'utf8', timeout: 10000 });
+    assert.equal(r.status, 0, `takıldı ya da düştü: status=${r.status} signal=${r.signal} ${String(r.stderr).slice(0, 200)}`);
+  });
+  for (const [ad, komut, ek] of gecir) it(`GEÇİR: ${ad}`, () => assert.equal(kos(komut, ek), 'GECIR'));
+  for (const [ad, komut, ek] of engelle) it(`ENGELLE: ${ad}`, () => assert.equal(kos(komut, ek), 'ENGELLE'));
+});
