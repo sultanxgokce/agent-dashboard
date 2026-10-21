@@ -229,12 +229,19 @@ function commitTargets(command, baseCwd, depth = 0) {
       w.shift();
       while (w.length && /^[A-Za-z_]\w*=/.test(w[0])) w.shift();
     }
+    let ucur = cur;                                         // directories the wrapped command runs in (`sudo -D dir` changes them)
     while (w.length > 1 && SARMAL.has(w[0])) {            // `sudo git ...`, `nohup git ...` run the same command
       const sarmal = w.shift();
       while (w.length > 1 && /^-/.test(w[0])) {           // skip the wrapper's own options (and their values) up to `--`
         const o = w.shift();
         if (o === '--') break;
+        let dizin = null;
+        if (sarmal === 'sudo' && o === '-D' && w.length > 1) dizin = w[0];
+        else if (sarmal === 'sudo' && o.startsWith('--chdir=')) dizin = o.slice(8);
+        else if (sarmal === 'sudo' && o === '--chdir' && w.length > 1) dizin = w[0];
+        if (dizin !== null) ucur = ucur.map(c => (c === BILINMEZ ? BILINMEZ : coz(genislet(dizin, vars), c)));
         if (SARMAL_DEGERLI[sarmal].has(o) && w.length > 1) w.shift();
+        else if (o === '--chdir' && w.length > 1) w.shift();
       }
     }
     const ad = w[0];
@@ -243,7 +250,7 @@ function commitTargets(command, baseCwd, depth = 0) {
     if (KABUK.has(ad)) {
       const ci = w.findIndex(x => /^-[a-z]*c[a-z]*$/.test(x));
       if (ci > 0 && w[ci + 1] !== undefined && depth < 3) {
-        for (const c of cur) {
+        for (const c of ucur) {
           for (const t of commitTargets(w[ci + 1], c, depth + 1)) ekle([t.cwd]);
         }
       }
@@ -274,7 +281,7 @@ function commitTargets(command, baseCwd, depth = 0) {
 
     if (ad === 'git') {
       let i = 1;
-      let efektif = cur;
+      let efektif = ucur;
       while (i < w.length && w[i].startsWith('-')) {
         if (w[i] === '-C' && i + 1 < w.length) {
           const d = w[i + 1];

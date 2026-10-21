@@ -185,6 +185,15 @@ describe('command parsing: the directory a commit actually runs in (Z5FAWK)', ()
       assert.equal(calistir('sudo git commit -m x', anaRepo), 2));
     for (const c of ['sudo -u bob git commit -m x', 'sudo -H git commit -m x', 'sudo -- git commit -m x', 'sudo -n -u root -- git commit -m x', 'nice -n 5 git commit -m x', 'ionice -c 2 git commit -m x', 'exec -a foo git commit -m x'])
       it('wrapper options are skipped: ' + c, () => assert.equal(calistir(c, anaRepo), 2));
+    it('sudo -D <dir> / --chdir=<dir> run the commit in that directory (feature-branch session, main repo target)', () => {
+      assert.equal(calistir('sudo -D ' + anaRepo + ' git commit -m x', isAgaci), 2);
+      assert.equal(calistir('sudo --chdir=' + anaRepo + ' git commit -m x', isAgaci), 2);
+      assert.equal(calistir('sudo --chdir ' + anaRepo + ' git commit -m x', isAgaci), 2);
+    });
+    it('sudo -D to a feature directory from a main session passes', () =>
+      assert.equal(calistir('sudo -D ' + isAgaci + ' git commit -m x', anaRepo), 0));
+    it('sudo -C <fd> is a file-descriptor option, not a directory', () =>
+      assert.equal(calistir('sudo -C 3 git commit -m x', isAgaci), 0));
     it('wrapper option value is not mistaken for the command: sudo -u git echo hi', () =>
       assert.equal(calistir('sudo -u git echo hi', anaRepo), 0));
     it('bash -c "..." runs a commit in a child shell', () =>

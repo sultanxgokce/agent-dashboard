@@ -1,0 +1,38 @@
+{
+  "tur": 6,
+  "is": "agent-dashboard-block-main-cwd",
+  "pr": "3",
+  "yazan": "claude",
+  "denetci": "codex",
+  "zaman": "2026-10-22T02:12:25+03:00",
+  "kanit_durumu": "sağlam (araç imzalı, sha'lar tutuyor)",
+  "yedek": null,
+  "yazan_model": "opus",
+  "yazan_model_kaynak": "ayar-dosyasi",
+  "yedek_model": null,
+  "kirpildi": {
+    "oldu": false,
+    "istem_bayt": 74732,
+    "esik": 110000
+  },
+  "kanit_ayiklandi": {
+    "dosya": 13,
+    "bayt": 349147
+  },
+  "kareler": null,
+  "sonuc": {
+    "kod_puani": 4,
+    "dogru_sey": "E",
+    "ozet": "Kanca iki adaptörde de çalışma dizini çözümünü genişletmiş ve önceki turdaki seçenekli `sudo` açığını çoğu yaygın biçim için kapatmış; daraltılan koşullu gövdeler de doğru biçimde ayrı kartta. Ancak `sudo -C` seçeneği gerçek çalışma dizinini değiştirirken kod bu değeri yalnız yutup dizin kümesini güncellemediği için ana daldaki bir commit kaçabilir; önce bunu çözün.",
+    "bulgular": [
+      {
+        "ne": "`sudo -C dizin git commit` yanlış dizinde değerlendiriliyor: `-C` ve değeri seçenek olarak atılıyor, fakat commit hedefi bu dizine taşınmıyor. Örneğin özellik dalındaki oturumdan `sudo -C /ana-repo git commit -m x` gerçekte ana repoda çalışırken kanca özellik dalını sorgulayıp geçirebilir.",
+        "kanit": "Her iki üretim dosyasında `SARMAL_DEGERLI.sudo` kümesi `-C` içeriyor; SARMAL döngüsü bu seçenekle sonraki sözcüğü `w.shift()` ile tüketiyor, ardından `efektif` hâlâ `cur` üzerinden hesaplanıyor. Eklenen seçenek testleri `-u`, `-H`, `--` ve `-n` biçimlerini kapsıyor, fakat dizin değiştiren `sudo -C` vakasını kapsamıyor.",
+        "konum": "adapters/claude-code/scripts/hooks/block-main-commit.js: `SARMAL_DEGERLI` ve `commitTargets` içindeki SARMAL seçenek döngüsü; adapters/codex/hooks/block-main-commit.js: aynı bölümler; iki test dosyasındaki `wrapper options are skipped` vaka listesi",
+        "agirlik": "uygulama",
+        "kutu_disi_yuzey": null
+      }
+    ],
+    "kanit_gorusu": "Manifest sağlam, araç imzalı ve sarı kayıt içermiyor. Önce 34/65 başarı ve 31 hata, sonra Claude Code kancasında 65/65 ve genişletilmiş sınavda 73/73 başarı; Codex kancasında 66/66, genel takımlarda 508/508 ve 482/482 başarı ölçülmüş. Gerçek Git deposu/worktree kullanan testler karttaki ana biçimlerin çoğunu güçlü biçimde ölçüyor; ancak yeşil sonuçlar dizin değiştiren `sudo -C` davranışını sınamadığından bu alt iddiayı kanıtlamıyor."
+  }
+}

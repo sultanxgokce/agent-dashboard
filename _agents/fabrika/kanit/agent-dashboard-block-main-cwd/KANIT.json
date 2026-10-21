@@ -1,7 +1,7 @@
 {
   "is": "agent-dashboard-block-main-cwd",
   "arac": "kanit.py/0.5.0",
-  "guncelleme": "2026-10-22T02:11:44+03:00",
+  "guncelleme": "2026-10-22T02:13:18+03:00",
   "kayitlar": [
     {
       "tur": "olcum",
@@ -98,7 +98,7 @@
       "etiket": "kanca-sinavi",
       "asama": "sonra",
       "dosya": "olcum-kanca-sinavi-sonra.txt",
-      "sha256": "65ed536e689c4a0d173588b6bea0081a8bac90d59734cc10e753d3d0a5582ae4",
+      "sha256": "eaeab22a20292cd7d977c386f28e64d486788e141da518c6423d9ecda3b6d762",
       "komut": [
         "node",
         "--test",
@@ -106,11 +106,11 @@
       ],
       "rc": 0,
       "renk": "yesil",
-      "zaman": "2026-10-22T02:11:44+03:00",
-      "sure_sn": 15.1,
+      "zaman": "2026-10-22T02:13:18+03:00",
+      "sure_sn": 5.2,
       "boru_denetimi": "kapsam-dışı (kabuk -c değil; dosya betiği içeriği denetlenmez)",
-      "olcum_id": "35ba890887c347ce9e68ab09c920670d"
+      "olcum_id": "eeb290d416194b1fa2637edccb4469ed"
     }
   ],
-  "imza": "066d9efcf2bc4bfe149f506868f0dda90a5124317b3906ce553d491337138da7"
+  "imza": "b5853dcf51c977d848e55bba8a1cac6eaeadd81dc6fdadd6508e9ab3cb771ade"
 }
