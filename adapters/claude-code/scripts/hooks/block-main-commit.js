@@ -25,6 +25,8 @@ const path = require('node:path');
 
 const BILINMEZ = false; // directory could not be resolved from the command
 const LIT = '\u0001';    // marks a `$` that came from single quotes (literal, never expanded)
+const SARMAL = new Set(['sudo', 'nohup', 'exec', 'setsid', 'nice', 'ionice']); // wrappers that run their argument unchanged
+const KABUK = new Set(['bash', 'sh', 'zsh', 'dash']);                          // `<shell> -c "<command>"`
 const ANAHTAR = new Set(['if', 'then', 'else', 'elif', 'while', 'until', 'do', '!', 'time', '{']); // shell keywords that prefix a command
 
 /** Split a command into simple commands: quote- and escape-aware, heredoc bodies skipped, ( ) tracked.
@@ -64,6 +66,13 @@ function bol(command) {
       cur += c;
       continue;
     }
+    if (c === '#' && (cur === '' || /\s/.test(cur[cur.length - 1]))) {
+      // shell comment: an unquoted `#` at the start of a word runs to the end of the line (`$#`, `a#b`, `${#x}` are not comments)
+      const son = command.indexOf('\n', i);
+      if (son === -1) break;
+      i = son - 1;
+      continue;
+    }
     if (c === '\n') { bas(';'); satirBasi = true; continue; }
     if (c === ';') { bas(';'); continue; }
     if (c === '&' || c === '|') {
@@ -96,6 +105,7 @@ function kelimeler(metin) {
       continue;
     }
     if (c === "'" || c === '"') { tirnak = c; var_ = true; continue; }
+    if (c === '\\' && metin[i + 1] === '\n') { i++; continue; }   // line continuation
     if (c === '\\' && i + 1 < metin.length) { cur += metin[++i] === '$' ? LIT : metin[i]; var_ = true; continue; }
     if (/\s/.test(c)) { if (var_ || cur) out.push(cur); cur = ''; var_ = false; continue; }
     cur += c;
@@ -163,12 +173,12 @@ function cdUygula(kume, hedefKelime, vars, onceki) {
  * For every real commit in the command, the directories it may run in.
  * Returns [{ cwd }] where cwd is an absolute path, null (= use the session/process directory) or BILINMEZ (false).
  */
-function commitTargets(command, baseCwd) {
+function commitTargets(command, baseCwd, depth = 0) {
   const sonuc = [];
   let vars = {};
   const yigin = [];
   const pd = [];            // pushd stack (each entry a set)
-  let cur = [baseCwd || null];   // directories the NEXT part may run in (success path)
+  let cur = [baseCwd === BILINMEZ ? BILINMEZ : (baseCwd || null)];   // directories the NEXT part may run in (success path)
   let dur = [];             // extra possible directories if an earlier unknown command in the chain failed (early stop)
   let st = true;            // exit status of the previous part: true / false / null (unknown)
   let onceki = null;        // previous directory set, for `cd -`
@@ -213,7 +223,21 @@ function commitTargets(command, baseCwd) {
       w.shift();
       while (w.length && /^[A-Za-z_]\w*=/.test(w[0])) w.shift();
     }
+    while (w.length > 1 && SARMAL.has(w[0])) w.shift();   // `sudo git ...`, `nohup git ...` run the same command
     const ad = w[0];
+
+    // `bash -c "cd x && git ..."`: the string is a command of its own; it runs in a child shell, so nothing leaks back
+    if (KABUK.has(ad)) {
+      const ci = w.findIndex(x => /^-[a-z]*c[a-z]*$/.test(x));
+      if (ci > 0 && w[ci + 1] !== undefined && depth < 3) {
+        for (const c of cur) {
+          for (const t of commitTargets(w[ci + 1], c, depth + 1)) ekle([t.cwd]);
+        }
+      }
+      st = null;
+      dur = birlesim(dur, cur);
+      continue;
+    }
 
     if (ad === 'cd' || ad === 'pushd' || ad === 'popd') {
       let sonra;

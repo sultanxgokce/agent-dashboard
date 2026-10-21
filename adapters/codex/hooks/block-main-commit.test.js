@@ -203,6 +203,14 @@ describe('command parsing: the directory a commit actually runs in (Z5FAWK)', ()
       assert.equal(calistir('if true; then git commit -m x; fi', anaRepo), 2));
     it('commit in a for loop body', () =>
       assert.equal(calistir('for i in 1; do git commit -m x; done', anaRepo), 2));
+    it('sudo / nohup prefix still runs the commit', () =>
+      assert.equal(calistir('sudo git commit -m x', anaRepo), 2));
+    it('bash -c "..." runs a commit in a child shell', () =>
+      assert.equal(calistir('bash -c "git commit -m x"', anaRepo), 2));
+    it('bash -c with its own cd into the worktree is allowed', () =>
+      assert.equal(calistir(`bash -c "cd ${isAgaci} && git commit -m x"`, anaRepo), 0));
+    it('line continuation inside the git command', () =>
+      assert.equal(calistir('git \\\ncommit -m x', anaRepo), 2));
     it('one blocked commit among several is enough', () =>
       assert.equal(calistir(`git -C ${isAgaci} commit -m a && git -C ${anaRepo} commit -m b`, isAgaci), 2));
   });
@@ -214,6 +222,12 @@ describe('command parsing: the directory a commit actually runs in (Z5FAWK)', ()
       assert.equal(calistir("cat <<'EOF'\ngit commit -m x\nEOF", anaRepo), 0));
     it('grep for the phrase', () =>
       assert.equal(calistir("grep -rn 'git commit' docs", anaRepo), 0));
+    it('shell comment hides the rest of the line (reviewer case)', () =>
+      assert.equal(calistir('echo ok # ; git commit -m x', anaRepo), 0));
+    it('a comment on its own line, then a real commit on the next line, is still judged', () =>
+      assert.equal(calistir('# explain\ngit commit -m x', anaRepo), 2));
+    it('a # inside quotes or a $# is not a comment', () =>
+      assert.equal(calistir("echo '# x'; echo $#; git commit -m x", anaRepo), 2));
     it('commit-like words that are not the git subcommand', () =>
       assert.equal(calistir('git log --grep=commit', anaRepo), 0));
   });
