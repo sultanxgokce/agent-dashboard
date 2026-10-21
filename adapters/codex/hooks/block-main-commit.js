@@ -19,8 +19,6 @@
 const { execSync } = require('node:child_process');
 const path = require('node:path');
 
-const { extractCwdFromCommand } = require(path.join(__dirname, 'packages', 'git-status'));
-
 const BILINMEZ = false; // directory could not be resolved from the command
 
 /** Split a command into simple commands: quote- and escape-aware, heredoc bodies skipped, ( ) tracked. */
@@ -29,7 +27,10 @@ function bol(command) {
   let cur = '';
   let tirnak = null;
   let acan = false;
-  const bas = () => { parcalar.push({ metin: cur, ac: acan, kapa: false }); cur = ''; acan = false; };
+  // sep: separator that FOLLOWS the part (';' '&&' '||' '&' '|' '\n'); on: separator BEFORE it. A part joined by a single `|`
+  // or ended by a single `&` runs in a subshell, so a `cd` in it must not move the parent shell.
+  let onceki = ';';
+  const bas = (sep) => { parcalar.push({ metin: cur, ac: acan, kapa: false, sep: sep || ';', on: onceki }); cur = ''; acan = false; onceki = sep || ';'; };
   const heredoc = [];
   let satirBasi = true;
   for (let i = 0; i < command.length; i++) {
@@ -58,13 +59,20 @@ function bol(command) {
       cur += c;
       continue;
     }
-    if (c === '\n') { bas(); satirBasi = true; continue; }
-    if (c === ';' || c === '&' || c === '|') { bas(); continue; }
-    if (c === '(') { bas(); acan = true; continue; }
-    if (c === ')') { bas(); parcalar.push({ metin: '', ac: false, kapa: true }); continue; }
+    if (c === '\n') { bas(';'); satirBasi = true; continue; }
+    if (c === ';') { bas(';'); continue; }
+    if (c === '&' || c === '|') {
+      // redirections (2>&1, >&2, <&3, &>file, |& is a pipe) keep the `&` inside the word
+      if (c === '&' && (command[i - 1] === '>' || command[i - 1] === '<' || command[i + 1] === '>')) { cur += c; continue; }
+      if (command[i + 1] === c) { bas(c + c); i++; continue; }   // && or ||
+      bas(c);                                                      // single & (background) or | (pipe)
+      continue;
+    }
+    if (c === '(') { bas(';'); acan = true; continue; }
+    if (c === ')') { bas(';'); parcalar.push({ metin: '', ac: false, kapa: true, sep: ';', on: ';' }); continue; }
     cur += c;
   }
-  bas();
+  bas(';');
   return parcalar;
 }
 
@@ -124,8 +132,16 @@ function commitTargets(command, baseCwd) {
   const vars = {};
   const yigin = [];
   let cwd = baseCwd || null;
+  let geri = null; // state to restore after a part that ran in a subshell (pipeline element or background job)
   for (const p of bol(command || '')) {
+    if (geri) {
+      cwd = geri.cwd;
+      for (const k of Object.keys(vars)) delete vars[k];
+      Object.assign(vars, geri.vars);
+      geri = null;
+    }
     if (p.kapa) { if (yigin.length) cwd = yigin.pop(); continue; }
+    if (p.sep === '|' || p.sep === '&' || p.on === '|') geri = { cwd, vars: { ...vars } };
     if (p.ac) yigin.push(cwd);
     const w = kelimeler(p.metin);
     const atamalar = [];
@@ -185,8 +201,9 @@ if (require.main === module && !process.stdin.isTTY) {
         return;
       }
 
-      const sessionCwd = extractCwdFromCommand(command) || input.cwd || null;
-      for (const h of commitTargets(command, sessionCwd)) {
+      // Session directory only: a leading `cd` is applied by commitTargets itself (applying it here too would resolve a
+      // relative `cd sub` twice).
+      for (const h of commitTargets(command, input.cwd || null)) {
         if (h.cwd === BILINMEZ) continue; // directory unknown -> not judged (same as "branch unknown")
         let branch;
         try {

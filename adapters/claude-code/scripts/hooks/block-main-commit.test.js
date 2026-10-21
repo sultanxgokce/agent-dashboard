@@ -128,6 +128,14 @@ describe('command parsing: the directory a commit actually runs in (Z5FAWK)', ()
       assert.equal(calistir(`git -C ${isAgaci} commit -m x`, anaRepo), 0));
     it('git -C "$W" commit with W set earlier', () =>
       assert.equal(calistir(`W=${isAgaci}\ngit -C "$W" commit -m x`, anaRepo), 0));
+    it('relative leading cd into the worktree (resolved once)', () =>
+      assert.equal(calistir('cd is-agaci && git commit -m x', kok), 0));
+    it('cd with a stderr redirect keeps its effect (2>&1 is not a background job)', () =>
+      assert.equal(calistir(`cd ${isAgaci} 2>&1 && git commit -m x`, anaRepo), 0));
+    it('cd followed by || still moves the shell', () =>
+      assert.equal(calistir(`cd ${isAgaci} || true; git commit -m x`, anaRepo), 0));
+    it('commit piped into another command runs where the shell is', () =>
+      assert.equal(calistir(`cd ${isAgaci} && git commit -m x | cat`, anaRepo), 0));
     it('unresolvable variable is not judged (branch unknown -> pass)', () =>
       assert.equal(calistir('cd $NOT_SET_ANYWHERE && git commit -m x', anaRepo), 0));
   });
@@ -141,6 +149,14 @@ describe('command parsing: the directory a commit actually runs in (Z5FAWK)', ()
       assert.equal(calistir(`W=${anaRepo}; git -C "$W" commit -m x`, isAgaci), 2));
     it('a cd inside a subshell does not leak out', () =>
       assert.equal(calistir(`(cd ${isAgaci}); git commit -m x`, anaRepo), 2));
+    it('a cd in a pipeline does not move the parent shell (reviewer case)', () =>
+      assert.equal(calistir(`cd ${isAgaci} | cat; git commit -m x`, anaRepo), 2));
+    it('a cd in a background job does not move the parent shell', () =>
+      assert.equal(calistir(`cd ${isAgaci} & git commit -m x`, anaRepo), 2));
+    it('the later element of a pipeline is a subshell too', () =>
+      assert.equal(calistir(`echo a | cd ${isAgaci}; git commit -m x`, anaRepo), 2));
+    it('a relative leading cd is applied once (not twice)', () =>
+      assert.equal(calistir('cd ana && git commit -m x', kok), 2));
     it('one blocked commit among several is enough', () =>
       assert.equal(calistir(`git -C ${isAgaci} commit -m a && git -C ${anaRepo} commit -m b`, isAgaci), 2));
   });
