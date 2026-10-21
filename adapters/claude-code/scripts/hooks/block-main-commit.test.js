@@ -136,6 +136,12 @@ describe('command parsing: the directory a commit actually runs in (Z5FAWK)', ()
       assert.equal(calistir(`cd ${isAgaci} || true; git commit -m x`, anaRepo), 0));
     it('commit piped into another command runs where the shell is', () =>
       assert.equal(calistir(`cd ${isAgaci} && git commit -m x | cat`, anaRepo), 0));
+    it('unknown command before the cd, commit guarded by && (runs only after the cd)', () =>
+      assert.equal(calistir(`git add -A && cd ${isAgaci} && git commit -m x`, anaRepo), 0));
+    it('cd chain: main then worktree then commit', () =>
+      assert.equal(calistir(`cd ${anaRepo} && cd ${isAgaci} && git commit -m x`, anaRepo), 0));
+    it('pushd into the worktree', () =>
+      assert.equal(calistir(`pushd ${isAgaci} && git commit -m x`, anaRepo), 0));
     it('unresolvable variable is not judged (branch unknown -> pass)', () =>
       assert.equal(calistir('cd $NOT_SET_ANYWHERE && git commit -m x', anaRepo), 0));
   });
@@ -157,6 +163,24 @@ describe('command parsing: the directory a commit actually runs in (Z5FAWK)', ()
       assert.equal(calistir(`echo a | cd ${isAgaci}; git commit -m x`, anaRepo), 2));
     it('a relative leading cd is applied once (not twice)', () =>
       assert.equal(calistir('cd ana && git commit -m x', kok), 2));
+    it('short-circuited cd: false && cd worktree; commit (reviewer case)', () =>
+      assert.equal(calistir(`false && cd ${isAgaci}; git commit -m x`, anaRepo), 2));
+    it('short-circuited cd: true || cd worktree; commit (reviewer case)', () =>
+      assert.equal(calistir(`true || cd ${isAgaci}; git commit -m x`, anaRepo), 2));
+    it('uncertain predecessor: make && cd worktree; commit (make may fail, commit stays in main)', () =>
+      assert.equal(calistir(`make && cd ${isAgaci}; git commit -m x`, anaRepo), 2));
+    it('single-quoted variable is literal, so the cd fails and the commit stays in main (reviewer case)', () =>
+      assert.equal(calistir(`W=${isAgaci}; cd '$W'; git commit -m x`, anaRepo), 2));
+    it('cd to a directory that does not exist leaves the shell where it was', () =>
+      assert.equal(calistir('cd /no/such/dir/anywhere; git commit -m x', anaRepo), 2));
+    it('cd - goes back (worktree session, cd main then back would be main)', () =>
+      assert.equal(calistir(`cd ${anaRepo}; cd ${isAgaci}; cd -; git commit -m x`, isAgaci), 2));
+    it('popd returns to main', () =>
+      assert.equal(calistir(`pushd ${isAgaci}; popd; git commit -m x`, anaRepo), 2));
+    it('commit after a shell keyword (if/then, do, !) is still a commit', () =>
+      assert.equal(calistir('if true; then git commit -m x; fi', anaRepo), 2));
+    it('commit in a for loop body', () =>
+      assert.equal(calistir('for i in 1; do git commit -m x; done', anaRepo), 2));
     it('one blocked commit among several is enough', () =>
       assert.equal(calistir(`git -C ${isAgaci} commit -m a && git -C ${anaRepo} commit -m b`, isAgaci), 2));
   });
@@ -174,7 +198,13 @@ describe('command parsing: the directory a commit actually runs in (Z5FAWK)', ()
 
   describe('commitTargets (pure)', () => {
     it('finds the effective directory per commit', () =>
-      assert.deepEqual(commitTargets('cd /a && git commit -m x; git -C /b commit -m y', '/s'), [{ cwd: '/a' }, { cwd: '/b' }]));
+      assert.deepEqual(commitTargets(`cd ${isAgaci} && git commit -m x; git -C ${anaRepo} commit -m y`, '/s'), [{ cwd: isAgaci }, { cwd: anaRepo }]));
+    it('a cd to a missing directory fails: the directory stays', () =>
+      assert.deepEqual(commitTargets('cd /a; git commit -m x', '/s'), [{ cwd: '/s' }]));
+    it('a failed cd skips the && commit entirely (it never runs)', () =>
+      assert.deepEqual(commitTargets('cd /a && git commit -m x', '/s'), []));
+    it('an uncertain cd keeps both possibilities', () =>
+      assert.deepEqual(commitTargets(`make && cd ${isAgaci}; git commit -m x`, anaRepo).map(t => t.cwd).sort(), [anaRepo, isAgaci].sort()));
     it('relative -C resolves against the current directory', () =>
       assert.deepEqual(commitTargets('git -C sub commit -m x', '/s'), [{ cwd: '/s/sub' }]));
     it('unknown variable -> BILINMEZ', () =>

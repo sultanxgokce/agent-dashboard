@@ -5,28 +5,35 @@
  * Exit code 2 blocks the tool call. Writes reason to stderr.
  *
  * The branch is read from the directory each commit ACTUALLY runs in, taken from the command itself
- * (cd, git -C, VAR=value, subshells) — not from the command text and not only from a leading `cd`.
+ * (cd, git -C, VAR=value, subshells, pipelines, && / ||) — not from the command text and not only from a leading `cd`.
  * Old behaviour read it from a leading `cd` or the session cwd and searched the raw text, so
  * `W=/wt; cd $W && <commit>`, `(cd /wt && <commit>)` or a quoted/heredoc mention were judged against the wrong
- * directory or the wrong text. A directory that cannot be resolved (unknown variable, command substitution)
- * is not judged: the hook lets it through, same as "branch unknown".
+ * directory or the wrong text.
+ *
+ * Model: the hook cannot run the shell, so it tracks the SET of directories a commit may run in.
+ * A `cd` whose outcome is certain (existing directory, nothing unknown before it in the chain) replaces the set; when the
+ * outcome is uncertain (`make && cd X; <commit>`, `X || cd Y`) both possibilities stay in the set and the commit is judged in
+ * every one — one main/master directory is enough to block. A directory that cannot be resolved at all (unknown variable,
+ * command substitution) is not judged: the hook lets it through, same as "branch unknown".
  */
 
 'use strict';
 
 const { execSync } = require('node:child_process');
+const fs = require('node:fs');
 const path = require('node:path');
 
 const BILINMEZ = false; // directory could not be resolved from the command
+const LIT = '\u0001';    // marks a `$` that came from single quotes (literal, never expanded)
+const ANAHTAR = new Set(['if', 'then', 'else', 'elif', 'while', 'until', 'do', '!', 'time', '{']); // shell keywords that prefix a command
 
-/** Split a command into simple commands: quote- and escape-aware, heredoc bodies skipped, ( ) tracked. */
+/** Split a command into simple commands: quote- and escape-aware, heredoc bodies skipped, ( ) tracked.
+ *  Each part: { metin, ac, kapa, sep, on } — sep = separator FOLLOWING it, on = separator BEFORE it. */
 function bol(command) {
   const parcalar = [];
   let cur = '';
   let tirnak = null;
   let acan = false;
-  // sep: separator that FOLLOWS the part (';' '&&' '||' '&' '|' '\n'); on: separator BEFORE it. A part joined by a single `|`
-  // or ended by a single `&` runs in a subshell, so a `cd` in it must not move the parent shell.
   let onceki = ';';
   const bas = (sep) => { parcalar.push({ metin: cur, ac: acan, kapa: false, sep: sep || ';', on: onceki }); cur = ''; acan = false; onceki = sep || ';'; };
   const heredoc = [];
@@ -60,7 +67,7 @@ function bol(command) {
     if (c === '\n') { bas(';'); satirBasi = true; continue; }
     if (c === ';') { bas(';'); continue; }
     if (c === '&' || c === '|') {
-      // redirections (2>&1, >&2, <&3, &>file, |& is a pipe) keep the `&` inside the word
+      // redirections (2>&1, >&2, <&3, &>file) keep the `&` inside the word
       if (c === '&' && (command[i - 1] === '>' || command[i - 1] === '<' || command[i + 1] === '>')) { cur += c; continue; }
       if (command[i + 1] === c) { bas(c + c); i++; continue; }   // && or ||
       bas(c);                                                      // single & (background) or | (pipe)
@@ -74,7 +81,7 @@ function bol(command) {
   return parcalar;
 }
 
-/** Split one simple command into words, removing quotes. */
+/** Split one simple command into words, removing quotes. A `$` inside single quotes becomes LIT (never expanded). */
 function kelimeler(metin) {
   const out = [];
   let cur = '';
@@ -85,11 +92,11 @@ function kelimeler(metin) {
     if (tirnak) {
       if (c === tirnak) tirnak = null;
       else if (c === '\\' && tirnak === '"' && i + 1 < metin.length) cur += metin[++i];
-      else cur += c;
+      else cur += (tirnak === "'" && c === '$') ? LIT : c;
       continue;
     }
     if (c === "'" || c === '"') { tirnak = c; var_ = true; continue; }
-    if (c === '\\' && i + 1 < metin.length) { cur += metin[++i]; var_ = true; continue; }
+    if (c === '\\' && i + 1 < metin.length) { cur += metin[++i] === '$' ? LIT : metin[i]; var_ = true; continue; }
     if (/\s/.test(c)) { if (var_ || cur) out.push(cur); cur = ''; var_ = false; continue; }
     cur += c;
     var_ = true;
@@ -98,7 +105,7 @@ function kelimeler(metin) {
   return out;
 }
 
-/** Expand $X / ${X} from earlier assignments. Unknown variable or command substitution -> null. */
+/** Expand $X / ${X} from earlier assignments. Unknown variable or command substitution -> null. LIT dollars stay literal. */
 function genislet(deger, vars) {
   if (/\$\(|`/.test(deger)) return null;
   let bilinmiyor = false;
@@ -109,7 +116,7 @@ function genislet(deger, vars) {
     bilinmiyor = true;
     return '';
   });
-  return bilinmiyor ? null : r;
+  return bilinmiyor ? null : r.split(LIT).join('$');
 }
 
 /** Resolve a directory word against the current directory. null -> BILINMEZ. */
@@ -121,27 +128,76 @@ function coz(dizin, taban) {
   return taban ? path.resolve(taban, dizin) : BILINMEZ;
 }
 
+function dizinMi(d) {
+  try { return fs.statSync(d).isDirectory(); } catch { return false; }
+}
+
+const esit = (a, b) => a === b;
+function birlesim(...kumeler) {
+  const out = [];
+  for (const k of kumeler) for (const x of k) if (!out.some(y => esit(x, y))) out.push(x);
+  return out;
+}
+
+/** Apply `cd target` to a set of possible directories. Returns { kume, durum }: durum true/false/null = exit status known/unknown. */
+function cdUygula(kume, hedefKelime, vars, onceki) {
+  if (hedefKelime === '-') {
+    return { kume: onceki && onceki.length ? onceki : [BILINMEZ], durum: onceki && onceki.length ? true : null };
+  }
+  let basari = 0;
+  let basarisiz = 0;
+  const yeni = kume.map(c => {
+    const t = hedefKelime === undefined
+      ? (process.env.HOME || BILINMEZ)
+      : coz(genislet(hedefKelime, vars), c);
+    if (t === BILINMEZ || c === BILINMEZ) return BILINMEZ;
+    if (dizinMi(t)) { basari++; return t; }
+    basarisiz++;   // cd fails in a real shell -> directory unchanged
+    return c;
+  });
+  const durum = basari && !basarisiz ? true : (basarisiz && !basari ? false : null);
+  return { kume: birlesim(yeni), durum };
+}
+
 /**
- * For every real commit in the command, the directory it runs in.
+ * For every real commit in the command, the directories it may run in.
  * Returns [{ cwd }] where cwd is an absolute path, null (= use the session/process directory) or BILINMEZ (false).
  */
 function commitTargets(command, baseCwd) {
   const sonuc = [];
-  const vars = {};
+  let vars = {};
   const yigin = [];
-  let cwd = baseCwd || null;
-  let geri = null; // state to restore after a part that ran in a subshell (pipeline element or background job)
+  const pd = [];            // pushd stack (each entry a set)
+  let cur = [baseCwd || null];   // directories the NEXT part may run in (success path)
+  let dur = [];             // extra possible directories if an earlier unknown command in the chain failed (early stop)
+  let st = true;            // exit status of the previous part: true / false / null (unknown)
+  let onceki = null;        // previous directory set, for `cd -`
+  let geri = null;          // state to restore after a part that ran in a subshell (pipeline element or background job)
+
+  const ekle = (kume) => { for (const c of kume) if (!sonuc.some(s => esit(s.cwd, c))) sonuc.push({ cwd: c }); };
+
   for (const p of bol(command || '')) {
-    if (geri) {
-      cwd = geri.cwd;
-      for (const k of Object.keys(vars)) delete vars[k];
-      Object.assign(vars, geri.vars);
-      geri = null;
+    if (geri) { ({ cur, dur, st, vars, onceki } = geri); geri = null; }
+    if (p.kapa) {
+      if (yigin.length) { const y = yigin.pop(); cur = y.cur; dur = y.dur; vars = y.vars; onceki = y.onceki; st = null; }
+      continue;
     }
-    if (p.kapa) { if (yigin.length) cwd = yigin.pop(); continue; }
-    if (p.sep === '|' || p.sep === '&' || p.on === '|') geri = { cwd, vars: { ...vars } };
-    if (p.ac) yigin.push(cwd);
+    if (p.ac) yigin.push({ cur, dur, vars: { ...vars }, onceki });
+    if (p.sep === '|' || p.sep === '&' || p.on === '|') geri = { cur, dur, st, vars: { ...vars }, onceki };
+
+    // chain start (; newline after a group): the set a later command sees is everything the previous chain could end in
+    if (p.on === ';') { cur = birlesim(cur, dur); dur = []; st = true; }
+
+    // is this part executed? && needs a not-failed predecessor (success path; the failed predecessor is already in `dur`),
+    // || needs a not-succeeded one; an unknown predecessor makes a || part "maybe": both outcomes stay possible
+    let calisir = true;
+    let belki = false;
+    if (p.on === '&&' && st === false) calisir = false;
+    if (p.on === '||') { if (st === true) calisir = false; else if (st === null) belki = true; }
+    if (!calisir) continue;
+
     const w = kelimeler(p.metin);
+    while (w.length && ANAHTAR.has(w[0])) w.shift();   // `then git ...`, `do git ...`, `! git ...` are still the command
     const atamalar = [];
     while (w.length && /^[A-Za-z_]\w*=/.test(w[0])) atamalar.push(w.shift());
     if (!w.length) {
@@ -150,27 +206,64 @@ function commitTargets(command, baseCwd) {
         const v = genislet(a.slice(k + 1), vars);
         if (v !== null) vars[a.slice(0, k)] = v;
       }
+      st = true;
       continue;
     }
     if (w[0] === 'env' || w[0] === 'command' || w[0] === 'builtin') {
       w.shift();
       while (w.length && /^[A-Za-z_]\w*=/.test(w[0])) w.shift();
     }
-    if (w[0] === 'cd' || w[0] === 'pushd') {
-      const hedef = w.slice(1).find(x => !x.startsWith('-'));
-      cwd = hedef === undefined ? (process.env.HOME || BILINMEZ) : coz(genislet(hedef, vars), cwd);
+    const ad = w[0];
+
+    if (ad === 'cd' || ad === 'pushd' || ad === 'popd') {
+      let sonra;
+      let durum;
+      if (ad === 'popd') {
+        const g = pd.pop();
+        sonra = g || [BILINMEZ];
+        durum = g ? true : null;
+      } else {
+        const hedef = w.slice(1).find(x => !x.startsWith('-') || x === '-');
+        const r = cdUygula(cur, hedef, vars, onceki);
+        sonra = r.kume;
+        durum = r.durum;
+        if (ad === 'pushd') pd.push(cur);
+      }
+      onceki = cur;
+      cur = belki ? birlesim(cur, sonra) : sonra;
+      st = belki ? null : durum;
       continue;
     }
-    if (w[0] !== 'git') continue;
-    let i = 1;
-    let efektif = cwd;
-    while (i < w.length && w[i].startsWith('-')) {
-      if (w[i] === '-C' && i + 1 < w.length) { efektif = coz(genislet(w[i + 1], vars), efektif); i += 2; continue; }
-      if ((w[i] === '-c' || w[i] === '--exec-path' || w[i] === '--namespace') && i + 1 < w.length) { i += 2; continue; }
-      if (w[i].startsWith('--work-tree=')) { efektif = coz(genislet(w[i].slice(12), vars), efektif); i += 1; continue; }
-      i += 1;
+
+    if (ad === 'git') {
+      let i = 1;
+      let efektif = cur;
+      while (i < w.length && w[i].startsWith('-')) {
+        if (w[i] === '-C' && i + 1 < w.length) {
+          const d = w[i + 1];
+          efektif = efektif.map(c => (c === BILINMEZ ? BILINMEZ : coz(genislet(d, vars), c)));
+          i += 2;
+          continue;
+        }
+        if ((w[i] === '-c' || w[i] === '--exec-path' || w[i] === '--namespace') && i + 1 < w.length) { i += 2; continue; }
+        if (w[i].startsWith('--work-tree=')) {
+          const d = w[i].slice(12);
+          efektif = efektif.map(c => (c === BILINMEZ ? BILINMEZ : coz(genislet(d, vars), c)));
+          i += 1;
+          continue;
+        }
+        i += 1;
+      }
+      if (w[i] === 'commit') {
+        // after `||` the commit runs when the predecessor FAILED, so the early-stop directories count too
+        ekle(p.on === '||' ? birlesim(efektif, dur) : efektif);
+      }
     }
-    if (w[i] === 'commit') sonuc.push({ cwd: efektif });
+
+    // any other command: exit status unknown; if it fails the chain stops here, so the current set is a possible END state
+    if (ad === 'true' || ad === ':') st = true;
+    else if (ad === 'false') st = false;
+    else { st = null; dur = birlesim(dur, cur); }
   }
   return sonuc;
 }
