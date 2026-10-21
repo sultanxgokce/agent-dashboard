@@ -1,0 +1,116 @@
+{
+  "is": "agent-dashboard-block-main-cwd",
+  "arac": "kanit.py/0.5.0",
+  "guncelleme": "2026-10-22T02:11:44+03:00",
+  "kayitlar": [
+    {
+      "tur": "olcum",
+      "etiket": "kanca-test",
+      "asama": "once",
+      "dosya": "olcum-kanca-test-once.txt",
+      "sha256": "8e185762dd548e4a1d7f3f94301555b578b77a44c723391ed68e8b653d4a37dc",
+      "komut": [
+        "node",
+        "--test",
+        "/tmp/claude-1000/-config-projects-sohbet/e8bf42c1-120a-4432-9dc5-9ce45934c7b8/scratchpad/eski-kanca/cc/scripts/hooks/block-main-commit.test.js"
+      ],
+      "rc": 1,
+      "renk": "kirmizi",
+      "zaman": "2026-10-22T01:38:42+03:00",
+      "sure_sn": 2.7,
+      "boru_denetimi": "kapsam-dışı (kabuk -c değil; dosya betiği içeriği denetlenmez)",
+      "olcum_id": "4f1e5053cbf848cfbfca7d75ce8dbe8a"
+    },
+    {
+      "tur": "olcum",
+      "etiket": "kanca-test",
+      "asama": "sonra",
+      "dosya": "olcum-kanca-test-sonra.txt",
+      "sha256": "1e4aa9bc8069eadcb4f53f902dcb751ba9da1c9ff7b75d5f6dbb55aa9d4ce992",
+      "komut": [
+        "node",
+        "--test",
+        "adapters/claude-code/scripts/hooks/block-main-commit.test.js"
+      ],
+      "rc": 0,
+      "renk": "yesil",
+      "zaman": "2026-10-22T01:38:45+03:00",
+      "sure_sn": 2.8,
+      "boru_denetimi": "kapsam-dışı (kabuk -c değil; dosya betiği içeriği denetlenmez)",
+      "olcum_id": "06095fda5cf4410f857ab35fef68a462"
+    },
+    {
+      "tur": "olcum",
+      "etiket": "codex-kanca-test",
+      "asama": "sonra",
+      "dosya": "olcum-codex-kanca-test-sonra.txt",
+      "sha256": "758c1ae6b68701188f7fadf758fda9b9bd840772e346c3c69936c23104e2006c",
+      "komut": [
+        "node",
+        "--test",
+        "adapters/codex/hooks/block-main-commit.test.js"
+      ],
+      "rc": 0,
+      "renk": "yesil",
+      "zaman": "2026-10-22T01:38:49+03:00",
+      "sure_sn": 4.1,
+      "boru_denetimi": "kapsam-dışı (kabuk -c değil; dosya betiği içeriği denetlenmez)",
+      "olcum_id": "26f85237dca64815a9800b409fe995e8"
+    },
+    {
+      "tur": "olcum",
+      "etiket": "tum-cc-test",
+      "asama": "sonra",
+      "dosya": "olcum-tum-cc-test-sonra.txt",
+      "sha256": "4fe322c7541e8c1813e897da72a8241a90d4c232fe0bed52a3b0dbb79e405a8d",
+      "komut": [
+        "npm",
+        "test",
+        "--silent"
+      ],
+      "rc": 0,
+      "renk": "yesil",
+      "zaman": "2026-10-22T01:38:54+03:00",
+      "sure_sn": 4.6,
+      "boru_denetimi": "kapsam-dışı (kabuk -c değil; dosya betiği içeriği denetlenmez)",
+      "olcum_id": "0f34250cb8704a4faa97b05cbde9fbfa"
+    },
+    {
+      "tur": "olcum",
+      "etiket": "tum-codex-test",
+      "asama": "sonra",
+      "dosya": "olcum-tum-codex-test-sonra.txt",
+      "sha256": "a1eaf493ef6ab23eb679d860660b626a17e7923d7fdcb772080a09fbe3a8b774",
+      "komut": [
+        "npm",
+        "test",
+        "--silent"
+      ],
+      "rc": 0,
+      "renk": "yesil",
+      "zaman": "2026-10-22T01:38:59+03:00",
+      "sure_sn": 4.7,
+      "boru_denetimi": "kapsam-dışı (kabuk -c değil; dosya betiği içeriği denetlenmez)",
+      "olcum_id": "8bde01a204e144f9abc9b49f38c54108"
+    },
+    {
+      "tur": "olcum",
+      "etiket": "kanca-sinavi",
+      "asama": "sonra",
+      "dosya": "olcum-kanca-sinavi-sonra.txt",
+      "sha256": "65ed536e689c4a0d173588b6bea0081a8bac90d59734cc10e753d3d0a5582ae4",
+      "komut": [
+        "node",
+        "--test",
+        "adapters/claude-code/scripts/hooks/block-main-commit.test.js"
+      ],
+      "rc": 0,
+      "renk": "yesil",
+      "zaman": "2026-10-22T02:11:44+03:00",
+      "sure_sn": 15.1,
+      "boru_denetimi": "kapsam-dışı (kabuk -c değil; dosya betiği içeriği denetlenmez)",
+      "olcum_id": "35ba890887c347ce9e68ab09c920670d"
+    }
+  ],
+  "imza": "066d9efcf2bc4bfe149f506868f0dda90a5124317b3906ce553d491337138da7"
+}

@@ -1,0 +1,45 @@
+{
+  "tur": 1,
+  "is": "agent-dashboard-block-main-cwd",
+  "pr": "3",
+  "yazan": "claude",
+  "denetci": "codex",
+  "zaman": "2026-10-22T01:30:02+03:00",
+  "kanit_durumu": "sağlam (araç imzalı, sha'lar tutuyor)",
+  "yedek": null,
+  "yazan_model": "opus",
+  "yazan_model_kaynak": "ayar-dosyasi",
+  "yedek_model": null,
+  "kirpildi": {
+    "oldu": false,
+    "istem_bayt": 39999,
+    "esik": 110000
+  },
+  "kanit_ayiklandi": {
+    "dosya": 0,
+    "bayt": 0
+  },
+  "kareler": null,
+  "sonuc": {
+    "kod_puani": 2,
+    "dogru_sey": "E",
+    "ozet": "Kanca, commit hedeflerini komut yapısından çıkarıp her hedef dizinde dal sorgulayacak biçimde yenilenmiş; gerçek repo/worktree testleri talebin ana örneklerini doğruluyor. Ancak kabuk işleçleri aynı ayraç gibi işlendiğinden arka plan ve boru hattındaki dizin değişiklikleri üst kabuğa taşınmış sayılıyor; bu, main üzerindeki gerçek commit’in kaçmasına yol açabildiği için üretime hazır değil.",
+    "bulgular": [
+      {
+        "ne": "Ayrıştırıcı `&` ve `|` işleçlerini `;` gibi ele alıp `cwd` durumunu sonraki komuta taşıyor; oysa boru hattı veya arka plandaki `cd` üst kabuğun çalışma dizinini değiştirmez. Örneğin main dizininde `cd /feature | cat; git commit -m x` çalışırken gerçek commit main’de kalır, fakat kanca dalı `/feature` içinde sorgulayıp commit’i geçirebilir.",
+        "kanit": "`bol` içinde `if (c === ';' || c === '&' || c === '|') { bas(); continue; }` bütün işleçleri aynı parçalama davranışına indiriyor; `commitTargets` içinde `cd` görüldüğünde `cwd = ...` kalıcı güncelleniyor ve yalnız parantezler için durum yığını bulunuyor. Sunulan testlerde `&&`, `;` ve parantez örnekleri var, ancak `|` veya arka plan `&` sonrasında commit senaryosu yok.",
+        "konum": "adapters/claude-code/scripts/hooks/block-main-commit.js: bol ve commitTargets; adapters/codex/hooks/block-main-commit.js: bol ve commitTargets",
+        "agirlik": "ciddi",
+        "kutu_disi_yuzey": null
+      },
+      {
+        "ne": "Komutun başındaki dizin, önce `extractCwdFromCommand` ile `sessionCwd` yapılmasına rağmen aynı `cd` daha sonra `commitTargets` tarafından tekrar uygulanıyor. Göreli bir başlangıç (`cd sub && git commit`) böylece yanlışlıkla iki kez çözümlenebilir ve gerçek commit dizini yerine başka bir dizinde dal sorgulanabilir.",
+        "kanit": "Çalıştırma yolunda `const sessionCwd = extractCwdFromCommand(command) || input.cwd || null;` hemen ardından `commitTargets(command, sessionCwd)` çağrılıyor; `commitTargets` aynı komuttaki `cd` için tekrar `cwd = ... coz(..., cwd)` yapıyor. Yeni saf test yalnız `commitTargets('git -C sub commit...', '/s')` durumunu kapsıyor; baştaki göreli `cd` ile entegrasyon testi gösterilmiyor.",
+        "konum": "adapters/claude-code/scripts/hooks/block-main-commit.js: require.main yürütme bloğu ve commitTargets; adapters/codex/hooks/block-main-commit.js: require.main yürütme bloğu ve commitTargets",
+        "agirlik": "ciddi",
+        "kutu_disi_yuzey": null
+      }
+    ],
+    "kanit_gorusu": "Manifest sağlam ve araç imzalı; sarı kayıt yok. Claude Code kancası için kırmızıdan yeşile ölçüm çifti 21/35 başarıdan 35/35 başarıya geçiş gösteriyor, Codex kancası 36/36 ve genel takım 478/478 yeşil. Bununla birlikte çıktılar uzun testlerin yalnız başını ve sonucunu gösteriyor; kritik boru hattı/arka plan ve göreli başlangıç `cd` vakaları test listesinde yer almıyor, ayrıca Codex için önce ölçümü bulunmuyor."
+  }
+}

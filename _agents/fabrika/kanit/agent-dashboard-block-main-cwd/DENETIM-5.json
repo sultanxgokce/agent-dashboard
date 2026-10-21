@@ -1,0 +1,38 @@
+{
+  "tur": 5,
+  "is": "agent-dashboard-block-main-cwd",
+  "pr": "3",
+  "yazan": "claude",
+  "denetci": "codex",
+  "zaman": "2026-10-22T02:10:04+03:00",
+  "kanit_durumu": "sağlam (araç imzalı, sha'lar tutuyor)",
+  "yedek": null,
+  "yazan_model": "opus",
+  "yazan_model_kaynak": "ayar-dosyasi",
+  "yedek_model": null,
+  "kirpildi": {
+    "oldu": false,
+    "istem_bayt": 70705,
+    "esik": 110000
+  },
+  "kanit_ayiklandi": {
+    "dosya": 0,
+    "bayt": 0
+  },
+  "kareler": null,
+  "sonuc": {
+    "kod_puani": 4,
+    "dogru_sey": "E",
+    "ozet": "Kanca iki adaptörde de commit’in olası gerçek çalışma dizinlerini izliyor; daraltma kararıyla koşullu bileşik gövdeler açıkça ayrı karta bırakıldığından doğru iş yapılmış. Ancak kartta özellikle istenen `sudo` desteği yalnız seçeneksiz biçimde çalışıyor; yaygın seçenekli kullanımlar commit’i görünmez kıldığı için önce bunu çözün.",
+    "bulgular": [
+      {
+        "ne": "`sudo` sarmalayıcısı yalnız doğrudan `sudo git commit` biçiminde soyuluyor; `sudo -u kullanıcı git commit`, `sudo -H git commit` veya `sudo -- git commit` biçimlerinde ilk sözcük atıldıktan sonra seçenek komut adı sanılıyor ve ana daldaki gerçek commit engellenmiyor.",
+        "kanit": "Her iki uygulamada `while (w.length > 1 && SARMAL.has(w[0])) w.shift()` yalnız `sudo` sözcüğünü kaldırıyor; ardından `const ad = w[0]` değeri `-u`, `-H` veya `--` oluyor ve `ad === 'git'` dalına girilmiyor. Eklenen tek sudo testi de yalnız `sudo git commit -m x` biçimini kapsıyor.",
+        "konum": "adapters/claude-code/scripts/hooks/block-main-commit.js: commitTargets içindeki SARMAL döngüsü; adapters/codex/hooks/block-main-commit.js: aynı döngü; iki test dosyasındaki `sudo / nohup prefix still runs the commit` vakası",
+        "agirlik": "uygulama",
+        "kutu_disi_yuzey": null
+      }
+    ],
+    "kanit_gorusu": "Manifest sağlam, araç imzalı ve sarı kayıt içermiyor. Claude Code için önce 34/65 ve 31 hata, sonra 65/65 başarı ölçülmüş; Codex kanca takımı 66/66, genel takımlar 508/508 ve 482/482 yeşil. Gerçek Git deposu/worktree kullanan testler cd, -C, değişken, alt kabuk, boru, arka plan, cd -, pushd, yorum ve bash -c örneklerini güçlü biçimde ölçüyor; fakat `sudo` kanıtı yalnız seçeneksiz örneği sınadığı için karttaki sudo iddiasının tamamını desteklemiyor."
+  }
+}

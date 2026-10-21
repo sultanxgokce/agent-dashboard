@@ -30,6 +30,8 @@ const path = require('node:path');
 const BILINMEZ = false; // directory could not be resolved from the command
 const LIT = '\u0001';    // marks a `$` that came from single quotes (literal, never expanded)
 const SARMAL = new Set(['sudo', 'nohup', 'exec', 'setsid', 'nice', 'ionice']); // wrappers that run their argument unchanged
+// options of a wrapper that consume the NEXT word (`sudo -u bob git ...`, `nice -n 5 git ...`); `--` ends the options
+const SARMAL_DEGERLI = { sudo: new Set(['-u', '-g', '-h', '-p', '-C', '-D', '-R', '-T', '-U', '-r', '-t']), nice: new Set(['-n']), ionice: new Set(['-c', '-n', '-p']), exec: new Set(['-a']), nohup: new Set(), setsid: new Set() };
 const KABUK = new Set(['bash', 'sh', 'zsh', 'dash']);                          // `<shell> -c "<command>"`
 const ANAHTAR = new Set(['if', 'then', 'else', 'elif', 'while', 'until', 'do', '!', 'time', '{']); // shell keywords that prefix a command
 
@@ -227,7 +229,14 @@ function commitTargets(command, baseCwd, depth = 0) {
       w.shift();
       while (w.length && /^[A-Za-z_]\w*=/.test(w[0])) w.shift();
     }
-    while (w.length > 1 && SARMAL.has(w[0])) w.shift();   // `sudo git ...`, `nohup git ...` run the same command
+    while (w.length > 1 && SARMAL.has(w[0])) {            // `sudo git ...`, `nohup git ...` run the same command
+      const sarmal = w.shift();
+      while (w.length > 1 && /^-/.test(w[0])) {           // skip the wrapper's own options (and their values) up to `--`
+        const o = w.shift();
+        if (o === '--') break;
+        if (SARMAL_DEGERLI[sarmal].has(o) && w.length > 1) w.shift();
+      }
+    }
     const ad = w[0];
 
     // `bash -c "cd x && git ..."`: the string is a command of its own; it runs in a child shell, so nothing leaks back

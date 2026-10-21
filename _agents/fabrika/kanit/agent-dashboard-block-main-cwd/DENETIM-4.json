@@ -1,0 +1,38 @@
+{
+  "tur": 4,
+  "is": "agent-dashboard-block-main-cwd",
+  "pr": "3",
+  "yazan": "claude",
+  "denetci": "codex",
+  "zaman": "2026-10-22T01:39:30+03:00",
+  "kanit_durumu": "sağlam (araç imzalı, sha'lar tutuyor)",
+  "yedek": null,
+  "yazan_model": "opus",
+  "yazan_model_kaynak": "ayar-dosyasi",
+  "yedek_model": null,
+  "kirpildi": {
+    "oldu": false,
+    "istem_bayt": 67697,
+    "esik": 110000
+  },
+  "kanit_ayiklandi": {
+    "dosya": 0,
+    "bayt": 0
+  },
+  "kareler": null,
+  "sonuc": {
+    "kod_puani": 3,
+    "dogru_sey": "E",
+    "ozet": "Kanca iki adaptörde de commit’in çalışma dizinini `cd`, `git -C`, değişken, alt kabuk ve boru hattından çıkarmaya yönelmiş; önceki yorum hatası da testle kapatılmış, yani doğru iş yapılmış. Ancak elde yazılmış kabuk yorumlayıcısı `if/then/else` yürütme koşullarını izlemiyor ve koruma kancasında gerçek bir atlatma üretebiliyor; önce bunu çözün.",
+    "bulgular": [
+      {
+        "ne": "Koşullu kabuk yapıları yalnız sözcük silinerek işleniyor; koşulun sonucu ve dallar modellenmediği için çalışmayacak bir `cd` çalışmış sayılabiliyor. Örneğin ana daldayken `if false; then cd /feature-worktree; fi; git commit -m x` gerçek kabukta commit’i ana depoda çalıştırır, fakat ayrıştırıcı `cd /feature-worktree` etkisini uygular ve commit’i özellik dalında sanarak geçirebilir.",
+        "kanit": "`commitTargets` içinde `ANAHTAR` kümesindeki `if`, `then`, `else` ve benzeri sözcükler `while (w.length && ANAHTAR.has(w[0])) w.shift()` ile yalnızca atılıyor; `false` komutunun durumu sonraki `;` parçasında sıfırlanıyor ve `then` dalını koşula bağlayan bir kontrol/yığın bulunmuyor. Eklenen test yalnız `if true; then git commit...` vakasını ölçüyor; yanlış koşulda dizin değiştiren dalı ölçmüyor.",
+        "konum": "adapters/claude-code/scripts/hooks/block-main-commit.js: ANAHTAR ve commitTargets; adapters/codex/hooks/block-main-commit.js: ANAHTAR ve commitTargets; iki test dosyasındaki `commit after a shell keyword` vakası",
+        "agirlik": "uygulama",
+        "kutu_disi_yuzey": null
+      }
+    ],
+    "kanit_gorusu": "Manifest sağlam, araç imzalı ve sarı kayıt içermiyor. Claude Code kanca testi önce 34/65 başarıdan sonra 65/65 başarıya çıkmış; Codex kanca testi 66/66, genel Claude Code takımı 508/508 ve Codex takımı 482/482 yeşil. Gerçek Git deposu/worktree kullanan ölçümler kartın ana örneklerini ve önceki turdaki yorum kusurunu doğruluyor; fakat koşullu dalların çalışma semantiği için karşı-örnek testi olmadığından yeşil takımlar bu bulguyu kapsamıyor."
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "tur": 2,
+  "is": "agent-dashboard-block-main-cwd",
+  "pr": "3",
+  "yazan": "claude",
+  "denetci": "codex",
+  "zaman": "2026-10-22T01:32:29+03:00",
+  "kanit_durumu": "sağlam (araç imzalı, sha'lar tutuyor)",
+  "yedek": null,
+  "yazan_model": "opus",
+  "yazan_model_kaynak": "ayar-dosyasi",
+  "yedek_model": null,
+  "kirpildi": {
+    "oldu": false,
+    "istem_bayt": 48669,
+    "esik": 110000
+  },
+  "kanit_ayiklandi": {
+    "dosya": 0,
+    "bayt": 0
+  },
+  "kareler": null,
+  "sonuc": {
+    "kod_puani": 2,
+    "dogru_sey": "E",
+    "ozet": "Kanca iki adaptörde de hedef dizini komuttan çıkaracak biçimde yenilenmiş ve önceki turdaki boru hattı, arka plan ile göreli `cd` kusurları için testler eklenmiş. Ancak ayrıştırıcı kabuğun koşullu yürütmesini ve tek tırnak anlamını modellemediğinden main üzerindeki gerçek commit yanlış dizinde denetlenip geçebilir; önce bunları çöz.",
+    "bulgular": [
+      {
+        "ne": "`&&` ve `||` parçalarının gerçekten çalışıp çalışmadığı hesaba katılmadan bütün `cd` komutları uygulanıyor. Örneğin main dizininde `false && cd /feature; git commit -m x` çalıştırıldığında gerçek commit main'de gerçekleşir, fakat ayrıştırıcı başarısız koşuldaki `cd /feature` değişikliğini uygular ve dalı feature dizininde sorgulayarak commit'i geçirebilir; `true || cd /feature; git commit -m x` de aynı kaçağı üretir.",
+        "kanit": "`bol` ayraç bilgisini `sep`/`on` alanlarında saklıyor, fakat `commitTargets` yalnız `|` ve `&` için geri yükleme yapıyor; `&&`/`||` için önceki komutun çıkış durumuna bağlı hiçbir yürütme modeli yok ve karşılaşılan her `cd` doğrudan `cwd` değerini değiştiriyor. Eklenen test yalnız başarılı `cd ... || true` vakasını kapsıyor; kısa devre edilen `cd` vakası bulunmuyor.",
+        "konum": "adapters/claude-code/scripts/hooks/block-main-commit.js: bol ve commitTargets; adapters/codex/hooks/block-main-commit.js: bol ve commitTargets",
+        "agirlik": "ciddi",
+        "kutu_disi_yuzey": null
+      },
+      {
+        "ne": "Tek tırnak içindeki değişkenler de genişletiliyor; bu, kabukta literal olan bir yolun başka dizin gibi yorumlanmasına ve main commit'inin kaçmasına yol açabilir. Örneğin main'de `W=/feature; cd '$W'; git commit -m x` komutunda gerçek `cd` başarısız olur ve noktalı virgül nedeniyle commit main'de sürer, kanca ise `$W` değerini `/feature` olarak çözüp feature dalını denetler.",
+        "kanit": "`kelimeler` tek ve çift tırnakları aynı şekilde kaldırıp yalnız çıplak metni döndürüyor; ardından `genislet` bu metindeki `$X` ifadelerini tırnağın türünü bilmeden genişletiyor. Testlerde `git -C \"$W\"` var, fakat tek tırnakla değişken genişletilmemesi sınanmıyor.",
+        "konum": "adapters/claude-code/scripts/hooks/block-main-commit.js: kelimeler ve genislet; adapters/codex/hooks/block-main-commit.js: kelimeler ve genislet",
+        "agirlik": "ciddi",
+        "kutu_disi_yuzey": null
+      },
+      {
+        "ne": "`cd -` ve dizin yığını davranışı yanlış modelleniyor: `cd -` HOME'a çevriliyor, `pushd` uygulanırken `popd` tamamen yok sayılıyor. Bunlar komutun gerçek çalışma dizini ile kancanın sorguladığı dizini ayırarak yanlış geçiş veya yanlış engelleme üretebilir.",
+        "kanit": "`commitTargets` içinde hedef `w.slice(1).find(x => !x.startsWith('-'))` ile seçiliyor; dolayısıyla `cd -` için hedef bulunmayıp HOME kullanılıyor. Aynı blok `pushd` adını kabul ediyor ancak önceki dizini bir yığına koymuyor ve kodda `popd` işleme dalı bulunmuyor; sunulan testlerde bu komutlar yok.",
+        "konum": "adapters/claude-code/scripts/hooks/block-main-commit.js: commitTargets; adapters/codex/hooks/block-main-commit.js: commitTargets",
+        "agirlik": "uygulama",
+        "kutu_disi_yuzey": null
+      }
+    ],
+    "kanit_gorusu": "Manifest sağlam ve araç imzalı; sarı kayıt yok. Claude Code ölçümü 27/43 başarısızlıktan 43/43 başarıya geçen geçerli bir önce/sonra çifti, Codex 44/44 ve genel takım 486/486 yeşil gösteriyor. Yeni testler önceki iki ciddi bulguyu doğrudan kapsıyor; ancak koşullu kısa devre, tek tırnaklı değişken ve dizin yığını vakaları ölçülmediği için yeşil sonuçlar bu kaçakları dışlamıyor."
+  }
+}

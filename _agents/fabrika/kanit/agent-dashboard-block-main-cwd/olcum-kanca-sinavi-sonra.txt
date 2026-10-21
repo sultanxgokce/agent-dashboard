@@ -1,0 +1,515 @@
+$ node --test adapters/claude-code/scripts/hooks/block-main-commit.test.js
+# rc=0 sure=15.1s zaman=2026-10-22T02:11:44+03:00
+--- stdout ---
+TAP version 13
+# Subtest: isCommitOnMain
+    # Subtest: should block git commit on main/master
+        # Subtest: git commit -m "msg" on main
+        ok 1 - git commit -m "msg" on main
+          ---
+          duration_ms: 2.31447
+          type: 'test'
+          ...
+        # Subtest: git commit -am "msg" on main
+        ok 2 - git commit -am "msg" on main
+          ---
+          duration_ms: 0.252414
+          type: 'test'
+          ...
+        # Subtest: git commit on master
+        ok 3 - git commit on master
+          ---
+          duration_ms: 0.181176
+          type: 'test'
+          ...
+        # Subtest: chained: git add . && git commit -m "msg" on main
+        ok 4 - chained: git add . && git commit -m "msg" on main
+          ---
+          duration_ms: 0.360242
+          type: 'test'
+          ...
+        # Subtest: semicolon: git add .; git commit -m "msg" on main
+        ok 5 - semicolon: git add .; git commit -m "msg" on main
+          ---
+          duration_ms: 3.996963
+          type: 'test'
+          ...
+        1..5
+    ok 1 - should block git commit on main/master
+      ---
+      duration_ms: 8.741761
+      type: 'suite'
+      ...
+    # Subtest: should NOT block
+        # Subtest: git commit on feature branch
+        ok 1 - git commit on feature branch
+          ---
+          duration_ms: 0.438691
+          type: 'test'
+          ...
+        # Subtest: git commit on fix branch
+        ok 2 - git commit on fix branch
+          ---
+          duration_ms: 0.146846
+          type: 'test'
+          ...
+        # Subtest: git status on main
+        ok 3 - git status on main
+          ---
+          duration_ms: 0.365383
+          type: 'test'
+          ...
+        # Subtest: git log on main
+        ok 4 - git log on main
+          ---
+          duration_ms: 0.276394
+          type: 'test'
+          ...
+        # Subtest: git diff on main
+        ok 5 - git diff on main
+          ---
+          duration_ms: 0.721694
+          type: 'test'
+          ...
+        # Subtest: git push on main
+        ok 6 - git push on main
+          ---
+          duration_ms: 0.160656
+          type: 'test'
+          ...
+        # Subtest: echo "git commit" on main (not actual git)
+        ok 7 - echo "git commit" on main (not actual git)
+          ---
+          duration_ms: 0.143997
+          type: 'test'
+          ...
+        1..7
+    ok 2 - should NOT block
+      ---
+      duration_ms: 2.77775
+      type: 'suite'
+      ...
+    1..2
+ok 1 - isCommitOnMain
+  ---
+  duration_ms: 12.167327
+  type: 'suite'
+  ...
+# Subtest: hook integration: cwd resolution
+    # Subtest: uses input.cwd to resolve branch (feature branch → allowed)
+    ok 1 - uses input.cwd to resolve branch (feature branch → allowed)
+      ---
+      duration_ms: 194.98785
+      type: 'test'
+      ...
+    # Subtest: blocks when input.cwd points to a main branch repo
+    ok 2 - blocks when input.cwd points to a main branch repo
+      ---
+      duration_ms: 396.742284
+      type: 'test'
+      ...
+    1..2
+ok 2 - hook integration: cwd resolution
+  ---
+  duration_ms: 592.208694
+  type: 'suite'
+  ...
+# Subtest: command parsing: the directory a commit actually runs in (Z5FAWK)
+    # Subtest: worktree commits are NOT blocked
+        # Subtest: plain commit in the main repo is blocked (control)
+        ok 1 - plain commit in the main repo is blocked (control)
+          ---
+          duration_ms: 215.362279
+          type: 'test'
+          ...
+        # Subtest: variable + cd in a later statement
+        ok 2 - variable + cd in a later statement
+          ---
+          duration_ms: 277.170931
+          type: 'test'
+          ...
+        # Subtest: cd after other statements
+        ok 3 - cd after other statements
+          ---
+          duration_ms: 206.408703
+          type: 'test'
+          ...
+        # Subtest: subshell: (cd worktree && commit)
+        ok 4 - subshell: (cd worktree && commit)
+          ---
+          duration_ms: 205.395205
+          type: 'test'
+          ...
+        # Subtest: git -C <worktree> commit
+        ok 5 - git -C <worktree> commit
+          ---
+          duration_ms: 213.280484
+          type: 'test'
+          ...
+        # Subtest: git -C "$W" commit with W set earlier
+        ok 6 - git -C "$W" commit with W set earlier
+          ---
+          duration_ms: 277.320139
+          type: 'test'
+          ...
+        # Subtest: relative leading cd into the worktree (resolved once)
+        ok 7 - relative leading cd into the worktree (resolved once)
+          ---
+          duration_ms: 199.229468
+          type: 'test'
+          ...
+        # Subtest: cd with a stderr redirect keeps its effect (2>&1 is not a background job)
+        ok 8 - cd with a stderr redirect keeps its effect (2>&1 is not a background job)
+          ---
+          duration_ms: 238.932169
+          type: 'test'
+          ...
+        # Subtest: cd followed by || still moves the shell
+        ok 9 - cd followed by || still moves the shell
+          ---
+          duration_ms: 255.722165
+          type: 'test'
+          ...
+        # Subtest: commit piped into another command runs where the shell is
+        ok 10 - commit piped into another command runs where the shell is
+          ---
+          duration_ms: 69.634483
+          type: 'test'
+          ...
+        # Subtest: unknown command before the cd, commit guarded by && (runs only after the cd)
+        ok 11 - unknown command before the cd, commit guarded by && (runs only after the cd)
+          ---
+          duration_ms: 129.316451
+          type: 'test'
+          ...
+        # Subtest: cd chain: main then worktree then commit
+        ok 12 - cd chain: main then worktree then commit
+          ---
+          duration_ms: 205.024012
+          type: 'test'
+          ...
+        # Subtest: pushd into the worktree
+        ok 13 - pushd into the worktree
+          ---
+          duration_ms: 221.282381
+          type: 'test'
+          ...
+        # Subtest: unresolvable variable is not judged (branch unknown -> pass)
+        ok 14 - unresolvable variable is not judged (branch unknown -> pass)
+          ---
+          duration_ms: 205.831755
+          type: 'test'
+          ...
+        1..14
+    ok 1 - worktree commits are NOT blocked
+      ---
+      duration_ms: 2925.272441
+      type: 'suite'
+      ...
+    # Subtest: real commits on main are still blocked
+        # Subtest: git -C <main repo> commit from a worktree session
+        ok 1 - git -C <main repo> commit from a worktree session
+          ---
+          duration_ms: 310.48551
+          type: 'test'
+          ...
+        # Subtest: cd to the worktree, then back to main, then commit
+        ok 2 - cd to the worktree, then back to main, then commit
+          ---
+          duration_ms: 269.812761
+          type: 'test'
+          ...
+        # Subtest: variable pointing at main with -C
+        ok 3 - variable pointing at main with -C
+          ---
+          duration_ms: 294.076645
+          type: 'test'
+          ...
+        # Subtest: a cd inside a subshell does not leak out
+        ok 4 - a cd inside a subshell does not leak out
+          ---
+          duration_ms: 342.131246
+          type: 'test'
+          ...
+        # Subtest: a cd in a pipeline does not move the parent shell (reviewer case)
+        ok 5 - a cd in a pipeline does not move the parent shell (reviewer case)
+          ---
+          duration_ms: 268.658266
+          type: 'test'
+          ...
+        # Subtest: a cd in a background job does not move the parent shell
+        ok 6 - a cd in a background job does not move the parent shell
+          ---
+          duration_ms: 216.786838
+          type: 'test'
+          ...
+        # Subtest: the later element of a pipeline is a subshell too
+        ok 7 - the later element of a pipeline is a subshell too
+          ---
+          duration_ms: 207.103547
+          type: 'test'
+          ...
+        # Subtest: a relative leading cd is applied once (not twice)
+        ok 8 - a relative leading cd is applied once (not twice)
+          ---
+          duration_ms: 358.790925
+          type: 'test'
+          ...
+        # Subtest: short-circuited cd: false && cd worktree; commit (reviewer case)
+        ok 9 - short-circuited cd: false && cd worktree; commit (reviewer case)
+          ---
+          duration_ms: 148.34117
+          type: 'test'
+          ...
+        # Subtest: short-circuited cd: true || cd worktree; commit (reviewer case)
+        ok 10 - short-circuited cd: true || cd worktree; commit (reviewer case)
+          ---
+          duration_ms: 298.610108
+          type: 'test'
+          ...
+        # Subtest: uncertain predecessor: make && cd worktree; commit (make may fail, commit stays in main)
+        ok 11 - uncertain predecessor: make && cd worktree; commit (make may fail, commit stays in main)
+          ---
+          duration_ms: 295.695091
+          type: 'test'
+          ...
+        # Subtest: single-quoted variable is literal, so the cd fails and the commit stays in main (reviewer case)
+        ok 12 - single-quoted variable is literal, so the cd fails and the commit stays in main (reviewer case)
+          ---
+          duration_ms: 209.451387
+          type: 'test'
+          ...
+        # Subtest: cd to a directory that does not exist leaves the shell where it was
+        ok 13 - cd to a directory that does not exist leaves the shell where it was
+          ---
+          duration_ms: 252.114184
+          type: 'test'
+          ...
+        # Subtest: cd - goes back (worktree session, cd main then back would be main)
+        ok 14 - cd - goes back (worktree session, cd main then back would be main)
+          ---
+          duration_ms: 230.067561
+          type: 'test'
+          ...
+        # Subtest: popd returns to main
+        ok 15 - popd returns to main
+          ---
+          duration_ms: 180.279318
+          type: 'test'
+          ...
+        # Subtest: commit after a shell keyword (if/then, do, !) is still a commit
+        ok 16 - commit after a shell keyword (if/then, do, !) is still a commit
+          ---
+          duration_ms: 310.401062
+          type: 'test'
+          ...
+        # Subtest: commit in a for loop body
+        ok 17 - commit in a for loop body
+          ---
+          duration_ms: 209.478596
+          type: 'test'
+          ...
+        # Subtest: sudo / nohup prefix still runs the commit
+        ok 18 - sudo / nohup prefix still runs the commit
+          ---
+          duration_ms: 209.76006
+          type: 'test'
+          ...
+        # Subtest: wrapper options are skipped: sudo -u bob git commit -m x
+        ok 19 - wrapper options are skipped: sudo -u bob git commit -m x
+          ---
+          duration_ms: 287.85102
+          type: 'test'
+          ...
+        # Subtest: wrapper options are skipped: sudo -H git commit -m x
+        ok 20 - wrapper options are skipped: sudo -H git commit -m x
+          ---
+          duration_ms: 301.24773
+          type: 'test'
+          ...
+        # Subtest: wrapper options are skipped: sudo -- git commit -m x
+        ok 21 - wrapper options are skipped: sudo -- git commit -m x
+          ---
+          duration_ms: 301.744109
+          type: 'test'
+          ...
+        # Subtest: wrapper options are skipped: sudo -n -u root -- git commit -m x
+        ok 22 - wrapper options are skipped: sudo -n -u root -- git commit -m x
+          ---
+          duration_ms: 369.219019
+          type: 'test'
+          ...
+        # Subtest: wrapper options are skipped: nice -n 5 git commit -m x
+        ok 23 - wrapper options are skipped: nice -n 5 git commit -m x
+          ---
+          duration_ms: 204.991893
+          type: 'test'
+          ...
+        # Subtest: wrapper options are skipped: ionice -c 2 git commit -m x
+        ok 24 - wrapper options are skipped: ionice -c 2 git commit -m x
+          ---
+          duration_ms: 510.032522
+          type: 'test'
+          ...
+        # Subtest: wrapper options are skipped: exec -a foo git commit -m x
+        ok 25 - wrapper options are skipped: exec -a foo git commit -m x
+          ---
+          duration_ms: 284.18943
+          type: 'test'
+          ...
+        # Subtest: wrapper option value is not mistaken for the command: sudo -u git echo hi
+        ok 26 - wrapper option value is not mistaken for the command: sudo -u git echo hi
+          ---
+          duration_ms: 235.739409
+          type: 'test'
+          ...
+        # Subtest: bash -c "..." runs a commit in a child shell
+        ok 27 - bash -c "..." runs a commit in a child shell
+          ---
+          duration_ms: 485.345876
+          type: 'test'
+          ...
+        # Subtest: bash -c with its own cd into the worktree is allowed
+        ok 28 - bash -c with its own cd into the worktree is allowed
+          ---
+          duration_ms: 338.637191
+          type: 'test'
+          ...
+        # Subtest: line continuation inside the git command
+        ok 29 - line continuation inside the git command
+          ---
+          duration_ms: 363.298867
+          type: 'test'
+          ...
+        # Subtest: one blocked commit among several is enough
+        ok 30 - one blocked commit among several is enough
+          ---
+          duration_ms: 191.703181
+          type: 'test'
+          ...
+        1..30
+    ok 2 - real commits on main are still blocked
+      ---
+      duration_ms: 8488.526312
+      type: 'suite'
+      ...
+    # Subtest: text is not a command
+        # Subtest: quoted mention with a semicolon
+        ok 1 - quoted mention with a semicolon
+          ---
+          duration_ms: 313.967155
+          type: 'test'
+          ...
+        # Subtest: heredoc body
+        ok 2 - heredoc body
+          ---
+          duration_ms: 173.494145
+          type: 'test'
+          ...
+        # Subtest: grep for the phrase
+        ok 3 - grep for the phrase
+          ---
+          duration_ms: 198.258699
+          type: 'test'
+          ...
+        # Subtest: shell comment hides the rest of the line (reviewer case)
+        ok 4 - shell comment hides the rest of the line (reviewer case)
+          ---
+          duration_ms: 443.458833
+          type: 'test'
+          ...
+        # Subtest: a comment on its own line, then a real commit on the next line, is still judged
+        ok 5 - a comment on its own line, then a real commit on the next line, is still judged
+          ---
+          duration_ms: 184.734912
+          type: 'test'
+          ...
+        # Subtest: a \# inside quotes or a $\# is not a comment
+        ok 6 - a \# inside quotes or a $\# is not a comment
+          ---
+          duration_ms: 312.931978
+          type: 'test'
+          ...
+        # Subtest: commit-like words that are not the git subcommand
+        ok 7 - commit-like words that are not the git subcommand
+          ---
+          duration_ms: 191.006556
+          type: 'test'
+          ...
+        1..7
+    ok 3 - text is not a command
+      ---
+      duration_ms: 1818.386056
+      type: 'suite'
+      ...
+    # Subtest: commitTargets (pure)
+        # Subtest: finds the effective directory per commit
+        ok 1 - finds the effective directory per commit
+          ---
+          duration_ms: 1.758312
+          type: 'test'
+          ...
+        # Subtest: a cd to a missing directory fails: the directory stays
+        ok 2 - a cd to a missing directory fails: the directory stays
+          ---
+          duration_ms: 0.236925
+          type: 'test'
+          ...
+        # Subtest: a failed cd skips the && commit entirely (it never runs)
+        ok 3 - a failed cd skips the && commit entirely (it never runs)
+          ---
+          duration_ms: 0.150387
+          type: 'test'
+          ...
+        # Subtest: an uncertain cd keeps both possibilities
+        ok 4 - an uncertain cd keeps both possibilities
+          ---
+          duration_ms: 0.799393
+          type: 'test'
+          ...
+        # Subtest: relative -C resolves against the current directory
+        ok 5 - relative -C resolves against the current directory
+          ---
+          duration_ms: 0.249535
+          type: 'test'
+          ...
+        # Subtest: unknown variable -> BILINMEZ
+        ok 6 - unknown variable -> BILINMEZ
+          ---
+          duration_ms: 0.198926
+          type: 'test'
+          ...
+        # Subtest: no commit -> empty
+        ok 7 - no commit -> empty
+          ---
+          duration_ms: 0.118287
+          type: 'test'
+          ...
+        # Subtest: git config values and -c options are skipped
+        ok 8 - git config values and -c options are skipped
+          ---
+          duration_ms: 1.229824
+          type: 'test'
+          ...
+        1..8
+    ok 4 - commitTargets (pure)
+      ---
+      duration_ms: 5.360584
+      type: 'suite'
+      ...
+    1..4
+ok 3 - command parsing: the directory a commit actually runs in (Z5FAWK)
+  ---
+  duration_ms: 13314.732183
+  type: 'suite'
+  ...
+1..3
+# tests 73
+# suites 9
+# pass 73
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 14926.276356
+--- stderr ---

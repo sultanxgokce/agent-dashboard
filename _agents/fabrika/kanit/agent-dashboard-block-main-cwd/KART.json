@@ -1,0 +1,61 @@
+{
+  "is": "agent-dashboard-block-main-cwd",
+  "cumle": "Kanca commit'in gerçekten koştuğu dizinden dal okur (cd, -C, değişken, alt kabuk, boru ve arka plan, olası dizin kümesi, tek tırnak literal, cd -, pushd, yorum, sudo, bash -c); koşullu bileşik gövdeler belgeli sınırdır",
+  "istedi": "SERDAR",
+  "aldi": "BERİD",
+  "zaman": "2026-10-22T01:26:00+03:00",
+  "sinif_cevaplari": {
+    "geri_alinamaz": "h",
+    "para": "h",
+    "dis_yuzey": "h",
+    "yetki": "h"
+  },
+  "siniflar": [],
+  "sultan": false,
+  "kanit_nerede": "",
+  "oda": "",
+  "durum": "acik",
+  "gecmis": [
+    {
+      "zaman": "2026-10-22T02:09:07+03:00",
+      "olay": "daralt",
+      "kalan_kart": "agent-dashboard-block-main-kosullu",
+      "tur_sifir": 4
+    }
+  ],
+  "canli_gerekir": false,
+  "canli_sebep": "--canli h (sahip: canlı kanıt gerekmez dedi)",
+  "kapsam_uyarilari": [],
+  "reis_kararlari": [
+    {
+      "karar": "daralt",
+      "reis": "BERİD",
+      "oturum": "aile-notify SERDAR 22 Eki 02:08",
+      "gerekce": "SERDAR 02:08 aile-notify ile Z5FAWK tavan kararını DARALT verdi (BERİD önerisi kabul edildi); koşullu dal gövdeleri belgeli sınır, yeni karta",
+      "zaman": "2026-10-22T02:09:07+03:00"
+    },
+    {
+      "karar": "daralt",
+      "reis": "BERİD",
+      "oturum": "aile-notify SERDAR 22 Eki 02:08",
+      "gerekce": "daraltma: kalan bulgu yeni karta (agent-dashboard-block-main-kosullu) — Koşullu bileşik komut gövdeleri (if/then/else/while/do/case) kancada modellenmiyor: if false; then cd /wt; fi ardından commit, cd'yi çalışmış sayıp commit'i iş ağacında sanıyor; then/do/else/case gövdelerini belki çalışır say (~10 satır)",
+      "zaman": "2026-10-22T02:09:07+03:00"
+    }
+  ],
+  "cumle_gecmisi": [
+    {
+      "cumle": "block-main-commit kancası dalı komuttaki gerçek çalışma dizininden (cd · git -C · değişken) okusun, metni değil komutu denetlesin",
+      "zaman": "2026-10-22T02:09:07+03:00",
+      "kalan_kart": "agent-dashboard-block-main-kosullu"
+    }
+  ],
+  "daraltmalar": [
+    {
+      "zaman": "2026-10-22T02:09:07+03:00",
+      "kalan_kart": "agent-dashboard-block-main-kosullu",
+      "kalan": "Koşullu bileşik komut gövdeleri (if/then/else/while/do/case) kancada modellenmiyor: if false; then cd /wt; fi ardından commit, cd'yi çalışmış sayıp commit'i iş ağacında sanıyor; then/do/else/case gövdelerini belki çalışır say (~10 satır)",
+      "tur_sifir": 4,
+      "oturum": "aile-notify SERDAR 22 Eki 02:08"
+    }
+  ]
+}

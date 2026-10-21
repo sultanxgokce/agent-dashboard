@@ -1,0 +1,3543 @@
+$ npm test --silent
+# rc=0 sure=4.7s zaman=2026-10-22T01:38:59+03:00
+--- stdout ---
+TAP version 13
+# Subtest: resolveState
+    # Subtest: returns "permission" for PermissionRequest
+    ok 1 - returns "permission" for PermissionRequest
+      ---
+      duration_ms: 5.875463
+      type: 'test'
+      ...
+    # Subtest: returns "running" for PreToolUse with normal tools
+    ok 2 - returns "running" for PreToolUse with normal tools
+      ---
+      duration_ms: 0.826582
+      type: 'test'
+      ...
+    # Subtest: returns "question" for PreToolUse with AskUserQuestion
+    ok 3 - returns "question" for PreToolUse with AskUserQuestion
+      ---
+      duration_ms: 0.941089
+      type: 'test'
+      ...
+    # Subtest: codex: returns "question" for PreToolUse with request_user_input
+    ok 4 - codex: returns "question" for PreToolUse with request_user_input
+      ---
+      duration_ms: 1.224463
+      type: 'test'
+      ...
+    # Subtest: returns "plan" for PreToolUse with ExitPlanMode
+    ok 5 - returns "plan" for PreToolUse with ExitPlanMode
+      ---
+      duration_ms: 0.90626
+      type: 'test'
+      ...
+    # Subtest: returns "running" for PostToolUse
+    ok 6 - returns "running" for PostToolUse
+      ---
+      duration_ms: 0.603547
+      type: 'test'
+      ...
+    # Subtest: returns "running" for unknown events
+    ok 7 - returns "running" for unknown events
+      ---
+      duration_ms: 0.47429
+      type: 'test'
+      ...
+    # Subtest: does NOT return "plan" while permission_mode is plan but tool is busy
+    ok 8 - does NOT return "plan" while permission_mode is plan but tool is busy
+      ---
+      duration_ms: 0.617556
+      type: 'test'
+      ...
+    # Subtest: PermissionRequest returns "permission" regardless of permission_mode
+    ok 9 - PermissionRequest returns "permission" regardless of permission_mode
+      ---
+      duration_ms: 3.917135
+      type: 'test'
+      ...
+    # Subtest: returns "plan" for PermissionRequest with ExitPlanMode (non-bypass plan mode)
+    ok 10 - returns "plan" for PermissionRequest with ExitPlanMode (non-bypass plan mode)
+      ---
+      duration_ms: 0.651016
+      type: 'test'
+      ...
+    # Subtest: returns "question" for PermissionRequest with AskUserQuestion
+    ok 11 - returns "question" for PermissionRequest with AskUserQuestion
+      ---
+      duration_ms: 0.378522
+      type: 'test'
+      ...
+    # Subtest: returns "running" when permission_mode is bypassPermissions
+    ok 12 - returns "running" when permission_mode is bypassPermissions
+      ---
+      duration_ms: 0.378752
+      type: 'test'
+      ...
+    # Subtest: returns "plan" for PreToolUse Agent with subagent_type=Plan
+    ok 13 - returns "plan" for PreToolUse Agent with subagent_type=Plan
+      ---
+      duration_ms: 0.390731
+      type: 'test'
+      ...
+    # Subtest: returns "running" for PreToolUse Agent with non-Plan subagent_type
+    ok 14 - returns "running" for PreToolUse Agent with non-Plan subagent_type
+      ---
+      duration_ms: 0.339283
+      type: 'test'
+      ...
+    # Subtest: codex: apply_patch tool stays "running" (not plan/question)
+    ok 15 - codex: apply_patch tool stays "running" (not plan/question)
+      ---
+      duration_ms: 0.321033
+      type: 'test'
+      ...
+    # Subtest: codex: shell tool stays "running"
+    ok 16 - codex: shell tool stays "running"
+      ---
+      duration_ms: 1.000688
+      type: 'test'
+      ...
+    # Subtest: codex: update_plan TODO tool stays "running" (not plan-mode)
+    ok 17 - codex: update_plan TODO tool stays "running" (not plan-mode)
+      ---
+      duration_ms: 0.360873
+      type: 'test'
+      ...
+    # Subtest: codex: permission_mode="plan" captured but does NOT flip state
+    ok 18 - codex: permission_mode="plan" captured but does NOT flip state
+      ---
+      duration_ms: 0.360922
+      type: 'test'
+      ...
+    # Subtest: detectHarness: PLUGIN_ROOT env signals codex
+    ok 19 - detectHarness: PLUGIN_ROOT env signals codex
+      ---
+      duration_ms: 0.45581
+      type: 'test'
+      ...
+    # Subtest: detectHarness: gpt-* model is codex when env is absent
+    ok 20 - detectHarness: gpt-* model is codex when env is absent
+      ---
+      duration_ms: 0.407661
+      type: 'test'
+      ...
+    # Subtest: detectHarness: default is claude
+    ok 21 - detectHarness: default is claude
+      ---
+      duration_ms: 40.736396
+      type: 'test'
+      ...
+    # Subtest: codex: PermissionRequest still routes to "permission"
+    ok 22 - codex: PermissionRequest still routes to "permission"
+      ---
+      duration_ms: 2.080964
+      type: 'test'
+      ...
+    1..22
+ok 1 - resolveState
+  ---
+  duration_ms: 66.83729
+  type: 'suite'
+  ...
+# Subtest: fast hook state updates (per-agent files)
+    # Subtest: PermissionRequest sets state to input with current_tool
+    ok 1 - PermissionRequest sets state to input with current_tool
+      ---
+      duration_ms: 4.594011
+      type: 'test'
+      ...
+    # Subtest: PostToolUse sets state to running and clears current_tool
+    ok 2 - PostToolUse sets state to running and clears current_tool
+      ---
+      duration_ms: 1.945517
+      type: 'test'
+      ...
+    # Subtest: PreToolUse sets current_tool but keeps state running
+    ok 3 - PreToolUse sets current_tool but keeps state running
+      ---
+      duration_ms: 1.911099
+      type: 'test'
+      ...
+    # Subtest: codex: stamps pending_question on PreToolUse request_user_input
+    ok 4 - codex: stamps pending_question on PreToolUse request_user_input
+      ---
+      duration_ms: 1.859299
+      type: 'test'
+      ...
+    # Subtest: codex: clears pending_question on PostToolUse request_user_input
+    ok 5 - codex: clears pending_question on PostToolUse request_user_input
+      ---
+      duration_ms: 0.856032
+      type: 'test'
+      ...
+    # Subtest: codex: does NOT stamp pending_question without a questions array
+    ok 6 - codex: does NOT stamp pending_question without a questions array
+      ---
+      duration_ms: 0.4505
+      type: 'test'
+      ...
+    # Subtest: buildUpdate does not include cwd in update
+    ok 7 - buildUpdate does not include cwd in update
+      ---
+      duration_ms: 2.545025
+      type: 'test'
+      ...
+    # Subtest: buildUpdate stamps tmux_server_pid so orphan resume is event-scoped
+    ok 8 - buildUpdate stamps tmux_server_pid so orphan resume is event-scoped
+      ---
+      duration_ms: 0.641596
+      type: 'test'
+      ...
+    # Subtest: buildUpdate re-stamps when the stored server PID is stale (tmux restarted)
+    ok 9 - buildUpdate re-stamps when the stored server PID is stale (tmux restarted)
+      ---
+      duration_ms: 0.601977
+      type: 'test'
+      ...
+    # Subtest: buildUpdate writes empty tmux_server_pid when the PID is unknown
+    ok 10 - buildUpdate writes empty tmux_server_pid when the PID is unknown
+      ---
+      duration_ms: 0.598317
+      type: 'test'
+      ...
+    # Subtest: allows transition out of "pr" state when not pinned
+    ok 11 - allows transition out of "pr" state when not pinned
+      ---
+      duration_ms: 0.360342
+      type: 'test'
+      ...
+    # Subtest: allows transition out of "merged" state when not pinned
+    ok 12 - allows transition out of "merged" state when not pinned
+      ---
+      duration_ms: 0.477789
+      type: 'test'
+      ...
+    # Subtest: preserves pinned_state "pr" even when state differs
+    ok 13 - preserves pinned_state "pr" even when state differs
+      ---
+      duration_ms: 0.395121
+      type: 'test'
+      ...
+    # Subtest: allows "permission" to override "pr" state
+    ok 14 - allows "permission" to override "pr" state
+      ---
+      duration_ms: 0.417621
+      type: 'test'
+      ...
+    # Subtest: hook_blocked overrides state to "permission" on PreToolUse
+    ok 15 - hook_blocked overrides state to "permission" on PreToolUse
+      ---
+      duration_ms: 2.027586
+      type: 'test'
+      ...
+    # Subtest: hook_blocked is NOT consumed on PermissionRequest (only PreToolUse)
+    ok 16 - hook_blocked is NOT consumed on PermissionRequest (only PreToolUse)
+      ---
+      duration_ms: 0.417831
+      type: 'test'
+      ...
+    # Subtest: hook_blocked is NOT consumed on PostToolUse (prevents race)
+    ok 17 - hook_blocked is NOT consumed on PostToolUse (prevents race)
+      ---
+      duration_ms: 0.721664
+      type: 'test'
+      ...
+    # Subtest: hook_blocked is cleared on PreToolUse even when state is pr
+    ok 18 - hook_blocked is cleared on PreToolUse even when state is pr
+      ---
+      duration_ms: 0.375442
+      type: 'test'
+      ...
+    # Subtest: no hook_blocked means normal "running" state on PreToolUse
+    ok 19 - no hook_blocked means normal "running" state on PreToolUse
+      ---
+      duration_ms: 0.346782
+      type: 'test'
+      ...
+    # Subtest: codex: stale permission clears on normal shell PreToolUse
+    ok 20 - codex: stale permission clears on normal shell PreToolUse
+      ---
+      duration_ms: 0.770683
+      type: 'test'
+      ...
+    # Subtest: PostToolUse skips when existing state is idle_prompt (stop-state guard)
+    ok 21 - PostToolUse skips when existing state is idle_prompt (stop-state guard)
+      ---
+      duration_ms: 5.300755
+      type: 'test'
+      ...
+    # Subtest: PostToolUse skips when existing state is plan (stop-state guard)
+    ok 22 - PostToolUse skips when existing state is plan (stop-state guard)
+      ---
+      duration_ms: 0.629667
+      type: 'test'
+      ...
+    # Subtest: PostToolUse skips when existing state is done (stop-state guard)
+    ok 23 - PostToolUse skips when existing state is done (stop-state guard)
+      ---
+      duration_ms: 2.264211
+      type: 'test'
+      ...
+    # Subtest: PreToolUse is NOT blocked by stop states (next turn resumes running)
+    ok 24 - PreToolUse is NOT blocked by stop states (next turn resumes running)
+      ---
+      duration_ms: 0.479109
+      type: 'test'
+      ...
+    # Subtest: buildUpdate keeps state "running" while permission_mode is plan but tool is busy
+    ok 25 - buildUpdate keeps state "running" while permission_mode is plan but tool is busy
+      ---
+      duration_ms: 0.540808
+      type: 'test'
+      ...
+    # Subtest: buildUpdate sets state to "plan" on PreToolUse ExitPlanMode
+    ok 26 - buildUpdate sets state to "plan" on PreToolUse ExitPlanMode
+      ---
+      duration_ms: 0.421701
+      type: 'test'
+      ...
+    # Subtest: PostToolUse does not overwrite existing "plan" state
+    ok 27 - PostToolUse does not overwrite existing "plan" state
+      ---
+      duration_ms: 1.326171
+      type: 'test'
+      ...
+    # Subtest: PreToolUse Agent+Plan stamps delegated_plan_tool_use_id and sets state=plan
+    ok 28 - PreToolUse Agent+Plan stamps delegated_plan_tool_use_id and sets state=plan
+      ---
+      duration_ms: 0.591457
+      type: 'test'
+      ...
+    # Subtest: PreToolUse Agent with non-Plan subagent_type does NOT stamp the id
+    ok 29 - PreToolUse Agent with non-Plan subagent_type does NOT stamp the id
+      ---
+      duration_ms: 0.640346
+      type: 'test'
+      ...
+    # Subtest: PostToolUse Agent+Plan keeps state=plan via STOP_STATES guard
+    ok 30 - PostToolUse Agent+Plan keeps state=plan via STOP_STATES guard
+      ---
+      duration_ms: 0.4601
+      type: 'test'
+      ...
+    # Subtest: PreToolUse Bash after delegated plan clears the id and transitions to running
+    ok 31 - PreToolUse Bash after delegated plan clears the id and transitions to running
+      ---
+      duration_ms: 0.45761
+      type: 'test'
+      ...
+    # Subtest: PreToolUse Agent+Plan with missing tool_use_id sets state=plan but does not stamp id
+    ok 32 - PreToolUse Agent+Plan with missing tool_use_id sets state=plan but does not stamp id
+      ---
+      duration_ms: 0.454221
+      type: 'test'
+      ...
+    # Subtest: does not clear delegated_plan_tool_use_id while state stays plan
+    ok 33 - does not clear delegated_plan_tool_use_id while state stays plan
+      ---
+      duration_ms: 0.605966
+      type: 'test'
+      ...
+    # Subtest: preserves existing fields not updated by fast hook
+    ok 34 - preserves existing fields not updated by fast hook
+      ---
+      duration_ms: 2.222902
+      type: 'test'
+      ...
+    1..34
+ok 2 - fast hook state updates (per-agent files)
+  ---
+  duration_ms: 44.353077
+  type: 'suite'
+  ...
+# Subtest: dynamic effort on permission_mode transitions
+    # Subtest: entering plan mode bumps effort to max
+    ok 1 - entering plan mode bumps effort to max
+      ---
+      duration_ms: 1.014738
+      type: 'test'
+      ...
+    # Subtest: entering plan mode ignores spawn-time effort env var
+    ok 2 - entering plan mode ignores spawn-time effort env var
+      ---
+      duration_ms: 0.780543
+      type: 'test'
+      ...
+    # Subtest: leaving plan mode drops effort back to high
+    ok 3 - leaving plan mode drops effort back to high
+      ---
+      duration_ms: 0.736145
+      type: 'test'
+      ...
+    # Subtest: leaving plan mode restores spawn-time effort env var when set
+    ok 4 - leaving plan mode restores spawn-time effort env var when set
+      ---
+      duration_ms: 0.715044
+      type: 'test'
+      ...
+    # Subtest: staying in plan mode does not rewrite effort
+    ok 5 - staying in plan mode does not rewrite effort
+      ---
+      duration_ms: 0.667785
+      type: 'test'
+      ...
+    # Subtest: outside plan mode without transition does not set effort
+    ok 6 - outside plan mode without transition does not set effort
+      ---
+      duration_ms: 1.442429
+      type: 'test'
+      ...
+    # Subtest: AGENT_DASHBOARD_DYNAMIC_EFFORT=0 disables transitions
+    ok 7 - AGENT_DASHBOARD_DYNAMIC_EFFORT=0 disables transitions
+      ---
+      duration_ms: 1.595026
+      type: 'test'
+      ...
+    1..7
+ok 3 - dynamic effort on permission_mode transitions
+  ---
+  duration_ms: 7.300362
+  type: 'suite'
+  ...
+# Subtest: dynamic effort reads levels from settings.toml
+    # Subtest: entering plan mode dispatches the [effort].plan value from settings.toml
+    ok 1 - entering plan mode dispatches the [effort].plan value from settings.toml
+      ---
+      duration_ms: 1.787682
+      type: 'test'
+      ...
+    # Subtest: leaving plan mode dispatches the [effort].default value from settings.toml
+    ok 2 - leaving plan mode dispatches the [effort].default value from settings.toml
+      ---
+      duration_ms: 1.011428
+      type: 'test'
+      ...
+    1..2
+ok 4 - dynamic effort reads levels from settings.toml
+  ---
+  duration_ms: 2.935167
+  type: 'suite'
+  ...
+# Subtest: effort dispatch gate (no inject while user is composing)
+    # Subtest: does not flag dispatch when existing state is plan (regression: replying to plan)
+    ok 1 - does not flag dispatch when existing state is plan (regression: replying to plan)
+      ---
+      duration_ms: 0.981018
+      type: 'test'
+      ...
+    # Subtest: does not flag dispatch when existing state is question
+    ok 2 - does not flag dispatch when existing state is question
+      ---
+      duration_ms: 3.362247
+      type: 'test'
+      ...
+    # Subtest: flags dispatch on a normal entering-plan transition (state=running)
+    ok 3 - flags dispatch on a normal entering-plan transition (state=running)
+      ---
+      duration_ms: 0.848752
+      type: 'test'
+      ...
+    # Subtest: does not flag dispatch when effort already matches target (no-op)
+    ok 4 - does not flag dispatch when effort already matches target (no-op)
+      ---
+      duration_ms: 0.606087
+      type: 'test'
+      ...
+    1..4
+ok 5 - effort dispatch gate (no inject while user is composing)
+  ---
+  duration_ms: 6.02175
+  type: 'suite'
+  ...
+# Subtest: buildReportEntry
+    # Subtest: includes cwd from input but not branch
+    ok 1 - includes cwd from input but not branch
+      ---
+      duration_ms: 1.641524
+      type: 'test'
+      ...
+    # Subtest: falls back to existing.cwd when cwd param is empty
+    ok 2 - falls back to existing.cwd when cwd param is empty
+      ---
+      duration_ms: 0.175136
+      type: 'test'
+      ...
+    # Subtest: skips write when nothing changed
+    ok 3 - skips write when nothing changed
+      ---
+      duration_ms: 0.175566
+      type: 'test'
+      ...
+    # Subtest: increments subagent count on SubagentStart
+    ok 4 - increments subagent count on SubagentStart
+      ---
+      duration_ms: 0.150497
+      type: 'test'
+      ...
+    # Subtest: decrements subagent count on SubagentStop (floor 0)
+    ok 5 - decrements subagent count on SubagentStop (floor 0)
+      ---
+      duration_ms: 0.147766
+      type: 'test'
+      ...
+    # Subtest: preserves model from existing on non-SessionStart events
+    ok 6 - preserves model from existing on non-SessionStart events
+      ---
+      duration_ms: 0.129337
+      type: 'test'
+      ...
+    # Subtest: preserves existing cwd on non-SessionStart events
+    ok 7 - preserves existing cwd on non-SessionStart events
+      ---
+      duration_ms: 0.218085
+      type: 'test'
+      ...
+    # Subtest: always reports changed when existing has no state (first write)
+    ok 8 - always reports changed when existing has no state (first write)
+      ---
+      duration_ms: 0.220815
+      type: 'test'
+      ...
+    # Subtest: captures CLAUDE_CODE_EFFORT_LEVEL into entry.effort on SessionStart
+    ok 9 - captures CLAUDE_CODE_EFFORT_LEVEL into entry.effort on SessionStart
+      ---
+      duration_ms: 0.388192
+      type: 'test'
+      ...
+    # Subtest: falls back to settingsEffort on SessionStart when env var unset
+    ok 10 - falls back to settingsEffort on SessionStart when env var unset
+      ---
+      duration_ms: 0.539218
+      type: 'test'
+      ...
+    # Subtest: prefers env var over settingsEffort on SessionStart
+    ok 11 - prefers env var over settingsEffort on SessionStart
+      ---
+      duration_ms: 0.190096
+      type: 'test'
+      ...
+    # Subtest: ignores settingsEffort on non-SessionStart events
+    ok 12 - ignores settingsEffort on non-SessionStart events
+      ---
+      duration_ms: 0.154687
+      type: 'test'
+      ...
+    # Subtest: preserves existing.effort on non-SessionStart events when env var unset
+    ok 13 - preserves existing.effort on non-SessionStart events when env var unset
+      ---
+      duration_ms: 0.154697
+      type: 'test'
+      ...
+    # Subtest: omits effort when neither env var nor existing has it
+    ok 14 - omits effort when neither env var nor existing has it
+      ---
+      duration_ms: 0.111858
+      type: 'test'
+      ...
+    1..14
+ok 6 - buildReportEntry
+  ---
+  duration_ms: 5.923452
+  type: 'suite'
+  ...
+# Subtest: SubagentStop state handling
+    # Subtest: preserves idle_prompt when Stop already wrote it
+    ok 1 - preserves idle_prompt when Stop already wrote it
+      ---
+      duration_ms: 0.185946
+      type: 'test'
+      ...
+    # Subtest: preserves done when Stop already wrote it
+    ok 2 - preserves done when Stop already wrote it
+      ---
+      duration_ms: 0.108178
+      type: 'test'
+      ...
+    # Subtest: carries self-healed idle_prompt when Stop handler failed
+    ok 3 - carries self-healed idle_prompt when Stop handler failed
+      ---
+      duration_ms: 0.114487
+      type: 'test'
+      ...
+    # Subtest: keeps running when subagents remain active
+    ok 4 - keeps running when subagents remain active
+      ---
+      duration_ms: 0.092538
+      type: 'test'
+      ...
+    1..4
+ok 7 - SubagentStop state handling
+  ---
+  duration_ms: 0.626826
+  type: 'suite'
+  ...
+# Subtest: resolveChangedFiles
+    # Subtest: reuses cached file changes on subagent start and non-final stop events
+    ok 1 - reuses cached file changes on subagent start and non-final stop events
+      ---
+      duration_ms: 0.422691
+      type: 'test'
+      ...
+    # Subtest: refreshes file changes on settled lifecycle events
+    ok 2 - refreshes file changes on settled lifecycle events
+      ---
+      duration_ms: 0.446161
+      type: 'test'
+      ...
+    # Subtest: refreshes subagent file changes when no cache exists
+    ok 3 - refreshes subagent file changes when no cache exists
+      ---
+      duration_ms: 0.104398
+      type: 'test'
+      ...
+    # Subtest: refreshes final subagent stop file changes
+    ok 4 - refreshes final subagent stop file changes
+      ---
+      duration_ms: 0.105468
+      type: 'test'
+      ...
+    1..4
+ok 8 - resolveChangedFiles
+  ---
+  duration_ms: 1.205524
+  type: 'suite'
+  ...
+# Subtest: shouldGuardWrite (Stop race fix)
+    # Subtest: guards SubagentStop unconditionally
+    ok 1 - guards SubagentStop unconditionally
+      ---
+      duration_ms: 1.220994
+      type: 'test'
+      ...
+    # Subtest: guards Stop only when parent has a pending tool_use
+    ok 2 - guards Stop only when parent has a pending tool_use
+      ---
+      duration_ms: 0.117257
+      type: 'test'
+      ...
+    # Subtest: does not guard Stop when no tool is pending (lets question→idle_prompt transition through)
+    ok 3 - does not guard Stop when no tool is pending (lets question→idle_prompt transition through)
+      ---
+      duration_ms: 0.096488
+      type: 'test'
+      ...
+    # Subtest: does not guard non-stop events
+    ok 4 - does not guard non-stop events
+      ---
+      duration_ms: 0.098338
+      type: 'test'
+      ...
+    1..4
+ok 9 - shouldGuardWrite (Stop race fix)
+  ---
+  duration_ms: 1.687453
+  type: 'suite'
+  ...
+# Subtest: SubagentStop writeState guard prevents TOCTOU race
+    # Subtest: guardStates aborts write when on-disk state is idle_prompt
+    ok 1 - guardStates aborts write when on-disk state is idle_prompt
+      ---
+      duration_ms: 2.458996
+      type: 'test'
+      ...
+    # Subtest: allows write when on-disk state is running (no guard hit)
+    ok 2 - allows write when on-disk state is running (no guard hit)
+      ---
+      duration_ms: 1.34311
+      type: 'test'
+      ...
+    1..2
+ok 10 - SubagentStop writeState guard prevents TOCTOU race
+  ---
+  duration_ms: 4.018753
+  type: 'suite'
+  ...
+# Subtest: resolveStopState (JSONL-gated detect)
+    # Subtest: SubagentStop preserves running when parent has a pending tool_use
+    ok 1 - SubagentStop preserves running when parent has a pending tool_use
+      ---
+      duration_ms: 0.253475
+      type: 'test'
+      ...
+    # Subtest: SubagentStop preserves existing stop state when pane heuristic would re-detect it
+    ok 2 - SubagentStop preserves existing stop state when pane heuristic would re-detect it
+      ---
+      duration_ms: 0.587497
+      type: 'test'
+      ...
+    # Subtest: SubagentStop preserves running when subagents remain active
+    ok 3 - SubagentStop preserves running when subagents remain active
+      ---
+      duration_ms: 0.119597
+      type: 'test'
+      ...
+    # Subtest: Stop preserves running when parent has a pending tool_use
+    ok 4 - Stop preserves running when parent has a pending tool_use
+      ---
+      duration_ms: 0.114707
+      type: 'test'
+      ...
+    # Subtest: Stop calls detectState when no pending tool
+    ok 5 - Stop calls detectState when no pending tool
+      ---
+      duration_ms: 0.382511
+      type: 'test'
+      ...
+    # Subtest: Stop with pending tool but no existing state defaults to running
+    ok 6 - Stop with pending tool but no existing state defaults to running
+      ---
+      duration_ms: 0.113807
+      type: 'test'
+      ...
+    # Subtest: SubagentStop runs detectState when no subagents remain and no pending tool
+    ok 7 - SubagentStop runs detectState when no subagents remain and no pending tool
+      ---
+      duration_ms: 0.4284
+      type: 'test'
+      ...
+    1..7
+ok 11 - resolveStopState (JSONL-gated detect)
+  ---
+  duration_ms: 2.270231
+  type: 'suite'
+  ...
+# Subtest: detectState (Stop event path)
+    # Subtest: returns idle_prompt when pane buffer has prompt char and no question
+    ok 1 - returns idle_prompt when pane buffer has prompt char and no question
+      ---
+      duration_ms: 0.275654
+      type: 'test'
+      ...
+    # Subtest: returns question when last message ends with a question
+    ok 2 - returns question when last message ends with a question
+      ---
+      duration_ms: 0.113477
+      type: 'test'
+      ...
+    # Subtest: returns done when no prompt char and no question
+    ok 3 - returns done when no prompt char and no question
+      ---
+      duration_ms: 0.108787
+      type: 'test'
+      ...
+    # Subtest: handles null last_assistant_message without throwing
+    ok 4 - handles null last_assistant_message without throwing
+      ---
+      duration_ms: 0.102788
+      type: 'test'
+      ...
+    1..4
+ok 12 - detectState (Stop event path)
+  ---
+  duration_ms: 0.760444
+  type: 'suite'
+  ...
+# Subtest: isCommitOnMain
+    # Subtest: should block git commit on main/master
+        # Subtest: git commit -m "msg" on main
+        ok 1 - git commit -m "msg" on main
+          ---
+          duration_ms: 2.653152
+          type: 'test'
+          ...
+        # Subtest: git commit -am "msg" on main
+        ok 2 - git commit -am "msg" on main
+          ---
+          duration_ms: 0.253724
+          type: 'test'
+          ...
+        # Subtest: git commit on master
+        ok 3 - git commit on master
+          ---
+          duration_ms: 0.155227
+          type: 'test'
+          ...
+        # Subtest: chained: git add . && git commit -m "msg" on main
+        ok 4 - chained: git add . && git commit -m "msg" on main
+          ---
+          duration_ms: 3.290018
+          type: 'test'
+          ...
+        # Subtest: semicolon: git add .; git commit -m "msg" on main
+        ok 5 - semicolon: git add .; git commit -m "msg" on main
+          ---
+          duration_ms: 0.185036
+          type: 'test'
+          ...
+        1..5
+    ok 1 - should block git commit on main/master
+      ---
+      duration_ms: 7.493357
+      type: 'suite'
+      ...
+    # Subtest: should NOT block
+        # Subtest: git commit on feature branch
+        ok 1 - git commit on feature branch
+          ---
+          duration_ms: 0.380941
+          type: 'test'
+          ...
+        # Subtest: git commit on fix branch
+        ok 2 - git commit on fix branch
+          ---
+          duration_ms: 0.140937
+          type: 'test'
+          ...
+        # Subtest: git status on main
+        ok 3 - git status on main
+          ---
+          duration_ms: 0.345193
+          type: 'test'
+          ...
+        # Subtest: git log on main
+        ok 4 - git log on main
+          ---
+          duration_ms: 0.273535
+          type: 'test'
+          ...
+        # Subtest: git diff on main
+        ok 5 - git diff on main
+          ---
+          duration_ms: 0.315924
+          type: 'test'
+          ...
+        # Subtest: git push on main
+        ok 6 - git push on main
+          ---
+          duration_ms: 0.141707
+          type: 'test'
+          ...
+        # Subtest: echo "git commit" on main (not actual git)
+        ok 7 - echo "git commit" on main (not actual git)
+          ---
+          duration_ms: 0.108228
+          type: 'test'
+          ...
+        1..7
+    ok 2 - should NOT block
+      ---
+      duration_ms: 2.132554
+      type: 'suite'
+      ...
+    1..2
+ok 13 - isCommitOnMain
+  ---
+  duration_ms: 10.266687
+  type: 'suite'
+  ...
+# Subtest: hook integration: cwd resolution
+    # Subtest: uses input.cwd to resolve branch (feature branch → allowed)
+    ok 1 - uses input.cwd to resolve branch (feature branch → allowed)
+      ---
+      duration_ms: 126.053445
+      type: 'test'
+      ...
+    # Subtest: blocks when input.cwd points to a main branch repo
+    ok 2 - blocks when input.cwd points to a main branch repo
+      ---
+      duration_ms: 170.482471
+      type: 'test'
+      ...
+    # Subtest: emits "{}\\n" on stdout for non-blocking input (Codex JSON contract)
+    ok 3 - emits "{}\\n" on stdout for non-blocking input (Codex JSON contract)
+      ---
+      duration_ms: 44.626842
+      type: 'test'
+      ...
+    1..3
+ok 14 - hook integration: cwd resolution
+  ---
+  duration_ms: 449.589837
+  type: 'suite'
+  ...
+# Subtest: command parsing: the directory a commit actually runs in (Z5FAWK)
+    # Subtest: worktree commits are NOT blocked
+        # Subtest: plain commit in the main repo is blocked (control)
+        ok 1 - plain commit in the main repo is blocked (control)
+          ---
+          duration_ms: 188.51946
+          type: 'test'
+          ...
+        # Subtest: variable + cd in a later statement
+        ok 2 - variable + cd in a later statement
+          ---
+          duration_ms: 170.726427
+          type: 'test'
+          ...
+        # Subtest: cd after other statements
+        ok 3 - cd after other statements
+          ---
+          duration_ms: 108.554565
+          type: 'test'
+          ...
+        # Subtest: subshell: (cd worktree && commit)
+        ok 4 - subshell: (cd worktree && commit)
+          ---
+          duration_ms: 101.595727
+          type: 'test'
+          ...
+        # Subtest: git -C <worktree> commit
+        ok 5 - git -C <worktree> commit
+          ---
+          duration_ms: 103.430787
+          type: 'test'
+          ...
+        # Subtest: git -C "$W" commit with W set earlier
+        ok 6 - git -C "$W" commit with W set earlier
+          ---
+          duration_ms: 105.223037
+          type: 'test'
+          ...
+        # Subtest: relative leading cd into the worktree (resolved once)
+        ok 7 - relative leading cd into the worktree (resolved once)
+          ---
+          duration_ms: 96.095365
+          type: 'test'
+          ...
+        # Subtest: cd with a stderr redirect keeps its effect (2>&1 is not a background job)
+        ok 8 - cd with a stderr redirect keeps its effect (2>&1 is not a background job)
+          ---
+          duration_ms: 95.818841
+          type: 'test'
+          ...
+        # Subtest: cd followed by || still moves the shell
+        ok 9 - cd followed by || still moves the shell
+          ---
+          duration_ms: 93.693028
+          type: 'test'
+          ...
+        # Subtest: commit piped into another command runs where the shell is
+        ok 10 - commit piped into another command runs where the shell is
+          ---
+          duration_ms: 90.183603
+          type: 'test'
+          ...
+        # Subtest: unknown command before the cd, commit guarded by && (runs only after the cd)
+        ok 11 - unknown command before the cd, commit guarded by && (runs only after the cd)
+          ---
+          duration_ms: 81.409864
+          type: 'test'
+          ...
+        # Subtest: cd chain: main then worktree then commit
+        ok 12 - cd chain: main then worktree then commit
+          ---
+          duration_ms: 43.32629
+          type: 'test'
+          ...
+        # Subtest: pushd into the worktree
+        ok 13 - pushd into the worktree
+          ---
+          duration_ms: 88.396892
+          type: 'test'
+          ...
+        # Subtest: unresolvable variable is not judged (branch unknown -> pass)
+        ok 14 - unresolvable variable is not judged (branch unknown -> pass)
+          ---
+          duration_ms: 80.431835
+          type: 'test'
+          ...
+        1..14
+    ok 1 - worktree commits are NOT blocked
+      ---
+      duration_ms: 1448.378859
+      type: 'suite'
+      ...
+    # Subtest: real commits on main are still blocked
+        # Subtest: git -C <main repo> commit from a worktree session
+        ok 1 - git -C <main repo> commit from a worktree session
+          ---
+          duration_ms: 94.194717
+          type: 'test'
+          ...
+        # Subtest: cd to the worktree, then back to main, then commit
+        ok 2 - cd to the worktree, then back to main, then commit
+          ---
+          duration_ms: 45.048353
+          type: 'test'
+          ...
+        # Subtest: variable pointing at main with -C
+        ok 3 - variable pointing at main with -C
+          ---
+          duration_ms: 88.429742
+          type: 'test'
+          ...
+        # Subtest: a cd inside a subshell does not leak out
+        ok 4 - a cd inside a subshell does not leak out
+          ---
+          duration_ms: 82.390172
+          type: 'test'
+          ...
+        # Subtest: a cd in a pipeline does not move the parent shell (reviewer case)
+        ok 5 - a cd in a pipeline does not move the parent shell (reviewer case)
+          ---
+          duration_ms: 84.672183
+          type: 'test'
+          ...
+        # Subtest: a cd in a background job does not move the parent shell
+        ok 6 - a cd in a background job does not move the parent shell
+          ---
+          duration_ms: 45.027933
+          type: 'test'
+          ...
+        # Subtest: the later element of a pipeline is a subshell too
+        ok 7 - the later element of a pipeline is a subshell too
+          ---
+          duration_ms: 85.755169
+          type: 'test'
+          ...
+        # Subtest: a relative leading cd is applied once (not twice)
+        ok 8 - a relative leading cd is applied once (not twice)
+          ---
+          duration_ms: 81.434753
+          type: 'test'
+          ...
+        # Subtest: short-circuited cd: false && cd worktree; commit (reviewer case)
+        ok 9 - short-circuited cd: false && cd worktree; commit (reviewer case)
+          ---
+          duration_ms: 43.465227
+          type: 'test'
+          ...
+        # Subtest: short-circuited cd: true || cd worktree; commit (reviewer case)
+        ok 10 - short-circuited cd: true || cd worktree; commit (reviewer case)
+          ---
+          duration_ms: 73.824859
+          type: 'test'
+          ...
+        # Subtest: uncertain predecessor: make && cd worktree; commit (make may fail, commit stays in main)
+        ok 11 - uncertain predecessor: make && cd worktree; commit (make may fail, commit stays in main)
+          ---
+          duration_ms: 78.978556
+          type: 'test'
+          ...
+        # Subtest: single-quoted variable is literal, so the cd fails and the commit stays in main (reviewer case)
+        ok 12 - single-quoted variable is literal, so the cd fails and the commit stays in main (reviewer case)
+          ---
+          duration_ms: 45.109032
+          type: 'test'
+          ...
+        # Subtest: cd to a directory that does not exist leaves the shell where it was
+        ok 13 - cd to a directory that does not exist leaves the shell where it was
+          ---
+          duration_ms: 81.831825
+          type: 'test'
+          ...
+        # Subtest: cd - goes back (worktree session, cd main then back would be main)
+        ok 14 - cd - goes back (worktree session, cd main then back would be main)
+          ---
+          duration_ms: 85.822668
+          type: 'test'
+          ...
+        # Subtest: popd returns to main
+        ok 15 - popd returns to main
+          ---
+          duration_ms: 87.699908
+          type: 'test'
+          ...
+        # Subtest: commit after a shell keyword (if/then, do, !) is still a commit
+        ok 16 - commit after a shell keyword (if/then, do, !) is still a commit
+          ---
+          duration_ms: 43.243382
+          type: 'test'
+          ...
+        # Subtest: commit in a for loop body
+        ok 17 - commit in a for loop body
+          ---
+          duration_ms: 78.180195
+          type: 'test'
+          ...
+        # Subtest: sudo / nohup prefix still runs the commit
+        ok 18 - sudo / nohup prefix still runs the commit
+          ---
+          duration_ms: 73.110704
+          type: 'test'
+          ...
+        # Subtest: bash -c "..." runs a commit in a child shell
+        ok 19 - bash -c "..." runs a commit in a child shell
+          ---
+          duration_ms: 45.028883
+          type: 'test'
+          ...
+        # Subtest: bash -c with its own cd into the worktree is allowed
+        ok 20 - bash -c with its own cd into the worktree is allowed
+          ---
+          duration_ms: 76.445132
+          type: 'test'
+          ...
+        # Subtest: line continuation inside the git command
+        ok 21 - line continuation inside the git command
+          ---
+          duration_ms: 80.715189
+          type: 'test'
+          ...
+        # Subtest: one blocked commit among several is enough
+        ok 22 - one blocked commit among several is enough
+          ---
+          duration_ms: 86.794987
+          type: 'test'
+          ...
+        1..22
+    ok 2 - real commits on main are still blocked
+      ---
+      duration_ms: 1591.206881
+      type: 'suite'
+      ...
+    # Subtest: text is not a command
+        # Subtest: quoted mention with a semicolon
+        ok 1 - quoted mention with a semicolon
+          ---
+          duration_ms: 39.292828
+          type: 'test'
+          ...
+        # Subtest: heredoc body
+        ok 2 - heredoc body
+          ---
+          duration_ms: 79.514425
+          type: 'test'
+          ...
+        # Subtest: grep for the phrase
+        ok 3 - grep for the phrase
+          ---
+          duration_ms: 39.17085
+          type: 'test'
+          ...
+        # Subtest: shell comment hides the rest of the line (reviewer case)
+        ok 4 - shell comment hides the rest of the line (reviewer case)
+          ---
+          duration_ms: 69.867395
+          type: 'test'
+          ...
+        # Subtest: a comment on its own line, then a real commit on the next line, is still judged
+        ok 5 - a comment on its own line, then a real commit on the next line, is still judged
+          ---
+          duration_ms: 73.441077
+          type: 'test'
+          ...
+        # Subtest: a \# inside quotes or a $\# is not a comment
+        ok 6 - a \# inside quotes or a $\# is not a comment
+          ---
+          duration_ms: 38.565443
+          type: 'test'
+          ...
+        # Subtest: commit-like words that are not the git subcommand
+        ok 7 - commit-like words that are not the git subcommand
+          ---
+          duration_ms: 70.220996
+          type: 'test'
+          ...
+        1..7
+    ok 3 - text is not a command
+      ---
+      duration_ms: 410.589443
+      type: 'suite'
+      ...
+    # Subtest: commitTargets (pure)
+        # Subtest: finds the effective directory per commit
+        ok 1 - finds the effective directory per commit
+          ---
+          duration_ms: 2.021396
+          type: 'test'
+          ...
+        # Subtest: a cd to a missing directory fails: the directory stays
+        ok 2 - a cd to a missing directory fails: the directory stays
+          ---
+          duration_ms: 0.351182
+          type: 'test'
+          ...
+        # Subtest: a failed cd skips the && commit entirely (it never runs)
+        ok 3 - a failed cd skips the && commit entirely (it never runs)
+          ---
+          duration_ms: 0.187976
+          type: 'test'
+          ...
+        # Subtest: an uncertain cd keeps both possibilities
+        ok 4 - an uncertain cd keeps both possibilities
+          ---
+          duration_ms: 0.605147
+          type: 'test'
+          ...
+        # Subtest: relative -C resolves against the current directory
+        ok 5 - relative -C resolves against the current directory
+          ---
+          duration_ms: 0.294664
+          type: 'test'
+          ...
+        # Subtest: unknown variable -> BILINMEZ
+        ok 6 - unknown variable -> BILINMEZ
+          ---
+          duration_ms: 0.236955
+          type: 'test'
+          ...
+        # Subtest: no commit -> empty
+        ok 7 - no commit -> empty
+          ---
+          duration_ms: 0.149297
+          type: 'test'
+          ...
+        # Subtest: git config values and -c options are skipped
+        ok 8 - git config values and -c options are skipped
+          ---
+          duration_ms: 0.144837
+          type: 'test'
+          ...
+        1..8
+    ok 4 - commitTargets (pure)
+      ---
+      duration_ms: 4.411535
+      type: 'suite'
+      ...
+    1..4
+ok 15 - command parsing: the directory a commit actually runs in (Z5FAWK)
+  ---
+  duration_ms: 3460.452511
+  type: 'suite'
+  ...
+# Subtest: claim-worktree
+    # Subtest: claims the linked worktree marker and patches the current pane state
+    ok 1 - claims the linked worktree marker and patches the current pane state
+      ---
+      duration_ms: 7.471958
+      type: 'test'
+      ...
+    # Subtest: reaps stale markers before claiming
+    ok 2 - reaps stale markers before claiming
+      ---
+      duration_ms: 3.460305
+      type: 'test'
+      ...
+    # Subtest: overwrites a misaligned marker whose owner pinned a different worktree
+    ok 3 - overwrites a misaligned marker whose owner pinned a different worktree
+      ---
+      duration_ms: 2.201312
+      type: 'test'
+      ...
+    # Subtest: refuses to overwrite a marker whose owner legitimately pins this worktree
+    ok 4 - refuses to overwrite a marker whose owner legitimately pins this worktree
+      ---
+      duration_ms: 1.83357
+      type: 'test'
+      ...
+    # Subtest: clears stale branch when claiming a detached linked worktree
+    ok 5 - clears stale branch when claiming a detached linked worktree
+      ---
+      duration_ms: 3.118813
+      type: 'test'
+      ...
+    1..5
+ok 16 - claim-worktree
+  ---
+  duration_ms: 19.37794
+  type: 'suite'
+  ...
+# Subtest: extractCommitMessage
+    # Subtest: extracts from double-quoted -m
+    ok 1 - extracts from double-quoted -m
+      ---
+      duration_ms: 1.243383
+      type: 'test'
+      ...
+    # Subtest: extracts from single-quoted -m
+    ok 2 - extracts from single-quoted -m
+      ---
+      duration_ms: 0.506549
+      type: 'test'
+      ...
+    # Subtest: extracts from HEREDOC pattern
+    ok 3 - extracts from HEREDOC pattern
+      ---
+      duration_ms: 0.167786
+      type: 'test'
+      ...
+    # Subtest: handles git commit with flags before -m
+    ok 4 - handles git commit with flags before -m
+      ---
+      duration_ms: 0.519839
+      type: 'test'
+      ...
+    # Subtest: returns null for commands without -m
+    ok 5 - returns null for commands without -m
+      ---
+      duration_ms: 0.240315
+      type: 'test'
+      ...
+    # Subtest: returns null for non-commit commands
+    ok 6 - returns null for non-commit commands
+      ---
+      duration_ms: 0.141507
+      type: 'test'
+      ...
+    1..6
+ok 17 - extractCommitMessage
+  ---
+  duration_ms: 6.219325
+  type: 'suite'
+  ...
+# Subtest: validateCommitMessage
+    # Subtest: accepts all valid types
+    ok 1 - accepts all valid types
+      ---
+      duration_ms: 0.588967
+      type: 'test'
+      ...
+    # Subtest: rejects missing type prefix
+    ok 2 - rejects missing type prefix
+      ---
+      duration_ms: 1.999506
+      type: 'test'
+      ...
+    # Subtest: rejects invalid type
+    ok 3 - rejects invalid type
+      ---
+      duration_ms: 0.380312
+      type: 'test'
+      ...
+    # Subtest: rejects missing space after colon
+    ok 4 - rejects missing space after colon
+      ---
+      duration_ms: 0.365202
+      type: 'test'
+      ...
+    # Subtest: rejects empty description after type
+    ok 5 - rejects empty description after type
+      ---
+      duration_ms: 0.144447
+      type: 'test'
+      ...
+    # Subtest: validates only first line of multi-line message
+    ok 6 - validates only first line of multi-line message
+      ---
+      duration_ms: 0.117378
+      type: 'test'
+      ...
+    # Subtest: returns invalid for null message
+    ok 7 - returns invalid for null message
+      ---
+      duration_ms: 0.176506
+      type: 'test'
+      ...
+    1..7
+ok 18 - validateCommitMessage
+  ---
+  duration_ms: 4.357666
+  type: 'suite'
+  ...
+# Subtest: hook integration
+    # Subtest: signals exit 2 for a non-conventional commit message
+    ok 1 - signals exit 2 for a non-conventional commit message
+      ---
+      duration_ms: 92.267528
+      type: 'test'
+      ...
+    # Subtest: emits {} and exits 0 for a conventional commit message
+    ok 2 - emits {} and exits 0 for a conventional commit message
+      ---
+      duration_ms: 89.568807
+      type: 'test'
+      ...
+    # Subtest: emits {} for non-commit commands
+    ok 3 - emits {} for non-commit commands
+      ---
+      duration_ms: 107.86471
+      type: 'test'
+      ...
+    1..3
+ok 19 - hook integration
+  ---
+  duration_ms: 290.921529
+  type: 'suite'
+  ...
+# Subtest: shouldAlert
+    # Subtest: does not alert for Codex rate-limit stop failures
+    ok 1 - does not alert for Codex rate-limit stop failures
+      ---
+      duration_ms: 0.782493
+      type: 'test'
+      ...
+    1..1
+ok 20 - shouldAlert
+  ---
+  duration_ms: 2.520895
+  type: 'suite'
+  ...
+# Subtest: buildBody
+    # Subtest: uses pending request_user_input text and branch for elicitation notifications
+    ok 1 - uses pending request_user_input text and branch for elicitation notifications
+      ---
+      duration_ms: 1.975387
+      type: 'test'
+      ...
+    # Subtest: falls back to notification message when pending question is unavailable
+    ok 2 - falls back to notification message when pending question is unavailable
+      ---
+      duration_ms: 0.233885
+      type: 'test'
+      ...
+    # Subtest: compacts long branch names before the question
+    ok 3 - compacts long branch names before the question
+      ---
+      duration_ms: 0.94803
+      type: 'test'
+      ...
+    1..3
+ok 21 - buildBody
+  ---
+  duration_ms: 3.514214
+  type: 'suite'
+  ...
+# Subtest: readEffortConfig
+    # Subtest: returns defaults when settings.toml is missing
+    ok 1 - returns defaults when settings.toml is missing
+      ---
+      duration_ms: 2.367499
+      type: 'test'
+      ...
+    # Subtest: returns defaults when [effort] section is absent
+    ok 2 - returns defaults when [effort] section is absent
+      ---
+      duration_ms: 2.012807
+      type: 'test'
+      ...
+    # Subtest: returns the user-set plan and default from [effort]
+    ok 3 - returns the user-set plan and default from [effort]
+      ---
+      duration_ms: 1.071276
+      type: 'test'
+      ...
+    # Subtest: falls back per-key when [effort] is partial
+    ok 4 - falls back per-key when [effort] is partial
+      ---
+      duration_ms: 1.074587
+      type: 'test'
+      ...
+    # Subtest: isolates [effort] keys from later sections
+    ok 5 - isolates [effort] keys from later sections
+      ---
+      duration_ms: 1.104996
+      type: 'test'
+      ...
+    # Subtest: returns defaults when [effort] keys appear before the section header
+    ok 6 - returns defaults when [effort] keys appear before the section header
+      ---
+      duration_ms: 0.786403
+      type: 'test'
+      ...
+    # Subtest: returns defaults on read error
+    ok 7 - returns defaults on read error
+      ---
+      duration_ms: 2.091074
+      type: 'test'
+      ...
+    1..7
+ok 22 - readEffortConfig
+  ---
+  duration_ms: 13.123486
+  type: 'suite'
+  ...
+# Subtest: codex global hook bundle
+    # Subtest: defines only synchronous hooks
+    ok 1 - defines only synchronous hooks
+      ---
+      duration_ms: 0.962149
+      type: 'test'
+      ...
+    # Subtest: uses stable global wrapper commands
+    ok 2 - uses stable global wrapper commands
+      ---
+      duration_ms: 0.868702
+      type: 'test'
+      ...
+    # Subtest: registers codex subagent lifecycle events
+    ok 3 - registers codex subagent lifecycle events
+      ---
+      duration_ms: 1.303311
+      type: 'test'
+      ...
+    # Subtest: ships wrappers and runtime files required by the hook commands
+    ok 4 - ships wrappers and runtime files required by the hook commands
+      ---
+      duration_ms: 2.242141
+      type: 'test'
+      ...
+    # Subtest: keeps the agent-state package in lock-step with the claude-code copy
+    ok 5 - keeps the agent-state package in lock-step with the claude-code copy
+      ---
+      duration_ms: 0.753483
+      type: 'test'
+      ...
+    # Subtest: registers PR skill detection on user prompt submit
+    ok 6 - registers PR skill detection on user prompt submit
+      ---
+      duration_ms: 0.286804
+      type: 'test'
+      ...
+    # Subtest: registers desktop notifications for attention events
+    ok 7 - registers desktop notifications for attention events
+      ---
+      duration_ms: 0.348843
+      type: 'test'
+      ...
+    # Subtest: keeps the copied codex source folder flat
+    ok 8 - keeps the copied codex source folder flat
+      ---
+      duration_ms: 0.289693
+      type: 'test'
+      ...
+    1..8
+ok 23 - codex global hook bundle
+  ---
+  duration_ms: 8.493836
+  type: 'suite'
+  ...
+# Subtest: codex hook manifests reject unknown top-level fields
+    # Subtest: hooks.json declares only "hooks" at the top level
+    ok 1 - hooks.json declares only "hooks" at the top level
+      ---
+      duration_ms: 0.45214
+      type: 'test'
+      ...
+    # Subtest: plugin-hooks.json declares only "hooks" at the top level
+    ok 2 - plugin-hooks.json declares only "hooks" at the top level
+      ---
+      duration_ms: 0.368252
+      type: 'test'
+      ...
+    1..2
+ok 24 - codex hook manifests reject unknown top-level fields
+  ---
+  duration_ms: 1.042088
+  type: 'suite'
+  ...
+# Subtest: codex hook manifests reject unknown hook-entry fields
+    # Subtest: hooks.json uses only codex hook config fields
+    ok 1 - hooks.json uses only codex hook config fields
+      ---
+      duration_ms: 1.491998
+      type: 'test'
+      ...
+    # Subtest: plugin-hooks.json uses only codex hook config fields
+    ok 2 - plugin-hooks.json uses only codex hook config fields
+      ---
+      duration_ms: 0.281034
+      type: 'test'
+      ...
+    1..2
+ok 25 - codex hook manifests reject unknown hook-entry fields
+  ---
+  duration_ms: 1.884169
+  type: 'suite'
+  ...
+# Subtest: codex hook stdout contract
+    # Subtest: agent-state-fast.js emits valid JSON on stdout for PreToolUse
+    ok 1 - agent-state-fast.js emits valid JSON on stdout for PreToolUse
+      ---
+      duration_ms: 258.13621
+      type: 'test'
+      ...
+    # Subtest: agent-state-fast.js emits valid JSON on stdout for PostToolUse
+    ok 2 - agent-state-fast.js emits valid JSON on stdout for PostToolUse
+      ---
+      duration_ms: 220.192343
+      type: 'test'
+      ...
+    # Subtest: agent-state-fast.js emits valid JSON on stdout for PermissionRequest
+    ok 3 - agent-state-fast.js emits valid JSON on stdout for PermissionRequest
+      ---
+      duration_ms: 209.418707
+      type: 'test'
+      ...
+    # Subtest: agent-state-reporter.js emits valid JSON on stdout for SessionStart
+    ok 4 - agent-state-reporter.js emits valid JSON on stdout for SessionStart
+      ---
+      duration_ms: 274.225901
+      type: 'test'
+      ...
+    # Subtest: agent-state-reporter.js emits valid JSON on stdout for Stop
+    ok 5 - agent-state-reporter.js emits valid JSON on stdout for Stop
+      ---
+      duration_ms: 234.435825
+      type: 'test'
+      ...
+    # Subtest: block-main-commit.js emits valid JSON on stdout for a no-op tool call
+    ok 6 - block-main-commit.js emits valid JSON on stdout for a no-op tool call
+      ---
+      duration_ms: 81.052282
+      type: 'test'
+      ...
+    # Subtest: commit-lint.js emits valid JSON on stdout for a no-op tool call
+    ok 7 - commit-lint.js emits valid JSON on stdout for a no-op tool call
+      ---
+      duration_ms: 82.716035
+      type: 'test'
+      ...
+    # Subtest: pr-detect.js emits valid JSON on stdout for a no-op tool call
+    ok 8 - pr-detect.js emits valid JSON on stdout for a no-op tool call
+      ---
+      duration_ms: 92.909065
+      type: 'test'
+      ...
+    # Subtest: pr-skill-gate.js emits valid JSON on stdout for a no-op tool call
+    ok 9 - pr-skill-gate.js emits valid JSON on stdout for a no-op tool call
+      ---
+      duration_ms: 39.101542
+      type: 'test'
+      ...
+    # Subtest: test-gate.js emits valid JSON on stdout for a no-op tool call
+    ok 10 - test-gate.js emits valid JSON on stdout for a no-op tool call
+      ---
+      duration_ms: 72.897949
+      type: 'test'
+      ...
+    # Subtest: warn-destructive.js emits valid JSON on stdout for a no-op tool call
+    ok 11 - warn-destructive.js emits valid JSON on stdout for a no-op tool call
+      ---
+      duration_ms: 91.270241
+      type: 'test'
+      ...
+    # Subtest: pr-skill-detect.js emits valid JSON on stdout for UserPromptSubmit
+    ok 12 - pr-skill-detect.js emits valid JSON on stdout for UserPromptSubmit
+      ---
+      duration_ms: 46.56676
+      type: 'test'
+      ...
+    # Subtest: desktop-notify.js emits valid JSON on stdout for Notification
+    ok 13 - desktop-notify.js emits valid JSON on stdout for Notification
+      ---
+      duration_ms: 110.932184
+      type: 'test'
+      ...
+    # Subtest: desktop-notify.js emits valid JSON on stdout for StopFailure
+    ok 14 - desktop-notify.js emits valid JSON on stdout for StopFailure
+      ---
+      duration_ms: 86.365807
+      type: 'test'
+      ...
+    1..14
+ok 26 - codex hook stdout contract
+  ---
+  duration_ms: 1902.810451
+  type: 'suite'
+  ...
+# Subtest: schema/validateAgent
+    # Subtest: rejects null and non-objects
+    ok 1 - rejects null and non-objects
+      ---
+      duration_ms: 2.110135
+      type: 'test'
+      ...
+    # Subtest: rejects missing target
+    ok 2 - rejects missing target
+      ---
+      duration_ms: 0.688145
+      type: 'test'
+      ...
+    # Subtest: rejects missing session_id
+    ok 3 - rejects missing session_id
+      ---
+      duration_ms: 0.797723
+      type: 'test'
+      ...
+    # Subtest: rejects invalid state
+    ok 4 - rejects invalid state
+      ---
+      duration_ms: 2.160314
+      type: 'test'
+      ...
+    # Subtest: accepts valid agent with both target and session_id
+    ok 5 - accepts valid agent with both target and session_id
+      ---
+      duration_ms: 0.960239
+      type: 'test'
+      ...
+    1..5
+ok 27 - schema/validateAgent
+  ---
+  duration_ms: 9.776188
+  type: 'suite'
+  ...
+# Subtest: schema/validateState
+    # Subtest: returns empty state for null input
+    ok 1 - returns empty state for null input
+      ---
+      duration_ms: 2.568394
+      type: 'test'
+      ...
+    # Subtest: filters out invalid agents
+    ok 2 - filters out invalid agents
+      ---
+      duration_ms: 1.462878
+      type: 'test'
+      ...
+    1..2
+ok 28 - schema/validateState
+  ---
+  duration_ms: 4.477203
+  type: 'suite'
+  ...
+# Subtest: schema/sortAgentsByPriority
+    # Subtest: sorts blocked, then waiting, then running, then review
+    ok 1 - sorts blocked, then waiting, then running, then review
+      ---
+      duration_ms: 16.757426
+      type: 'test'
+      ...
+    1..1
+ok 29 - schema/sortAgentsByPriority
+  ---
+  duration_ms: 17.001551
+  type: 'suite'
+  ...
+# Subtest: detect/scoreMessage
+    # Subtest: returns 0 for null/empty
+    ok 1 - returns 0 for null/empty
+      ---
+      duration_ms: 1.530017
+      type: 'test'
+      ...
+    # Subtest: scores questions ending with ?
+    ok 2 - scores questions ending with ?
+      ---
+      duration_ms: 0.947359
+      type: 'test'
+      ...
+    # Subtest: scores question patterns
+    ok 3 - scores question patterns
+      ---
+      duration_ms: 1.165954
+      type: 'test'
+      ...
+    # Subtest: returns 0 for non-question statements
+    ok 4 - returns 0 for non-question statements
+      ---
+      duration_ms: 2.362538
+      type: 'test'
+      ...
+    1..4
+ok 30 - detect/scoreMessage
+  ---
+  duration_ms: 7.054007
+  type: 'suite'
+  ...
+# Subtest: detect/scorePaneBuffer
+    # Subtest: returns 0 for empty buffer
+    ok 1 - returns 0 for empty buffer
+      ---
+      duration_ms: 1.80022
+      type: 'test'
+      ...
+    # Subtest: detects > prompt
+    ok 2 - detects > prompt
+      ---
+      duration_ms: 2.124334
+      type: 'test'
+      ...
+    # Subtest: detects $ prompt
+    ok 3 - detects $ prompt
+      ---
+      duration_ms: 0.301443
+      type: 'test'
+      ...
+    # Subtest: returns 0 for normal output lines
+    ok 4 - returns 0 for normal output lines
+      ---
+      duration_ms: 35.823633
+      type: 'test'
+      ...
+    # Subtest: detects plan approval menu with ❯ selector
+    ok 5 - detects plan approval menu with ❯ selector
+      ---
+      duration_ms: 0.952849
+      type: 'test'
+      ...
+    # Subtest: detects ❯ anywhere in line, not just at end
+    ok 6 - detects ❯ anywhere in line, not just at end
+      ---
+      duration_ms: 0.391702
+      type: 'test'
+      ...
+    # Subtest: detects human: prompt
+    ok 7 - detects human: prompt
+      ---
+      duration_ms: 0.49083
+      type: 'test'
+      ...
+    1..7
+ok 31 - detect/scorePaneBuffer
+  ---
+  duration_ms: 42.170376
+  type: 'suite'
+  ...
+# Subtest: detect/detectState
+    # Subtest: returns question when message has question and pane has prompt
+    ok 1 - returns question when message has question and pane has prompt
+      ---
+      duration_ms: 0.358062
+      type: 'test'
+      ...
+    # Subtest: returns question when only message has question
+    ok 2 - returns question when only message has question
+      ---
+      duration_ms: 2.512526
+      type: 'test'
+      ...
+    # Subtest: returns idle_prompt when pane shows prompt without question
+    ok 3 - returns idle_prompt when pane shows prompt without question
+      ---
+      duration_ms: 0.584668
+      type: 'test'
+      ...
+    # Subtest: returns question when message is a question even with plan approval pane
+    ok 4 - returns question when message is a question even with plan approval pane
+      ---
+      duration_ms: 0.496189
+      type: 'test'
+      ...
+    # Subtest: returns done when no signals
+    ok 5 - returns done when no signals
+      ---
+      duration_ms: 0.46552
+      type: 'test'
+      ...
+    1..5
+ok 32 - detect/detectState
+  ---
+  duration_ms: 4.655049
+  type: 'suite'
+  ...
+# Subtest: readAgentState
+    # Subtest: returns null when agent file does not exist
+    ok 1 - returns null when agent file does not exist
+      ---
+      duration_ms: 0.604057
+      type: 'test'
+      ...
+    # Subtest: reads agent state from per-agent file by session_id
+    ok 2 - reads agent state from per-agent file by session_id
+      ---
+      duration_ms: 3.597602
+      type: 'test'
+      ...
+    # Subtest: handles corrupted JSON gracefully
+    ok 3 - handles corrupted JSON gracefully
+      ---
+      duration_ms: 2.180903
+      type: 'test'
+      ...
+    1..3
+ok 33 - readAgentState
+  ---
+  duration_ms: 6.565887
+  type: 'suite'
+  ...
+# Subtest: writeState
+    # Subtest: creates agents directory and file if they do not exist
+    ok 1 - creates agents directory and file if they do not exist
+      ---
+      duration_ms: 3.003505
+      type: 'test'
+      ...
+    # Subtest: merges updates into existing agent file
+    ok 2 - merges updates into existing agent file
+      ---
+      duration_ms: 1.782441
+      type: 'test'
+      ...
+    # Subtest: writes separate files for different sessions
+    ok 3 - writes separate files for different sessions
+      ---
+      duration_ms: 2.899847
+      type: 'test'
+      ...
+    1..3
+ok 34 - writeState
+  ---
+  duration_ms: 7.908759
+  type: 'suite'
+  ...
+# Subtest: readAllState
+    # Subtest: returns empty state when directory does not exist
+    ok 1 - returns empty state when directory does not exist
+      ---
+      duration_ms: 1.272502
+      type: 'test'
+      ...
+    # Subtest: reads all agent files from directory keyed by session_id
+    ok 2 - reads all agent files from directory keyed by session_id
+      ---
+      duration_ms: 3.482255
+      type: 'test'
+      ...
+    # Subtest: skips non-json files and invalid agents
+    ok 3 - skips non-json files and invalid agents
+      ---
+      duration_ms: 1.728412
+      type: 'test'
+      ...
+    1..3
+ok 35 - readAllState
+  ---
+  duration_ms: 6.746303
+  type: 'suite'
+  ...
+# Subtest: removeAgent
+    # Subtest: removes an agent file by session_id
+    ok 1 - removes an agent file by session_id
+      ---
+      duration_ms: 1.739042
+      type: 'test'
+      ...
+    # Subtest: does not throw when file does not exist
+    ok 2 - does not throw when file does not exist
+      ---
+      duration_ms: 0.685765
+      type: 'test'
+      ...
+    1..2
+ok 36 - removeAgent
+  ---
+  duration_ms: 2.608654
+  type: 'suite'
+  ...
+# Subtest: writeState concurrent (per-agent files)
+    # Subtest: does not lose updates under concurrent multi-process writes
+    ok 1 - does not lose updates under concurrent multi-process writes
+      ---
+      duration_ms: 272.108647
+      type: 'test'
+      ...
+    # Subtest: preserves every field under concurrent writes to the SAME session_id
+    ok 2 - preserves every field under concurrent writes to the SAME session_id
+      ---
+      duration_ms: 349.731403
+      type: 'test'
+      ...
+    1..2
+ok 37 - writeState concurrent (per-agent files)
+  ---
+  duration_ms: 622.081705
+  type: 'suite'
+  ...
+# Subtest: writeState guardStates
+    # Subtest: skips write when on-disk state matches guardStates
+    ok 1 - skips write when on-disk state matches guardStates
+      ---
+      duration_ms: 1.322971
+      type: 'test'
+      ...
+    # Subtest: allows write when on-disk state does not match guardStates
+    ok 2 - allows write when on-disk state does not match guardStates
+      ---
+      duration_ms: 45.18921
+      type: 'test'
+      ...
+    # Subtest: allows write when guardStates is not provided
+    ok 3 - allows write when guardStates is not provided
+      ---
+      duration_ms: 1.610685
+      type: 'test'
+      ...
+    # Subtest: preserves guarded state while merging non-state fields when requested
+    ok 4 - preserves guarded state while merging non-state fields when requested
+      ---
+      duration_ms: 2.871438
+      type: 'test'
+      ...
+    1..4
+ok 38 - writeState guardStates
+  ---
+  duration_ms: 51.253568
+  type: 'suite'
+  ...
+# Subtest: writeState report_seq ordering
+    # Subtest: drops a write with a strictly-older report_seq
+    ok 1 - drops a write with a strictly-older report_seq
+      ---
+      duration_ms: 1.662244
+      type: 'test'
+      ...
+    # Subtest: applies a write with a newer report_seq
+    ok 2 - applies a write with a newer report_seq
+      ---
+      duration_ms: 2.504476
+      type: 'test'
+      ...
+    # Subtest: rejects a stale running after a newer idle_prompt with no guardStates
+    ok 3 - rejects a stale running after a newer idle_prompt with no guardStates
+      ---
+      duration_ms: 1.84108
+      type: 'test'
+      ...
+    # Subtest: merges older preserved guarded-state metadata without moving report_seq backward
+    ok 4 - merges older preserved guarded-state metadata without moving report_seq backward
+      ---
+      duration_ms: 1.798581
+      type: 'test'
+      ...
+    # Subtest: allows a write with an equal report_seq (not strictly older)
+    ok 5 - allows a write with an equal report_seq (not strictly older)
+      ---
+      duration_ms: 1.610105
+      type: 'test'
+      ...
+    # Subtest: allows a write when report_seq is absent (degrades to current behavior)
+    ok 6 - allows a write when report_seq is absent (degrades to current behavior)
+      ---
+      duration_ms: 3.185871
+      type: 'test'
+      ...
+    1..6
+ok 39 - writeState report_seq ordering
+  ---
+  duration_ms: 12.93425
+  type: 'suite'
+  ...
+# Subtest: writeState report_seq freeze guard
+    # Subtest: self-heals when the on-disk report_seq is implausibly far in the future
+    ok 1 - self-heals when the on-disk report_seq is implausibly far in the future
+      ---
+      duration_ms: 2.031336
+      type: 'test'
+      ...
+    # Subtest: ignores a non-finite (Infinity) on-disk report_seq
+    ok 2 - ignores a non-finite (Infinity) on-disk report_seq
+      ---
+      duration_ms: 3.901236
+      type: 'test'
+      ...
+    1..2
+ok 40 - writeState report_seq freeze guard
+  ---
+  duration_ms: 6.065869
+  type: 'suite'
+  ...
+# Subtest: cleanStale
+    # Subtest: removes agent files older than threshold
+    ok 1 - removes agent files older than threshold
+      ---
+      duration_ms: 3.738939
+      type: 'test'
+      ...
+    # Subtest: no-ops when no stale agents
+    ok 2 - no-ops when no stale agents
+      ---
+      duration_ms: 1.276172
+      type: 'test'
+      ...
+    # Subtest: no-ops when directory does not exist
+    ok 3 - no-ops when directory does not exist
+      ---
+      duration_ms: 0.405712
+      type: 'test'
+      ...
+    1..3
+ok 41 - cleanStale
+  ---
+  duration_ms: 5.578019
+  type: 'suite'
+  ...
+# Subtest: packages/git-status
+    # Subtest: findMergeBase
+        # Subtest: returns merge-base commit hash when main exists
+        ok 1 - returns merge-base commit hash when main exists
+          ---
+          duration_ms: 2.79635
+          type: 'test'
+          ...
+        # Subtest: falls back to master when main does not exist
+        ok 2 - falls back to master when main does not exist
+          ---
+          duration_ms: 0.624397
+          type: 'test'
+          ...
+        # Subtest: prefers origin/main over local main
+        ok 3 - prefers origin/main over local main
+          ---
+          duration_ms: 0.552198
+          type: 'test'
+          ...
+        # Subtest: falls back to local main when origin/main is unavailable
+        ok 4 - falls back to local main when origin/main is unavailable
+          ---
+          duration_ms: 0.556358
+          type: 'test'
+          ...
+        # Subtest: prefers origin/master over local master when no main exists
+        ok 5 - prefers origin/master over local master when no main exists
+          ---
+          duration_ms: 0.45373
+          type: 'test'
+          ...
+        # Subtest: returns null when neither main nor master exists
+        ok 6 - returns null when neither main nor master exists
+          ---
+          duration_ms: 0.452561
+          type: 'test'
+          ...
+        1..6
+    ok 1 - findMergeBase
+      ---
+      duration_ms: 6.482089
+      type: 'suite'
+      ...
+    # Subtest: getChangedFiles
+        # Subtest: returns empty array for null cwd
+        ok 1 - returns empty array for null cwd
+          ---
+          duration_ms: 1.112766
+          type: 'test'
+          ...
+        # Subtest: parses git diff output with correct prefixes
+        ok 2 - parses git diff output with correct prefixes
+          ---
+          duration_ms: 1.056187
+          type: 'test'
+          ...
+        # Subtest: falls back to HEAD when no merge-base found
+        ok 3 - falls back to HEAD when no merge-base found
+          ---
+          duration_ms: 0.690595
+          type: 'test'
+          ...
+        # Subtest: handles renames
+        ok 4 - handles renames
+          ---
+          duration_ms: 0.630887
+          type: 'test'
+          ...
+        # Subtest: returns empty array when git fails
+        ok 5 - returns empty array when git fails
+          ---
+          duration_ms: 0.417871
+          type: 'test'
+          ...
+        1..5
+    ok 2 - getChangedFiles
+      ---
+      duration_ms: 5.476062
+      type: 'suite'
+      ...
+    # Subtest: getBranch
+        # Subtest: returns null for null cwd
+        ok 1 - returns null for null cwd
+          ---
+          duration_ms: 0.428971
+          type: 'test'
+          ...
+        # Subtest: returns branch name
+        ok 2 - returns branch name
+          ---
+          duration_ms: 0.326713
+          type: 'test'
+          ...
+        # Subtest: returns null when git fails
+        ok 3 - returns null when git fails
+          ---
+          duration_ms: 0.306814
+          type: 'test'
+          ...
+        1..3
+    ok 3 - getBranch
+      ---
+      duration_ms: 1.198984
+      type: 'suite'
+      ...
+    # Subtest: extractCwdFromCommand
+        # Subtest: extracts absolute path from cd /path && cmd
+        ok 1 - extracts absolute path from cd /path && cmd
+          ---
+          duration_ms: 0.569198
+          type: 'test'
+          ...
+        # Subtest: extracts double-quoted path with spaces
+        ok 2 - extracts double-quoted path with spaces
+          ---
+          duration_ms: 0.171206
+          type: 'test'
+          ...
+        # Subtest: extracts single-quoted absolute path
+        ok 3 - extracts single-quoted absolute path
+          ---
+          duration_ms: 0.100878
+          type: 'test'
+          ...
+        # Subtest: extracts path with semicolon separator
+        ok 4 - extracts path with semicolon separator
+          ---
+          duration_ms: 0.102858
+          type: 'test'
+          ...
+        # Subtest: extracts path with || separator
+        ok 5 - extracts path with || separator
+          ---
+          duration_ms: 0.150967
+          type: 'test'
+          ...
+        # Subtest: returns null for relative path
+        ok 6 - returns null for relative path
+          ---
+          duration_ms: 0.101067
+          type: 'test'
+          ...
+        # Subtest: returns null when no cd prefix
+        ok 7 - returns null when no cd prefix
+          ---
+          duration_ms: 0.098878
+          type: 'test'
+          ...
+        # Subtest: returns null for null input
+        ok 8 - returns null for null input
+          ---
+          duration_ms: 0.100888
+          type: 'test'
+          ...
+        # Subtest: returns null for empty string
+        ok 9 - returns null for empty string
+          ---
+          duration_ms: 0.098187
+          type: 'test'
+          ...
+        # Subtest: extracts path when cd is the only command
+        ok 10 - extracts path when cd is the only command
+          ---
+          duration_ms: 0.100698
+          type: 'test'
+          ...
+        1..10
+    ok 4 - extractCwdFromCommand
+      ---
+      duration_ms: 1.966247
+      type: 'suite'
+      ...
+    1..4
+ok 42 - packages/git-status
+  ---
+  duration_ms: 15.999303
+  type: 'suite'
+  ...
+# Subtest: packages/tmux
+    # Subtest: capture
+        # Subtest: returns empty array when tmux fails
+        ok 1 - returns empty array when tmux fails
+          ---
+          duration_ms: 2.077675
+          type: 'test'
+          ...
+        # Subtest: returns empty array when spawnSync throws
+        ok 2 - returns empty array when spawnSync throws
+          ---
+          duration_ms: 0.623597
+          type: 'test'
+          ...
+        # Subtest: splits stdout into lines
+        ok 3 - splits stdout into lines
+          ---
+          duration_ms: 39.710008
+          type: 'test'
+          ...
+        1..3
+    ok 1 - capture
+      ---
+      duration_ms: 44.363868
+      type: 'suite'
+      ...
+    # Subtest: jump
+        # Subtest: calls select-window and select-pane with correct targets
+        ok 1 - calls select-window and select-pane with correct targets
+          ---
+          duration_ms: 0.785633
+          type: 'test'
+          ...
+        # Subtest: returns false when target does not exist
+        ok 2 - returns false when target does not exist
+          ---
+          duration_ms: 0.492469
+          type: 'test'
+          ...
+        # Subtest: returns false when spawnSync throws
+        ok 3 - returns false when spawnSync throws
+          ---
+          duration_ms: 0.567428
+          type: 'test'
+          ...
+        # Subtest: handles target without pane index
+        ok 4 - handles target without pane index
+          ---
+          duration_ms: 0.589398
+          type: 'test'
+          ...
+        1..4
+    ok 2 - jump
+      ---
+      duration_ms: 2.914857
+      type: 'suite'
+      ...
+    # Subtest: sendKeys
+        # Subtest: sends text with Enter to target pane
+        ok 1 - sends text with Enter to target pane
+          ---
+          duration_ms: 3.23101
+          type: 'test'
+          ...
+        # Subtest: returns false when target does not exist
+        ok 2 - returns false when target does not exist
+          ---
+          duration_ms: 0.617957
+          type: 'test'
+          ...
+        1..2
+    ok 3 - sendKeys
+      ---
+      duration_ms: 4.353836
+      type: 'suite'
+      ...
+    # Subtest: listPanes
+        # Subtest: parses tmux list-panes output
+        ok 1 - parses tmux list-panes output
+          ---
+          duration_ms: 0.673195
+          type: 'test'
+          ...
+        # Subtest: returns empty array when tmux not available
+        ok 2 - returns empty array when tmux not available
+          ---
+          duration_ms: 0.374342
+          type: 'test'
+          ...
+        1..2
+    ok 4 - listPanes
+      ---
+      duration_ms: 1.241043
+      type: 'suite'
+      ...
+    # Subtest: getTarget
+        # Subtest: returns null for empty paneId
+        ok 1 - returns null for empty paneId
+          ---
+          duration_ms: 0.351992
+          type: 'test'
+          ...
+        # Subtest: resolves pane id to full target
+        ok 2 - resolves pane id to full target
+          ---
+          duration_ms: 0.372931
+          type: 'test'
+          ...
+        1..2
+    ok 5 - getTarget
+      ---
+      duration_ms: 0.855761
+      type: 'suite'
+      ...
+    # Subtest: isAvailable
+        # Subtest: returns false when tmux is not running
+        ok 1 - returns false when tmux is not running
+          ---
+          duration_ms: 0.570387
+          type: 'test'
+          ...
+        # Subtest: returns false when spawnSync throws
+        ok 2 - returns false when spawnSync throws
+          ---
+          duration_ms: 0.366712
+          type: 'test'
+          ...
+        # Subtest: returns true when tmux is running
+        ok 3 - returns true when tmux is running
+          ---
+          duration_ms: 0.339813
+          type: 'test'
+          ...
+        1..3
+    ok 6 - isAvailable
+      ---
+      duration_ms: 1.417719
+      type: 'suite'
+      ...
+    # Subtest: extractSessionWindow
+        # Subtest: extracts session:window from simple target
+        ok 1 - extracts session:window from simple target
+          ---
+          duration_ms: 0.370722
+          type: 'test'
+          ...
+        # Subtest: handles session names with dots
+        ok 2 - handles session names with dots
+          ---
+          duration_ms: 0.270465
+          type: 'test'
+          ...
+        # Subtest: returns input when no dot present
+        ok 3 - returns input when no dot present
+          ---
+          duration_ms: 1.469238
+          type: 'test'
+          ...
+        1..3
+    ok 7 - extractSessionWindow
+      ---
+      duration_ms: 2.267071
+      type: 'suite'
+      ...
+    # Subtest: getPaneId
+        # Subtest: returns TMUX_PANE when set
+        ok 1 - returns TMUX_PANE when set
+          ---
+          duration_ms: 0.44854
+          type: 'test'
+          ...
+        # Subtest: falls back to tmux display-message when TMUX_PANE is empty
+        ok 2 - falls back to tmux display-message when TMUX_PANE is empty
+          ---
+          duration_ms: 0.354002
+          type: 'test'
+          ...
+        # Subtest: returns null when TMUX_PANE is empty and tmux fails
+        ok 3 - returns null when TMUX_PANE is empty and tmux fails
+          ---
+          duration_ms: 2.014837
+          type: 'test'
+          ...
+        1..3
+    ok 8 - getPaneId
+      ---
+      duration_ms: 3.011305
+      type: 'suite'
+      ...
+    # Subtest: getServerPid
+        # Subtest: parses the server PID from $TMUX
+        ok 1 - parses the server PID from $TMUX
+          ---
+          duration_ms: 0.490889
+          type: 'test'
+          ...
+        # Subtest: falls back to tmux display-message when $TMUX is unset
+        ok 2 - falls back to tmux display-message when $TMUX is unset
+          ---
+          duration_ms: 2.74773
+          type: 'test'
+          ...
+        # Subtest: returns null when $TMUX is unset and tmux fails
+        ok 3 - returns null when $TMUX is unset and tmux fails
+          ---
+          duration_ms: 5.842993
+          type: 'test'
+          ...
+        # Subtest: ignores a malformed $TMUX and falls back
+        ok 4 - ignores a malformed $TMUX and falls back
+          ---
+          duration_ms: 0.510379
+          type: 'test'
+          ...
+        1..4
+    ok 9 - getServerPid
+      ---
+      duration_ms: 9.813897
+      type: 'suite'
+      ...
+    # Subtest: parseTarget
+        # Subtest: parses simple target
+        ok 1 - parses simple target
+          ---
+          duration_ms: 0.446991
+          type: 'test'
+          ...
+        # Subtest: parses dotted session name
+        ok 2 - parses dotted session name
+          ---
+          duration_ms: 0.302353
+          type: 'test'
+          ...
+        # Subtest: handles target without pane
+        ok 3 - handles target without pane
+          ---
+          duration_ms: 1.395149
+          type: 'test'
+          ...
+        1..3
+    ok 10 - parseTarget
+      ---
+      duration_ms: 2.333419
+      type: 'suite'
+      ...
+    1..10
+ok 43 - packages/tmux
+  ---
+  duration_ms: 75.056212
+  type: 'suite'
+  ...
+# Subtest: toml-lite parse
+    # Subtest: returns an empty object for empty input
+    ok 1 - returns an empty object for empty input
+      ---
+      duration_ms: 2.095735
+      type: 'test'
+      ...
+    # Subtest: parses top-level keys before any section
+    ok 2 - parses top-level keys before any section
+      ---
+      duration_ms: 0.526379
+      type: 'test'
+      ...
+    # Subtest: parses string, integer, and boolean values
+    ok 3 - parses string, integer, and boolean values
+      ---
+      duration_ms: 0.313743
+      type: 'test'
+      ...
+    # Subtest: parses literal (single-quoted) strings without unescaping
+    ok 4 - parses literal (single-quoted) strings without unescaping
+      ---
+      duration_ms: 1.86092
+      type: 'test'
+      ...
+    # Subtest: unescapes basic strings (\\n \\t \\\\ \\")
+    ok 5 - unescapes basic strings (\\n \\t \\\\ \\")
+      ---
+      duration_ms: 0.335293
+      type: 'test'
+      ...
+    # Subtest: isolates keys per section
+    ok 6 - isolates keys per section
+      ---
+      duration_ms: 0.296043
+      type: 'test'
+      ...
+    # Subtest: strips trailing line comments
+    ok 7 - strips trailing line comments
+      ---
+      duration_ms: 0.157187
+      type: 'test'
+      ...
+    # Subtest: does not treat \# inside a string literal as a comment
+    ok 8 - does not treat \# inside a string literal as a comment
+      ---
+      duration_ms: 0.253504
+      type: 'test'
+      ...
+    # Subtest: skips full-line comments and blank lines
+    ok 9 - skips full-line comments and blank lines
+      ---
+      duration_ms: 0.370432
+      type: 'test'
+      ...
+    # Subtest: tolerates whitespace around = and around section names
+    ok 10 - tolerates whitespace around = and around section names
+      ---
+      duration_ms: 0.45525
+      type: 'test'
+      ...
+    # Subtest: ignores malformed lines (no =, missing close quote, unsupported value)
+    ok 11 - ignores malformed lines (no =, missing close quote, unsupported value)
+      ---
+      duration_ms: 0.261644
+      type: 'test'
+      ...
+    # Subtest: parses the project settings.example.toml shape
+    ok 12 - parses the project settings.example.toml shape
+      ---
+      duration_ms: 0.183206
+      type: 'test'
+      ...
+    1..12
+ok 44 - toml-lite parse
+  ---
+  duration_ms: 8.993685
+  type: 'suite'
+  ...
+# Subtest: reconcileWorktree
+    # Subtest: returns null when fully pinned to a linked worktree
+    ok 1 - returns null when fully pinned to a linked worktree
+      ---
+      duration_ms: 2.445387
+      type: 'test'
+      ...
+    # Subtest: does not short-circuit when existing pin still points at the main checkout
+    ok 2 - does not short-circuit when existing pin still points at the main checkout
+      ---
+      duration_ms: 1.547497
+      type: 'test'
+      ...
+    # Subtest: does not short-circuit when existing pin points at main and cwd is a subdirectory
+    ok 3 - does not short-circuit when existing pin points at main and cwd is a subdirectory
+      ---
+      duration_ms: 1.304012
+      type: 'test'
+      ...
+    # Subtest: branch backfill: worktree_cwd set, branch empty → returns {branch} and drops marker
+    ok 4 - branch backfill: worktree_cwd set, branch empty → returns {branch} and drops marker
+      ---
+      duration_ms: 3.206471
+      type: 'test'
+      ...
+    # Subtest: branch backfill: branch lookup fails → returns null
+    ok 5 - branch backfill: branch lookup fails → returns null
+      ---
+      duration_ms: 1.217044
+      type: 'test'
+      ...
+    # Subtest: returns null when sessionId is empty
+    ok 6 - returns null when sessionId is empty
+      ---
+      duration_ms: 0.157207
+      type: 'test'
+      ...
+    # Subtest: returns null when input.cwd is empty
+    ok 7 - returns null when input.cwd is empty
+      ---
+      duration_ms: 0.141267
+      type: 'test'
+      ...
+    # Subtest: Scenario C: agent launched inside a linked worktree → pins via fs walk, no git porcelain
+    ok 8 - Scenario C: agent launched inside a linked worktree → pins via fs walk, no git porcelain
+      ---
+      duration_ms: 1.284652
+      type: 'test'
+      ...
+    # Subtest: Scenario A: main repo, worktrees dir does not exist → returns null without spawning git
+    ok 9 - Scenario A: main repo, worktrees dir does not exist → returns null without spawning git
+      ---
+      duration_ms: 0.615296
+      type: 'test'
+      ...
+    # Subtest: mtime cached matches existing → returns null without spawning git
+    ok 10 - mtime cached matches existing → returns null without spawning git
+      ---
+      duration_ms: 0.859722
+      type: 'test'
+      ...
+    # Subtest: mtime changed, marker absent → atomic claim + pin
+    ok 11 - mtime changed, marker absent → atomic claim + pin
+      ---
+      duration_ms: 2.665792
+      type: 'test'
+      ...
+    # Subtest: mtime changed, marker matches → pin without re-claiming
+    ok 12 - mtime changed, marker matches → pin without re-claiming
+      ---
+      duration_ms: 0.966289
+      type: 'test'
+      ...
+    # Subtest: mtime changed, marker owned by another session → skip
+    ok 13 - mtime changed, marker owned by another session → skip
+      ---
+      duration_ms: 0.966629
+      type: 'test'
+      ...
+    # Subtest: multiple linked worktrees, only one matches → correct one pinned
+    ok 14 - multiple linked worktrees, only one matches → correct one pinned
+      ---
+      duration_ms: 1.046137
+      type: 'test'
+      ...
+    # Subtest: walk halts at filesystem root for a non-git cwd
+    ok 15 - walk halts at filesystem root for a non-git cwd
+      ---
+      duration_ms: 0.179136
+      type: 'test'
+      ...
+    1..15
+ok 45 - reconcileWorktree
+  ---
+  duration_ms: 24.129796
+  type: 'suite'
+  ...
+# Subtest: claimMarker race semantics
+    # Subtest: two concurrent claims: only one wins, the other observes the winner
+    ok 1 - two concurrent claims: only one wins, the other observes the winner
+      ---
+      duration_ms: 0.649476
+      type: 'test'
+      ...
+    1..1
+ok 46 - claimMarker race semantics
+  ---
+  duration_ms: 0.836722
+  type: 'suite'
+  ...
+# Subtest: reconcileWorktree spawn-pin consumer
+    # Subtest: returns staged pin and deletes the staging file
+    ok 1 - returns staged pin and deletes the staging file
+      ---
+      duration_ms: 0.91829
+      type: 'test'
+      ...
+    # Subtest: skips staged pin when existing.worktree_cwd already points at a linked worktree
+    ok 2 - skips staged pin when existing.worktree_cwd already points at a linked worktree
+      ---
+      duration_ms: 0.821252
+      type: 'test'
+      ...
+    # Subtest: consumes staged pin when existing worktree_cwd still points at main
+    ok 3 - consumes staged pin when existing worktree_cwd still points at main
+      ---
+      duration_ms: 0.657836
+      type: 'test'
+      ...
+    # Subtest: falls through to marker logic when no staged pin exists
+    ok 4 - falls through to marker logic when no staged pin exists
+      ---
+      duration_ms: 0.873062
+      type: 'test'
+      ...
+    1..4
+ok 47 - reconcileWorktree spawn-pin consumer
+  ---
+  duration_ms: 3.496414
+  type: 'suite'
+  ...
+# Subtest: listWorktrees parser
+    # Subtest: detached HEAD yields empty branch
+    ok 1 - detached HEAD yields empty branch
+      ---
+      duration_ms: 0.204895
+      type: 'test'
+      ...
+    # Subtest: tolerates trailing blank line
+    ok 2 - tolerates trailing blank line
+      ---
+      duration_ms: 0.143566
+      type: 'test'
+      ...
+    1..2
+ok 48 - listWorktrees parser
+  ---
+  duration_ms: 0.453991
+  type: 'suite'
+  ...
+# Subtest: detectPR
+    # Subtest: detects gh pr create with URL in output
+    ok 1 - detects gh pr create with URL in output
+      ---
+      duration_ms: 2.083885
+      type: 'test'
+      ...
+    # Subtest: detects gh pr create without URL in output
+    ok 2 - detects gh pr create without URL in output
+      ---
+      duration_ms: 0.303594
+      type: 'test'
+      ...
+    # Subtest: detects gh pr create with heredoc body
+    ok 3 - detects gh pr create with heredoc body
+      ---
+      duration_ms: 0.217905
+      type: 'test'
+      ...
+    # Subtest: detects gh pr merge
+    ok 4 - detects gh pr merge
+      ---
+      duration_ms: 0.342793
+      type: 'test'
+      ...
+    # Subtest: detects gh pr merge with URL in command
+    ok 5 - detects gh pr merge with URL in command
+      ---
+      duration_ms: 0.304314
+      type: 'test'
+      ...
+    # Subtest: returns null for non-PR commands
+    ok 6 - returns null for non-PR commands
+      ---
+      duration_ms: 0.159956
+      type: 'test'
+      ...
+    # Subtest: returns null for null/empty command
+    ok 7 - returns null for null/empty command
+      ---
+      duration_ms: 0.147157
+      type: 'test'
+      ...
+    # Subtest: handles gh pr create with extra flags
+    ok 8 - handles gh pr create with extra flags
+      ---
+      duration_ms: 0.301483
+      type: 'test'
+      ...
+    # Subtest: does not match gh pr merge inside a grep argument
+    ok 9 - does not match gh pr merge inside a grep argument
+      ---
+      duration_ms: 1.229933
+      type: 'test'
+      ...
+    # Subtest: does not match gh pr merge inside an rg argument
+    ok 10 - does not match gh pr merge inside an rg argument
+      ---
+      duration_ms: 0.46003
+      type: 'test'
+      ...
+    # Subtest: does not match gh pr merge inside an echo argument
+    ok 11 - does not match gh pr merge inside an echo argument
+      ---
+      duration_ms: 0.137407
+      type: 'test'
+      ...
+    # Subtest: does not match gh pr merge inside a piped grep
+    ok 12 - does not match gh pr merge inside a piped grep
+      ---
+      duration_ms: 0.116298
+      type: 'test'
+      ...
+    # Subtest: does not match gh pr create inside a grep argument
+    ok 13 - does not match gh pr create inside a grep argument
+      ---
+      duration_ms: 0.100278
+      type: 'test'
+      ...
+    # Subtest: detects gh pr create with env-var prefix (dashboard PR skill)
+    ok 14 - detects gh pr create with env-var prefix (dashboard PR skill)
+      ---
+      duration_ms: 0.131777
+      type: 'test'
+      ...
+    # Subtest: detects gh pr merge with env-var prefix
+    ok 15 - detects gh pr merge with env-var prefix
+      ---
+      duration_ms: 0.119387
+      type: 'test'
+      ...
+    # Subtest: detects gh pr create after && with env-var prefix
+    ok 16 - detects gh pr create after && with env-var prefix
+      ---
+      duration_ms: 0.113017
+      type: 'test'
+      ...
+    # Subtest: detects gh pr merge after && segment
+    ok 17 - detects gh pr merge after && segment
+      ---
+      duration_ms: 0.109897
+      type: 'test'
+      ...
+    # Subtest: skips gh pr merge --help
+    ok 18 - skips gh pr merge --help
+      ---
+      duration_ms: 0.101878
+      type: 'test'
+      ...
+    # Subtest: skips gh pr merge -h
+    ok 19 - skips gh pr merge -h
+      ---
+      duration_ms: 0.102018
+      type: 'test'
+      ...
+    # Subtest: treats gh pr merge --auto as created (PR queued, not merged)
+    ok 20 - treats gh pr merge --auto as created (PR queued, not merged)
+      ---
+      duration_ms: 0.171236
+      type: 'test'
+      ...
+    # Subtest: treats gh pr merge --auto with URL in command as created with prUrl
+    ok 21 - treats gh pr merge --auto with URL in command as created with prUrl
+      ---
+      duration_ms: 0.192706
+      type: 'test'
+      ...
+    1..21
+ok 49 - detectPR
+  ---
+  duration_ms: 9.069963
+  type: 'suite'
+  ...
+# Subtest: buildPRUpdate
+    # Subtest: returns state "pr" and pinned_state "pr" for created action
+    ok 1 - returns state "pr" and pinned_state "pr" for created action
+      ---
+      duration_ms: 0.196476
+      type: 'test'
+      ...
+    # Subtest: returns state "merged" and pinned_state "merged" for merged action
+    ok 2 - returns state "merged" and pinned_state "merged" for merged action
+      ---
+      duration_ms: 0.137457
+      type: 'test'
+      ...
+    # Subtest: omits pr_url when null
+    ok 3 - omits pr_url when null
+      ---
+      duration_ms: 0.106578
+      type: 'test'
+      ...
+    # Subtest: always pins created regardless of extra args
+    ok 4 - always pins created regardless of extra args
+      ---
+      duration_ms: 0.102897
+      type: 'test'
+      ...
+    1..4
+ok 50 - buildPRUpdate
+  ---
+  duration_ms: 0.717804
+  type: 'suite'
+  ...
+# Subtest: PR_URL_RE
+    # Subtest: matches standard GitHub PR URLs
+    ok 1 - matches standard GitHub PR URLs
+      ---
+      duration_ms: 0.184176
+      type: 'test'
+      ...
+    # Subtest: does not match non-PR GitHub URLs
+    ok 2 - does not match non-PR GitHub URLs
+      ---
+      duration_ms: 0.091578
+      type: 'test'
+      ...
+    1..2
+ok 51 - PR_URL_RE
+  ---
+  duration_ms: 0.374942
+  type: 'suite'
+  ...
+# Subtest: detectPRSkill
+    # Subtest: matches codex skill invocation at prompt start
+    ok 1 - matches codex skill invocation at prompt start
+      ---
+      duration_ms: 1.523987
+      type: 'test'
+      ...
+    # Subtest: matches codex-injected skill metadata
+    ok 2 - matches codex-injected skill metadata
+      ---
+      duration_ms: 0.223245
+      type: 'test'
+      ...
+    # Subtest: does not match a different agent-dashboard skill
+    ok 3 - does not match a different agent-dashboard skill
+      ---
+      duration_ms: 0.233655
+      type: 'test'
+      ...
+    # Subtest: does not match plain prose mentioning the skill name
+    ok 4 - does not match plain prose mentioning the skill name
+      ---
+      duration_ms: 0.153486
+      type: 'test'
+      ...
+    # Subtest: does not match a hypothetical pr-foo skill
+    ok 5 - does not match a hypothetical pr-foo skill
+      ---
+      duration_ms: 0.155777
+      type: 'test'
+      ...
+    # Subtest: returns false for null / empty / non-string
+    ok 6 - returns false for null / empty / non-string
+      ---
+      duration_ms: 1.429409
+      type: 'test'
+      ...
+    1..6
+ok 52 - detectPRSkill
+  ---
+  duration_ms: 5.160338
+  type: 'suite'
+  ...
+# Subtest: buildPRSkillUpdate
+    # Subtest: returns state and pinned_state of "pr"
+    ok 1 - returns state and pinned_state of "pr"
+      ---
+      duration_ms: 0.233225
+      type: 'test'
+      ...
+    1..1
+ok 53 - buildPRSkillUpdate
+  ---
+  duration_ms: 0.545519
+  type: 'suite'
+  ...
+# Subtest: isUngatedPRCreate
+    # Subtest: should block direct gh pr create
+        # Subtest: plain gh pr create
+        ok 1 - plain gh pr create
+          ---
+          duration_ms: 0.92393
+          type: 'test'
+          ...
+        # Subtest: chained: git push && gh pr create
+        ok 2 - chained: git push && gh pr create
+          ---
+          duration_ms: 0.299704
+          type: 'test'
+          ...
+        # Subtest: with body heredoc
+        ok 3 - with body heredoc
+          ---
+          duration_ms: 0.229395
+          type: 'test'
+          ...
+        1..3
+    ok 1 - should block direct gh pr create
+      ---
+      duration_ms: 3.855696
+      type: 'suite'
+      ...
+    # Subtest: should NOT block when bypass marker present
+        # Subtest: AGENT_DASHBOARD_PR_SKILL=1 prefix
+        ok 1 - AGENT_DASHBOARD_PR_SKILL=1 prefix
+          ---
+          duration_ms: 0.208026
+          type: 'test'
+          ...
+        # Subtest: marker after env line
+        ok 2 - marker after env line
+          ---
+          duration_ms: 0.191786
+          type: 'test'
+          ...
+        1..2
+    ok 2 - should NOT block when bypass marker present
+      ---
+      duration_ms: 0.695965
+      type: 'suite'
+      ...
+    # Subtest: should NOT match unrelated commands
+        # Subtest: gh pr view
+        ok 1 - gh pr view
+          ---
+          duration_ms: 0.281484
+          type: 'test'
+          ...
+        # Subtest: gh pr list
+        ok 2 - gh pr list
+          ---
+          duration_ms: 0.327452
+          type: 'test'
+          ...
+        # Subtest: gh pr merge
+        ok 3 - gh pr merge
+          ---
+          duration_ms: 0.161067
+          type: 'test'
+          ...
+        # Subtest: git commit
+        ok 4 - git commit
+          ---
+          duration_ms: 0.252905
+          type: 'test'
+          ...
+        # Subtest: echo with literal text
+        ok 5 - echo with literal text
+          ---
+          duration_ms: 0.310683
+          type: 'test'
+          ...
+        1..5
+    ok 3 - should NOT match unrelated commands
+      ---
+      duration_ms: 2.471507
+      type: 'suite'
+      ...
+    1..3
+ok 54 - isUngatedPRCreate
+  ---
+  duration_ms: 7.879439
+  type: 'suite'
+  ...
+# Subtest: hook integration
+    # Subtest: blocks gh pr create with exit 2
+    ok 1 - blocks gh pr create with exit 2
+      ---
+      duration_ms: 92.552032
+      type: 'test'
+      ...
+    # Subtest: passes through when bypass marker present
+    ok 2 - passes through when bypass marker present
+      ---
+      duration_ms: 99.725617
+      type: 'test'
+      ...
+    # Subtest: passes through unrelated bash commands
+    ok 3 - passes through unrelated bash commands
+      ---
+      duration_ms: 99.756936
+      type: 'test'
+      ...
+    # Subtest: passes through when SKIP_PR_SKILL_GATE=1
+    ok 4 - passes through when SKIP_PR_SKILL_GATE=1
+      ---
+      duration_ms: 76.97943
+      type: 'test'
+      ...
+    1..4
+ok 55 - hook integration
+  ---
+  duration_ms: 369.373907
+  type: 'suite'
+  ...
+# Subtest: isGitCommit
+    # Subtest: matches simple git commit
+    ok 1 - matches simple git commit
+      ---
+      duration_ms: 2.649152
+      type: 'test'
+      ...
+    # Subtest: matches git commit with flags
+    ok 2 - matches git commit with flags
+      ---
+      duration_ms: 0.254924
+      type: 'test'
+      ...
+    # Subtest: does not match git status
+    ok 3 - does not match git status
+      ---
+      duration_ms: 0.147937
+      type: 'test'
+      ...
+    # Subtest: does not match git push
+    ok 4 - does not match git push
+      ---
+      duration_ms: 0.135837
+      type: 'test'
+      ...
+    # Subtest: does not match echo containing git commit text
+    ok 5 - does not match echo containing git commit text
+      ---
+      duration_ms: 0.137857
+      type: 'test'
+      ...
+    1..5
+ok 56 - isGitCommit
+  ---
+  duration_ms: 5.337014
+  type: 'suite'
+  ...
+# Subtest: shouldSkip
+    # Subtest: returns false when env var is not set
+    ok 1 - returns false when env var is not set
+      ---
+      duration_ms: 0.784913
+      type: 'test'
+      ...
+    # Subtest: returns true when env var is "1"
+    ok 2 - returns true when env var is "1"
+      ---
+      duration_ms: 0.241814
+      type: 'test'
+      ...
+    # Subtest: returns false when env var is "0"
+    ok 3 - returns false when env var is "0"
+      ---
+      duration_ms: 0.322783
+      type: 'test'
+      ...
+    1..3
+ok 57 - shouldSkip
+  ---
+  duration_ms: 1.707603
+  type: 'suite'
+  ...
+# Subtest: hasMakefile
+    # Subtest: returns false when no Makefile exists
+    ok 1 - returns false when no Makefile exists
+      ---
+      duration_ms: 0.9444
+      type: 'test'
+      ...
+    # Subtest: returns true when Makefile exists
+    ok 2 - returns true when Makefile exists
+      ---
+      duration_ms: 0.95038
+      type: 'test'
+      ...
+    1..2
+ok 58 - hasMakefile
+  ---
+  duration_ms: 2.161293
+  type: 'suite'
+  ...
+# Subtest: getTestTarget
+    # Subtest: returns null when no Makefile exists
+    ok 1 - returns null when no Makefile exists
+      ---
+      duration_ms: 0.45522
+      type: 'test'
+      ...
+    # Subtest: returns null when Makefile has no test target
+    ok 2 - returns null when Makefile has no test target
+      ---
+      duration_ms: 14.879817
+      type: 'test'
+      ...
+    # Subtest: returns test-fast when both targets exist
+    ok 3 - returns test-fast when both targets exist
+      ---
+      duration_ms: 7.871419
+      type: 'test'
+      ...
+    # Subtest: falls back to test when test-fast missing
+    ok 4 - falls back to test when test-fast missing
+      ---
+      duration_ms: 56.444275
+      type: 'test'
+      ...
+    # Subtest: returns test-fast when only test-fast exists
+    ok 5 - returns test-fast when only test-fast exists
+      ---
+      duration_ms: 7.205954
+      type: 'test'
+      ...
+    1..5
+ok 59 - getTestTarget
+  ---
+  duration_ms: 87.177329
+  type: 'suite'
+  ...
+# Subtest: getRepoRoot
+    # Subtest: uses provided cwd to resolve repo root
+    ok 1 - uses provided cwd to resolve repo root
+      ---
+      duration_ms: 7.665533
+      type: 'test'
+      ...
+    # Subtest: falls back to provided cwd when git fails
+    ok 2 - falls back to provided cwd when git fails
+      ---
+      duration_ms: 7.229363
+      type: 'test'
+      ...
+    # Subtest: falls back to process.cwd() when no cwd provided
+    ok 3 - falls back to process.cwd() when no cwd provided
+      ---
+      duration_ms: 7.82374
+      type: 'test'
+      ...
+    1..3
+ok 60 - getRepoRoot
+  ---
+  duration_ms: 23.0436
+  type: 'suite'
+  ...
+# Subtest: runMakeTest
+    # Subtest: returns passed: true when make test succeeds
+    ok 1 - returns passed: true when make test succeeds
+      ---
+      duration_ms: 61.641933
+      type: 'test'
+      ...
+    # Subtest: returns passed: false with output when make test fails
+    ok 2 - returns passed: false with output when make test fails
+      ---
+      duration_ms: 23.174497
+      type: 'test'
+      ...
+    1..2
+ok 61 - runMakeTest
+  ---
+  duration_ms: 84.989556
+  type: 'suite'
+  ...
+# Subtest: hasRmRF
+    # Subtest: should detect rm -rf variants
+        # Subtest: rm -rf /
+        ok 1 - rm -rf /
+          ---
+          duration_ms: 1.502488
+          type: 'test'
+          ...
+        # Subtest: rm -Rf dir
+        ok 2 - rm -Rf dir
+          ---
+          duration_ms: 0.322703
+          type: 'test'
+          ...
+        # Subtest: rm -fr dir
+        ok 3 - rm -fr dir
+          ---
+          duration_ms: 0.154916
+          type: 'test'
+          ...
+        # Subtest: rm -r -f file
+        ok 4 - rm -r -f file
+          ---
+          duration_ms: 0.193656
+          type: 'test'
+          ...
+        # Subtest: rm -f -r file
+        ok 5 - rm -f -r file
+          ---
+          duration_ms: 0.151047
+          type: 'test'
+          ...
+        # Subtest: rm -rvf dir
+        ok 6 - rm -rvf dir
+          ---
+          duration_ms: 2.086504
+          type: 'test'
+          ...
+        # Subtest: rm -r -v -f dir
+        ok 7 - rm -r -v -f dir
+          ---
+          duration_ms: 0.315213
+          type: 'test'
+          ...
+        # Subtest: piped: echo foo | rm -rf bar
+        ok 8 - piped: echo foo | rm -rf bar
+          ---
+          duration_ms: 0.222175
+          type: 'test'
+          ...
+        # Subtest: chained: ls && rm -rf dir
+        ok 9 - chained: ls && rm -rf dir
+          ---
+          duration_ms: 0.393561
+          type: 'test'
+          ...
+        # Subtest: semicolon: ls; rm -rf dir
+        ok 10 - semicolon: ls; rm -rf dir
+          ---
+          duration_ms: 1.583665
+          type: 'test'
+          ...
+        # Subtest: newline separated: ls\\nrm -rf dir
+        ok 11 - newline separated: ls\\nrm -rf dir
+          ---
+          duration_ms: 0.213976
+          type: 'test'
+          ...
+        1..11
+    ok 1 - should detect rm -rf variants
+      ---
+      duration_ms: 40.13723
+      type: 'suite'
+      ...
+    # Subtest: should NOT flag safe rm commands
+        # Subtest: rm file.txt
+        ok 1 - rm file.txt
+          ---
+          duration_ms: 0.258274
+          type: 'test'
+          ...
+        # Subtest: rm -r dir (no force)
+        ok 2 - rm -r dir (no force)
+          ---
+          duration_ms: 0.090278
+          type: 'test'
+          ...
+        # Subtest: rm -f file (no recursive)
+        ok 3 - rm -f file (no recursive)
+          ---
+          duration_ms: 0.167957
+          type: 'test'
+          ...
+        # Subtest: rm file-reference (filename with -ref)
+        ok 4 - rm file-reference (filename with -ref)
+          ---
+          duration_ms: 0.115108
+          type: 'test'
+          ...
+        # Subtest: rm .env-setup-failed
+        ok 5 - rm .env-setup-failed
+          ---
+          duration_ms: 0.741714
+          type: 'test'
+          ...
+        # Subtest: rm -- -rf (-- ends flags)
+        ok 6 - rm -- -rf (-- ends flags)
+          ---
+          duration_ms: 0.125817
+          type: 'test'
+          ...
+        # Subtest: rm /path/to/some-ref-file
+        ok 7 - rm /path/to/some-ref-file
+          ---
+          duration_ms: 0.115007
+          type: 'test'
+          ...
+        # Subtest: rm -v file
+        ok 8 - rm -v file
+          ---
+          duration_ms: 1.293842
+          type: 'test'
+          ...
+        # Subtest: no rm at all
+        ok 9 - no rm at all
+          ---
+          duration_ms: 0.160597
+          type: 'test'
+          ...
+        # Subtest: rm as substring: storm -rf
+        ok 10 - rm as substring: storm -rf
+          ---
+          duration_ms: 0.107518
+          type: 'test'
+          ...
+        # Subtest: rm --recursive --force dir (long flags)
+        ok 11 - rm --recursive --force dir (long flags)
+          ---
+          duration_ms: 0.113498
+          type: 'test'
+          ...
+        # Subtest: rm --preserve-root dir
+        ok 12 - rm --preserve-root dir
+          ---
+          duration_ms: 0.130257
+          type: 'test'
+          ...
+        1..12
+    ok 2 - should NOT flag safe rm commands
+      ---
+      duration_ms: 4.543751
+      type: 'suite'
+      ...
+    1..2
+ok 62 - hasRmRF
+  ---
+  duration_ms: 45.17342
+  type: 'suite'
+  ...
+# Subtest: DESTRUCTIVE_PATTERNS integration
+    # Subtest: should block
+        # Subtest: git reset --hard
+        ok 1 - git reset --hard
+          ---
+          duration_ms: 0.659626
+          type: 'test'
+          ...
+        # Subtest: git push --force
+        ok 2 - git push --force
+          ---
+          duration_ms: 0.222975
+          type: 'test'
+          ...
+        # Subtest: git push -f
+        ok 3 - git push -f
+          ---
+          duration_ms: 0.262445
+          type: 'test'
+          ...
+        # Subtest: git clean -f
+        ok 4 - git clean -f
+          ---
+          duration_ms: 0.209715
+          type: 'test'
+          ...
+        # Subtest: git checkout .
+        ok 5 - git checkout .
+          ---
+          duration_ms: 0.212045
+          type: 'test'
+          ...
+        # Subtest: git restore .
+        ok 6 - git restore .
+          ---
+          duration_ms: 0.184346
+          type: 'test'
+          ...
+        # Subtest: DROP TABLE users
+        ok 7 - DROP TABLE users
+          ---
+          duration_ms: 0.253074
+          type: 'test'
+          ...
+        # Subtest: drop database mydb
+        ok 8 - drop database mydb
+          ---
+          duration_ms: 0.247444
+          type: 'test'
+          ...
+        # Subtest: TRUNCATE TABLE logs
+        ok 9 - TRUNCATE TABLE logs
+          ---
+          duration_ms: 0.193385
+          type: 'test'
+          ...
+        # Subtest: tmux send-keys
+        ok 10 - tmux send-keys
+          ---
+          duration_ms: 1.627115
+          type: 'test'
+          ...
+        # Subtest: tmux send-keys piped
+        ok 11 - tmux send-keys piped
+          ---
+          duration_ms: 1.35224
+          type: 'test'
+          ...
+        1..11
+    ok 1 - should block
+      ---
+      duration_ms: 5.945031
+      type: 'suite'
+      ...
+    # Subtest: should not block
+        # Subtest: git status
+        ok 1 - git status
+          ---
+          duration_ms: 0.298984
+          type: 'test'
+          ...
+        # Subtest: git push origin main
+        ok 2 - git push origin main
+          ---
+          duration_ms: 0.126928
+          type: 'test'
+          ...
+        # Subtest: git checkout main
+        ok 3 - git checkout main
+          ---
+          duration_ms: 0.977339
+          type: 'test'
+          ...
+        # Subtest: SELECT * FROM table
+        ok 4 - SELECT * FROM table
+          ---
+          duration_ms: 0.680535
+          type: 'test'
+          ...
+        # Subtest: tmux list-panes
+        ok 5 - tmux list-panes
+          ---
+          duration_ms: 0.125827
+          type: 'test'
+          ...
+        # Subtest: tmux display-message
+        ok 6 - tmux display-message
+          ---
+          duration_ms: 0.114827
+          type: 'test'
+          ...
+        1..6
+    ok 2 - should not block
+      ---
+      duration_ms: 2.598473
+      type: 'suite'
+      ...
+    1..2
+ok 63 - DESTRUCTIVE_PATTERNS integration
+  ---
+  duration_ms: 8.73804
+  type: 'suite'
+  ...
+# Subtest: hook integration: stdout contract
+    # Subtest: emits "{}\\n" on stdout for non-blocking input
+    ok 1 - emits "{}\\n" on stdout for non-blocking input
+      ---
+      duration_ms: 91.611812
+      type: 'test'
+      ...
+    # Subtest: blocks git reset --hard with exit 2 and stderr reason
+    ok 2 - blocks git reset --hard with exit 2 and stderr reason
+      ---
+      duration_ms: 95.537128
+      type: 'test'
+      ...
+    # Subtest: allows git worktree remove --force (worktree exception)
+    ok 3 - allows git worktree remove --force (worktree exception)
+      ---
+      duration_ms: 98.105821
+      type: 'test'
+      ...
+    1..3
+ok 64 - hook integration: stdout contract
+  ---
+  duration_ms: 285.473877
+  type: 'suite'
+  ...
+1..64
+# tests 482
+# suites 91
+# pass 482
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 4264.185085
+--- stderr ---
