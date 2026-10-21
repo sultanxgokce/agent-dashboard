@@ -17,6 +17,10 @@
  * outcome is uncertain (`make && cd X; <commit>`, `X || cd Y`) both possibilities stay in the set and the commit is judged in
  * every one — one main/master directory is enough to block. A directory that cannot be resolved at all (unknown variable,
  * command substitution) is not judged: the hook lets it through, same as "branch unknown".
+ *
+ * Known limit (documented, not modelled): the bodies of conditional compounds (`if/then/else`, `while/do`, `case`) are
+ * treated as if they always run. `if false; then cd /wt; fi; <commit>` is therefore judged in /wt although the `cd` never
+ * happened. This is a guard rail against honest mistakes, not a security boundary; the deliberate constructed case is out of scope.
  */
 
 'use strict';
