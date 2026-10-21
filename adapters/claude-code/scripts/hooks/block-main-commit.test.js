@@ -88,3 +88,84 @@ describe('hook integration: cwd resolution', () => {
     assert.equal(result.status, 2, `expected block but got exit ${result.status}`);
   });
 });
+
+describe('command parsing: the directory a commit actually runs in (Z5FAWK)', () => {
+  const { commitTargets, BILINMEZ } = require('./block-main-commit');
+
+  // Real repos: `anaRepo` is on main; `isAgaci` is a worktree of it on a feature branch.
+  const kok = fs.mkdtempSync(path.join(os.tmpdir(), 'bmc-cwd-'));
+  const anaRepo = path.join(kok, 'ana');
+  const isAgaci = path.join(kok, 'is-agaci');
+  const git = (cwd, ...args) => {
+    const r = spawnSync('git', args, { cwd, encoding: 'utf8' });
+    assert.equal(r.status, 0, `${args.join(' ')}: ${r.stderr}`);
+  };
+  fs.mkdirSync(anaRepo);
+  git(anaRepo, 'init', '-b', 'main');
+  git(anaRepo, '-c', 'user.email=t@t', '-c', 'user.name=t', 'commit', '--allow-empty', '-m', 'ilk');
+  git(anaRepo, 'worktree', 'add', '-b', 'feat/x', isAgaci);
+  require('node:test').after(() => fs.rmSync(kok, { recursive: true, force: true }));
+
+  function calistir(command, cwd) {
+    return spawnSync('node', [HOOK_PATH], {
+      input: JSON.stringify({ session_id: 's', hook_event_name: 'PreToolUse', tool_name: 'Bash', tool_input: { command }, cwd }),
+      encoding: 'utf8',
+      timeout: 5000,
+    }).status;
+  }
+
+  // Session sits in the main repo (the real false-positive setting). Commits aimed at the worktree must pass.
+  describe('worktree commits are NOT blocked', () => {
+    it('plain commit in the main repo is blocked (control)', () =>
+      assert.equal(calistir('git commit -m x', anaRepo), 2));
+    it('variable + cd in a later statement', () =>
+      assert.equal(calistir(`W=${isAgaci}; cd $W && git commit -m x`, anaRepo), 0));
+    it('cd after other statements', () =>
+      assert.equal(calistir(`echo hi; cd ${isAgaci} && git add -A && git commit -m x`, anaRepo), 0));
+    it('subshell: (cd worktree && commit)', () =>
+      assert.equal(calistir(`(cd ${isAgaci} && git commit -m x)`, anaRepo), 0));
+    it('git -C <worktree> commit', () =>
+      assert.equal(calistir(`git -C ${isAgaci} commit -m x`, anaRepo), 0));
+    it('git -C "$W" commit with W set earlier', () =>
+      assert.equal(calistir(`W=${isAgaci}\ngit -C "$W" commit -m x`, anaRepo), 0));
+    it('unresolvable variable is not judged (branch unknown -> pass)', () =>
+      assert.equal(calistir('cd $NOT_SET_ANYWHERE && git commit -m x', anaRepo), 0));
+  });
+
+  describe('real commits on main are still blocked', () => {
+    it('git -C <main repo> commit from a worktree session', () =>
+      assert.equal(calistir(`git -C ${anaRepo} commit -m x`, isAgaci), 2));
+    it('cd to the worktree, then back to main, then commit', () =>
+      assert.equal(calistir(`cd ${isAgaci} && cd ${anaRepo} && git commit -m x`, anaRepo), 2));
+    it('variable pointing at main with -C', () =>
+      assert.equal(calistir(`W=${anaRepo}; git -C "$W" commit -m x`, isAgaci), 2));
+    it('a cd inside a subshell does not leak out', () =>
+      assert.equal(calistir(`(cd ${isAgaci}); git commit -m x`, anaRepo), 2));
+    it('one blocked commit among several is enough', () =>
+      assert.equal(calistir(`git -C ${isAgaci} commit -m a && git -C ${anaRepo} commit -m b`, isAgaci), 2));
+  });
+
+  describe('text is not a command', () => {
+    it('quoted mention with a semicolon', () =>
+      assert.equal(calistir('echo "run; git commit -m x"', anaRepo), 0));
+    it('heredoc body', () =>
+      assert.equal(calistir("cat <<'EOF'\ngit commit -m x\nEOF", anaRepo), 0));
+    it('grep for the phrase', () =>
+      assert.equal(calistir("grep -rn 'git commit' docs", anaRepo), 0));
+    it('commit-like words that are not the git subcommand', () =>
+      assert.equal(calistir('git log --grep=commit', anaRepo), 0));
+  });
+
+  describe('commitTargets (pure)', () => {
+    it('finds the effective directory per commit', () =>
+      assert.deepEqual(commitTargets('cd /a && git commit -m x; git -C /b commit -m y', '/s'), [{ cwd: '/a' }, { cwd: '/b' }]));
+    it('relative -C resolves against the current directory', () =>
+      assert.deepEqual(commitTargets('git -C sub commit -m x', '/s'), [{ cwd: '/s/sub' }]));
+    it('unknown variable -> BILINMEZ', () =>
+      assert.deepEqual(commitTargets('cd $NOPE && git commit -m x', '/s'), [{ cwd: BILINMEZ }]));
+    it('no commit -> empty', () =>
+      assert.deepEqual(commitTargets('git status && echo "git commit"', '/s'), []));
+    it('git config values and -c options are skipped', () =>
+      assert.deepEqual(commitTargets('git -c user.name=t commit -m x', '/s'), [{ cwd: '/s' }]));
+  });
+});
