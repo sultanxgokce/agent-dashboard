@@ -192,6 +192,10 @@ describe('command parsing: the directory a commit actually runs in (Z5FAWK)', ()
     });
     it('sudo -D to a feature directory from a main session passes', () =>
       assert.equal(calistir('sudo -D ' + isAgaci + ' git commit -m x', anaRepo), 0));
+    it('a failed cd does not change where `cd -` returns to', () =>
+      assert.equal(calistir(`cd ${anaRepo}; cd /yok/boyle/dizin; cd -; git commit -m x`, isAgaci), 0));
+    it('git --work-tree= only moves files; it does not retarget the commit', () =>
+      assert.equal(calistir(`git --work-tree=${anaRepo} commit -m x`, isAgaci), 0));
     it('sudo -C <fd> is a file-descriptor option, not a directory', () =>
       assert.equal(calistir('sudo -C 3 git commit -m x', isAgaci), 0));
     it('wrapper option value is not mistaken for the command: sudo -u git echo hi', () =>

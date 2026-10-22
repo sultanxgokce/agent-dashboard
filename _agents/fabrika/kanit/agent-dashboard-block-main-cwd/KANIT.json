@@ -1,7 +1,7 @@
 {
   "is": "agent-dashboard-block-main-cwd",
   "arac": "kanit.py/0.5.0",
-  "guncelleme": "2026-10-22T02:13:18+03:00",
+  "guncelleme": "2026-10-22T08:32:20+03:00",
   "kayitlar": [
     {
       "tur": "olcum",
@@ -44,7 +44,7 @@
       "etiket": "codex-kanca-test",
       "asama": "sonra",
       "dosya": "olcum-codex-kanca-test-sonra.txt",
-      "sha256": "758c1ae6b68701188f7fadf758fda9b9bd840772e346c3c69936c23104e2006c",
+      "sha256": "aac1e780cda7ab29aaf3ab6423fe016cc982fb091308350254e2ef0c716f1e4f",
       "komut": [
         "node",
         "--test",
@@ -52,10 +52,10 @@
       ],
       "rc": 0,
       "renk": "yesil",
-      "zaman": "2026-10-22T01:38:49+03:00",
-      "sure_sn": 4.1,
+      "zaman": "2026-10-22T02:15:06+03:00",
+      "sure_sn": 7.3,
       "boru_denetimi": "kapsam-dışı (kabuk -c değil; dosya betiği içeriği denetlenmez)",
-      "olcum_id": "26f85237dca64815a9800b409fe995e8"
+      "olcum_id": "4e58ebc2cc9e407d9f769a899795e6f0"
     },
     {
       "tur": "olcum",
@@ -98,19 +98,58 @@
       "etiket": "kanca-sinavi",
       "asama": "sonra",
       "dosya": "olcum-kanca-sinavi-sonra.txt",
-      "sha256": "eaeab22a20292cd7d977c386f28e64d486788e141da518c6423d9ecda3b6d762",
+      "sha256": "6e0ac23f0e6e142965b05246c8f4e263cf4de30248981fdddb9a50f0252f5837",
       "komut": [
         "node",
         "--test",
-        "adapters/claude-code/scripts/hooks/block-main-commit.test.js"
+        "adapters/claude-code/scripts/hooks/block-main-commit.test.js",
+        "adapters/codex/hooks/block-main-commit.test.js"
       ],
       "rc": 0,
       "renk": "yesil",
-      "zaman": "2026-10-22T02:13:18+03:00",
-      "sure_sn": 5.2,
+      "zaman": "2026-10-22T08:32:20+03:00",
+      "sure_sn": 4.3,
       "boru_denetimi": "kapsam-dışı (kabuk -c değil; dosya betiği içeriği denetlenmez)",
-      "olcum_id": "eeb290d416194b1fa2637edccb4469ed"
+      "olcum_id": "1e6e43ee18d246c7bf1d69dd9fa2557f"
+    },
+    {
+      "tur": "olcum",
+      "etiket": "codex-takim",
+      "asama": "sonra",
+      "dosya": "olcum-codex-takim-sonra.txt",
+      "sha256": "fc5268df7b713f7446645091461a265756ca8db62df68dc303de979f404f19d6",
+      "komut": [
+        "npm",
+        "--prefix",
+        "adapters/codex",
+        "test"
+      ],
+      "rc": 254,
+      "renk": "kirmizi",
+      "zaman": "2026-10-22T08:32:16+03:00",
+      "sure_sn": 0.1,
+      "boru_denetimi": "kapsam-dışı (kabuk -c değil; dosya betiği içeriği denetlenmez)",
+      "olcum_id": "5b76b283b9e149b4af427bb5537843f0"
+    },
+    {
+      "tur": "olcum",
+      "etiket": "claude-takim",
+      "asama": "sonra",
+      "dosya": "olcum-claude-takim-sonra.txt",
+      "sha256": "7987c96db0d4fe8355370b2b1f3968a42d09b3cab148e649d74c58cc6ea64f28",
+      "komut": [
+        "npm",
+        "--prefix",
+        "adapters/claude-code",
+        "test"
+      ],
+      "rc": 0,
+      "renk": "yesil",
+      "zaman": "2026-10-22T08:32:15+03:00",
+      "sure_sn": 4.8,
+      "boru_denetimi": "kapsam-dışı (kabuk -c değil; dosya betiği içeriği denetlenmez)",
+      "olcum_id": "8c72e0913f65453984810299974b2dcd"
     }
   ],
-  "imza": "b5853dcf51c977d848e55bba8a1cac6eaeadd81dc6fdadd6508e9ab3cb771ade"
+  "imza": "56834be3d66e1248e978ed22d90ad1782be74cfb4eb4614b47a3d6d60d795b2b"
 }

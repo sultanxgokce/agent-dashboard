@@ -275,7 +275,7 @@ function commitTargets(command, baseCwd, depth = 0) {
         durum = r.durum;
         if (ad === 'pushd') pd.push(cur);
       }
-      onceki = cur;
+      if (durum !== false) onceki = durum === null && onceki ? birlesim(onceki, cur) : cur;   // failed cd leaves the directory (and `cd -` target) unchanged
       cur = belki ? birlesim(cur, sonra) : sonra;
       st = belki ? null : durum;
       continue;
@@ -292,12 +292,7 @@ function commitTargets(command, baseCwd, depth = 0) {
           continue;
         }
         if ((w[i] === '-c' || w[i] === '--exec-path' || w[i] === '--namespace') && i + 1 < w.length) { i += 2; continue; }
-        if (w[i].startsWith('--work-tree=')) {
-          const d = w[i].slice(12);
-          efektif = efektif.map(c => (c === BILINMEZ ? BILINMEZ : coz(genislet(d, vars), c)));
-          i += 1;
-          continue;
-        }
+        // --work-tree only moves the files; the branch is read from the repository, so it does not retarget the commit
         i += 1;
       }
       if (w[i] === 'commit') {
