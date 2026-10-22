@@ -185,7 +185,7 @@ function commitTargets(command, baseCwd, depth = 0) {
   const sonuc = [];
   let vars = {};
   const yigin = [];
-  const pd = [];            // pushd stack (each entry a set)
+  let pd = [];            // pushd stack (each entry a set)
   let cur = [baseCwd === BILINMEZ ? BILINMEZ : (baseCwd || null)];   // directories the NEXT part may run in (success path)
   let dur = [];             // extra possible directories if an earlier unknown command in the chain failed (early stop)
   let st = true;            // exit status of the previous part: true / false / null (unknown)
@@ -195,13 +195,13 @@ function commitTargets(command, baseCwd, depth = 0) {
   const ekle = (kume) => { for (const c of kume) if (!sonuc.some(s => esit(s.cwd, c))) sonuc.push({ cwd: c }); };
 
   for (const p of bol(command || '')) {
-    if (geri) { ({ cur, dur, st, vars, onceki } = geri); geri = null; }
+    if (geri) { ({ cur, dur, st, vars, onceki, pd } = geri); geri = null; }
     if (p.kapa) {
-      if (yigin.length) { const y = yigin.pop(); cur = y.cur; dur = y.dur; vars = y.vars; onceki = y.onceki; st = null; }
+      if (yigin.length) { const y = yigin.pop(); cur = y.cur; dur = y.dur; vars = y.vars; onceki = y.onceki; pd = y.pd; st = null; }
       continue;
     }
-    if (p.ac) yigin.push({ cur, dur, vars: { ...vars }, onceki });
-    if (p.sep === '|' || p.sep === '&' || p.on === '|') geri = { cur, dur, st, vars: { ...vars }, onceki };
+    if (p.ac) yigin.push({ cur, dur, vars: { ...vars }, onceki, pd: pd.slice() });
+    if (p.sep === '|' || p.sep === '&' || p.on === '|') geri = { cur, dur, st, vars: { ...vars }, onceki, pd: pd.slice() };
 
     // chain start (; newline after a group): the set a later command sees is everything the previous chain could end in
     if (p.on === ';') { cur = birlesim(cur, dur); dur = []; st = true; }
@@ -291,7 +291,7 @@ function commitTargets(command, baseCwd, depth = 0) {
           i += 2;
           continue;
         }
-        if ((w[i] === '-c' || w[i] === '--exec-path' || w[i] === '--namespace') && i + 1 < w.length) { i += 2; continue; }
+        if ((w[i] === '-c' || w[i] === '--exec-path' || w[i] === '--namespace' || w[i] === '--work-tree' || w[i] === '--git-dir') && i + 1 < w.length) { i += 2; continue; }
         // --work-tree only moves the files; the branch is read from the repository, so it does not retarget the commit
         i += 1;
       }

@@ -194,6 +194,10 @@ describe('command parsing: the directory a commit actually runs in (Z5FAWK)', ()
       assert.equal(calistir('sudo -D ' + isAgaci + ' git commit -m x', anaRepo), 0));
     it('a failed cd does not change where `cd -` returns to', () =>
       assert.equal(calistir(`cd ${anaRepo}; cd /yok/boyle/dizin; cd -; git commit -m x`, isAgaci), 0));
+    it('git --work-tree <dir> (separate value) is skipped, the commit is still seen', () =>
+      assert.equal(calistir(`git --work-tree ${isAgaci} commit -m x`, anaRepo), 2));
+    it('a pushd inside a subshell does not leak into the parent pushd stack', () =>
+      assert.equal(calistir(`pushd ${isAgaci}; (pushd ${anaRepo}); popd; git commit -m x`, anaRepo), 2));
     it('git --work-tree= only moves files; it does not retarget the commit', () =>
       assert.equal(calistir(`git --work-tree=${anaRepo} commit -m x`, isAgaci), 0));
     it('sudo -C <fd> is a file-descriptor option, not a directory', () =>

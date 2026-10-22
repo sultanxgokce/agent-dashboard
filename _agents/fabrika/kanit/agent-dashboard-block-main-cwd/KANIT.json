@@ -1,7 +1,7 @@
 {
   "is": "agent-dashboard-block-main-cwd",
   "arac": "kanit.py/0.5.0",
-  "guncelleme": "2026-10-22T08:32:20+03:00",
+  "guncelleme": "2026-10-22T08:34:41+03:00",
   "kayitlar": [
     {
       "tur": "olcum",
@@ -98,7 +98,7 @@
       "etiket": "kanca-sinavi",
       "asama": "sonra",
       "dosya": "olcum-kanca-sinavi-sonra.txt",
-      "sha256": "6e0ac23f0e6e142965b05246c8f4e263cf4de30248981fdddb9a50f0252f5837",
+      "sha256": "557869840d612bffd308f913f4f03d94b0fcf4aa1b2c46902f470a3d8695aa59",
       "komut": [
         "node",
         "--test",
@@ -107,17 +107,17 @@
       ],
       "rc": 0,
       "renk": "yesil",
-      "zaman": "2026-10-22T08:32:20+03:00",
-      "sure_sn": 4.3,
+      "zaman": "2026-10-22T08:34:41+03:00",
+      "sure_sn": 2.9,
       "boru_denetimi": "kapsam-dışı (kabuk -c değil; dosya betiği içeriği denetlenmez)",
-      "olcum_id": "1e6e43ee18d246c7bf1d69dd9fa2557f"
+      "olcum_id": "917b0c64ec2544608ee6ba7ac13677c3"
     },
     {
       "tur": "olcum",
       "etiket": "codex-takim",
       "asama": "sonra",
       "dosya": "olcum-codex-takim-sonra.txt",
-      "sha256": "fc5268df7b713f7446645091461a265756ca8db62df68dc303de979f404f19d6",
+      "sha256": "7e7091a54bb8241a6e8b7fa557c4f80fe3b81ab0ee098e3d5583070e3d9189a9",
       "komut": [
         "npm",
         "--prefix",
@@ -126,17 +126,17 @@
       ],
       "rc": 254,
       "renk": "kirmizi",
-      "zaman": "2026-10-22T08:32:16+03:00",
+      "zaman": "2026-10-22T08:34:38+03:00",
       "sure_sn": 0.1,
       "boru_denetimi": "kapsam-dışı (kabuk -c değil; dosya betiği içeriği denetlenmez)",
-      "olcum_id": "5b76b283b9e149b4af427bb5537843f0"
+      "olcum_id": "24de051fc06f4c728085b551e607ced1"
     },
     {
       "tur": "olcum",
       "etiket": "claude-takim",
       "asama": "sonra",
       "dosya": "olcum-claude-takim-sonra.txt",
-      "sha256": "7987c96db0d4fe8355370b2b1f3968a42d09b3cab148e649d74c58cc6ea64f28",
+      "sha256": "09896816c7d42f0857136955b4420429de4057eff7d5558a24798c7de7be3e74",
       "komut": [
         "npm",
         "--prefix",
@@ -145,11 +145,11 @@
       ],
       "rc": 0,
       "renk": "yesil",
-      "zaman": "2026-10-22T08:32:15+03:00",
-      "sure_sn": 4.8,
+      "zaman": "2026-10-22T08:34:38+03:00",
+      "sure_sn": 3.9,
       "boru_denetimi": "kapsam-dışı (kabuk -c değil; dosya betiği içeriği denetlenmez)",
-      "olcum_id": "8c72e0913f65453984810299974b2dcd"
+      "olcum_id": "34846791baa94dd595f8e0ba19784dd9"
     }
   ],
-  "imza": "56834be3d66e1248e978ed22d90ad1782be74cfb4eb4614b47a3d6d60d795b2b"
+  "imza": "5358de5f078b91bdb530060612e32ab7e8f576c731d10fe09b07cf6448f6b1d4"
 }
