@@ -1,0 +1,14 @@
+$ bash _agents/fabrika/kanit/main-commit-kancasi-komut-cozumu/mutasyon.sh
+# rc=0 sure=24.4s zaman=2026-10-20T21:36:07+03:00
+--- stdout ---
+pozitif-kontrol: # pass 41 # fail 0 · düşen: 
+tirnak-komut-sayilir: # pass 40 # fail 1 · düşen: GEÇİR: tek tırnak içinde ; git commit (ayraç metindir)
+cd-izlenmez: # pass 32 # fail 9 · düşen: GEÇİR: cd <iş alanı> && commit|GEÇİR: değişkenle cd|GEÇİR: ${…} biçimli değişken|GEÇİR: ~ ile cd|GEÇİR: göreli cd (oturum dizininden)|GEÇİR: satır sonu ayracı|GEÇİR: commit mesajında ; git commit|GEÇİR: $( … ) içinde iş alanında commit|GEÇİR: alt kabukta iş alanına geçip commit
+git-C-yok-sayilir: # pass 40 # fail 1 · düşen: ENGELLE: git -C <main> commit
+bash-c-acilmaz: # pass 40 # fail 1 · düşen: ENGELLE: bash -c içinde commit
+alt-kabuk-sizar: # pass 40 # fail 1 · düşen: ENGELLE: alt kabuktaki cd dışarı taşınmaz
+altkomut-taranmaz: # pass 39 # fail 2 · düşen: ENGELLE: $( … ) içinde commit (oturum main)|ENGELLE: ters tırnak içinde commit
+bilinmez-gecirir: # pass 40 # fail 1 · düşen: ENGELLE: çözülemeyen değişken → oturum dizini (temkinli)
+degisken-yok: # pass 39 # fail 2 · düşen: GEÇİR: değişkenle cd|GEÇİR: ${…} biçimli değişken
+ilk-surum-takilma: # pass 38 # fail 3 · düşen: hiçbir girdide takılmaz (ayraç/tırnak/parantez her konumda, 2000 rastgele komut)|GEÇİR: alt kabukta iş alanına geçip commit|ENGELLE: alt kabuktaki cd dışarı taşınmaz
+--- stderr ---

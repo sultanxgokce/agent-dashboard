@@ -1,0 +1,38 @@
+{
+  "tur": 1,
+  "is": "main-commit-kancasi-komut-cozumu",
+  "pr": "",
+  "yazan": "claude",
+  "denetci": "codex",
+  "zaman": "2026-10-20T21:37:12+03:00",
+  "kanit_durumu": "sağlam (araç imzalı, sha'lar tutuyor)",
+  "yedek": null,
+  "yazan_model": "sonnet",
+  "yazan_model_kaynak": "ayar-dosyasi",
+  "yedek_model": null,
+  "kirpildi": {
+    "oldu": false,
+    "istem_bayt": 35349,
+    "esik": 110000
+  },
+  "kanit_ayiklandi": {
+    "dosya": 9,
+    "bayt": 43955
+  },
+  "kareler": null,
+  "sonuc": {
+    "kod_puani": 2,
+    "dogru_sey": "E",
+    "ozet": "Komut içindeki cd/değişken/~/git -C/ikinci cd/bash -c ve tırnak vakaları için hedef dizin çözümü kurulmuş ve verilen 10 biçim ölçümünde 5 eski hata kapanmış. Ancak kancanın ana görevi kolay bir komutla aşılabiliyor: başarısız cd sonrasında çalışacak commit, olmayan dizinde dal okunamadığı için serbest bırakılıyor; önce bu ciddi deliği çözün.",
+    "bulgular": [
+      {
+        "ne": "Başarısız bir cd'den sonra noktalı virgülle gelen commit ana dalda çalışmasına rağmen engellenmez; örneğin `cd /olmayan-dizin; git commit -m x` komutunda çözümleyici hedefi var olmayan dizin yapar, dal okuma hatası da açıkça `continue` ile serbest geçişe çevrilir.",
+        "kanit": "`commitDizinleri` cd hedefini dosya sisteminde gerçekleşip gerçekleşmediğini sınamadan `cur = path.resolve(hedef)` yapıyor; ana döngüde `dalOku(hedef)` hatasının `catch { continue; }` ile geçirilmesi nedeniyle gerçek kabuğun cd başarısızlığından sonra oturum dizininde çalıştıracağı commit denetlenmiyor. Sunulan `kanca-sinavi` ve `on-bicim` kayıtlarında başarısız-cd vakası bulunmuyor.",
+        "konum": "adapters/claude-code/scripts/hooks/block-main-commit.js: commitDizinleri cd/pushd kolu ve ana girişte dalOku catch kolu",
+        "agirlik": "ciddi",
+        "kutu_disi_yuzey": null
+      }
+    ],
+    "kanit_gorusu": "Manifest sağlam ve araç imzalı; sarı kayıt yok. `kanca-sinavi` için kırmızıdan yeşile ölçüm çifti, `on-bicim` için gerçek depolarla önce/sonra çıktısı ve mutasyon kayıtları mevcut. Kanıt talep edilen örnek biçimleri güçlü biçimde doğruluyor, fakat başarısız cd sonrası commit davranışını ölçmediğinden bulunan temel geçiş deliğini kapsamıyor."
+  }
+}

@@ -1,0 +1,415 @@
+$ node --test adapters/claude-code/scripts/hooks/block-main-commit.test.js
+# rc=0 sure=2.4s zaman=2026-10-23T18:23:14+03:00
+--- stdout ---
+TAP version 13
+# Subtest: isCommitOnMain
+    # Subtest: should block git commit on main/master
+        # Subtest: git commit -m "msg" on main
+        ok 1 - git commit -m "msg" on main
+          ---
+          duration_ms: 2.126514
+          type: 'test'
+          ...
+        # Subtest: git commit -am "msg" on main
+        ok 2 - git commit -am "msg" on main
+          ---
+          duration_ms: 0.443151
+          type: 'test'
+          ...
+        # Subtest: git commit on master
+        ok 3 - git commit on master
+          ---
+          duration_ms: 0.286224
+          type: 'test'
+          ...
+        # Subtest: chained: git add . && git commit -m "msg" on main
+        ok 4 - chained: git add . && git commit -m "msg" on main
+          ---
+          duration_ms: 0.48627
+          type: 'test'
+          ...
+        # Subtest: semicolon: git add .; git commit -m "msg" on main
+        ok 5 - semicolon: git add .; git commit -m "msg" on main
+          ---
+          duration_ms: 0.231545
+          type: 'test'
+          ...
+        1..5
+    ok 1 - should block git commit on main/master
+      ---
+      duration_ms: 4.644371
+      type: 'suite'
+      ...
+    # Subtest: should NOT block
+        # Subtest: git commit on feature branch
+        ok 1 - git commit on feature branch
+          ---
+          duration_ms: 1.837461
+          type: 'test'
+          ...
+        # Subtest: git commit on fix branch
+        ok 2 - git commit on fix branch
+          ---
+          duration_ms: 0.203856
+          type: 'test'
+          ...
+        # Subtest: git status on main
+        ok 3 - git status on main
+          ---
+          duration_ms: 0.608637
+          type: 'test'
+          ...
+        # Subtest: git log on main
+        ok 4 - git log on main
+          ---
+          duration_ms: 0.339492
+          type: 'test'
+          ...
+        # Subtest: git diff on main
+        ok 5 - git diff on main
+          ---
+          duration_ms: 0.309364
+          type: 'test'
+          ...
+        # Subtest: git push on main
+        ok 6 - git push on main
+          ---
+          duration_ms: 0.854322
+          type: 'test'
+          ...
+        # Subtest: echo "git commit" on main (not actual git)
+        ok 7 - echo "git commit" on main (not actual git)
+          ---
+          duration_ms: 0.134547
+          type: 'test'
+          ...
+        1..7
+    ok 2 - should NOT block
+      ---
+      duration_ms: 4.903245
+      type: 'suite'
+      ...
+    1..2
+ok 1 - isCommitOnMain
+  ---
+  duration_ms: 10.104213
+  type: 'suite'
+  ...
+# Subtest: hook integration: cwd resolution
+    # Subtest: uses input.cwd to resolve branch (feature branch → allowed)
+    ok 1 - uses input.cwd to resolve branch (feature branch → allowed)
+      ---
+      duration_ms: 65.17625
+      type: 'test'
+      ...
+    # Subtest: blocks when input.cwd points to a main branch repo
+    ok 2 - blocks when input.cwd points to a main branch repo
+      ---
+      duration_ms: 233.613192
+      type: 'test'
+      ...
+    1..2
+ok 2 - hook integration: cwd resolution
+  ---
+  duration_ms: 299.009938
+  type: 'suite'
+  ...
+# Subtest: hook integration: commit dizini komuttan çözülür (5FAWK)
+    # Subtest: hiçbir girdide takılmaz (ayraç/tırnak/parantez her konumda, 2000 rastgele komut)
+    ok 1 - hiçbir girdide takılmaz (ayraç/tırnak/parantez her konumda, 2000 rastgele komut)
+      ---
+      duration_ms: 111.540544
+      type: 'test'
+      ...
+    # Subtest: GEÇİR: cd <iş alanı> && commit
+    ok 2 - GEÇİR: cd <iş alanı> && commit
+      ---
+      duration_ms: 39.964542
+      type: 'test'
+      ...
+    # Subtest: GEÇİR: değişkenle cd
+    ok 3 - GEÇİR: değişkenle cd
+      ---
+      duration_ms: 39.742867
+      type: 'test'
+      ...
+    # Subtest: GEÇİR: ${…} biçimli değişken
+    ok 4 - GEÇİR: ${…} biçimli değişken
+      ---
+      duration_ms: 39.135069
+      type: 'test'
+      ...
+    # Subtest: GEÇİR: ~ ile cd
+    ok 5 - GEÇİR: ~ ile cd
+      ---
+      duration_ms: 39.09104
+      type: 'test'
+      ...
+    # Subtest: GEÇİR: göreli cd (oturum dizininden)
+    ok 6 - GEÇİR: göreli cd (oturum dizininden)
+      ---
+      duration_ms: 41.240814
+      type: 'test'
+      ...
+    # Subtest: GEÇİR: git -C <iş alanı>
+    ok 7 - GEÇİR: git -C <iş alanı>
+      ---
+      duration_ms: 42.927028
+      type: 'test'
+      ...
+    # Subtest: GEÇİR: satır sonu ayracı
+    ok 8 - GEÇİR: satır sonu ayracı
+      ---
+      duration_ms: 38.776478
+      type: 'test'
+      ...
+    # Subtest: GEÇİR: tırnak içindeki metin komut değildir
+    ok 9 - GEÇİR: tırnak içindeki metin komut değildir
+      ---
+      duration_ms: 35.396329
+      type: 'test'
+      ...
+    # Subtest: GEÇİR: tek tırnak içi metin
+    ok 10 - GEÇİR: tek tırnak içi metin
+      ---
+      duration_ms: 36.064225
+      type: 'test'
+      ...
+    # Subtest: GEÇİR: tek tırnak içinde ; git commit (ayraç metindir)
+    ok 11 - GEÇİR: tek tırnak içinde ; git commit (ayraç metindir)
+      ---
+      duration_ms: 32.866294
+      type: 'test'
+      ...
+    # Subtest: GEÇİR: commit mesajında ; git commit
+    ok 12 - GEÇİR: commit mesajında ; git commit
+      ---
+      duration_ms: 37.846887
+      type: 'test'
+      ...
+    # Subtest: GEÇİR: main deposunda commit OLMAYAN git
+    ok 13 - GEÇİR: main deposunda commit OLMAYAN git
+      ---
+      duration_ms: 33.255446
+      type: 'test'
+      ...
+    # Subtest: GEÇİR: $( … ) içinde iş alanında commit
+    ok 14 - GEÇİR: $( … ) içinde iş alanında commit
+      ---
+      duration_ms: 37.319209
+      type: 'test'
+      ...
+    # Subtest: GEÇİR: alt kabukta iş alanına geçip commit
+    ok 15 - GEÇİR: alt kabukta iş alanına geçip commit
+      ---
+      duration_ms: 43.505246
+      type: 'test'
+      ...
+    # Subtest: GEÇİR: iş alanında kalınır: sonraki başarısız cd dizini değiştirmez
+    ok 16 - GEÇİR: iş alanında kalınır: sonraki başarısız cd dizini değiştirmez
+      ---
+      duration_ms: 40.087389
+      type: 'test'
+      ...
+    # Subtest: GEÇİR: koşullu cd ile AYNI zincirdeki commit (cd koştuysa koşar)
+    ok 17 - GEÇİR: koşullu cd ile AYNI zincirdeki commit (cd koştuysa koşar)
+      ---
+      duration_ms: 39.535831
+      type: 'test'
+      ...
+    # Subtest: GEÇİR: kesin cd sonrası başarısız olabilen komut, sonra ; commit
+    ok 18 - GEÇİR: kesin cd sonrası başarısız olabilen komut, sonra ; commit
+      ---
+      duration_ms: 35.316701
+      type: 'test'
+      ...
+    # Subtest: GEÇİR: kesin cd, sonra && false || commit (cd koştu, commit iş alanında)
+    ok 19 - GEÇİR: kesin cd, sonra && false || commit (cd koştu, commit iş alanında)
+      ---
+      duration_ms: 39.677688
+      type: 'test'
+      ...
+    # Subtest: GEÇİR: H1 heredoc gövdesindeki metin (tırnaklı ad)
+    ok 20 - GEÇİR: H1 heredoc gövdesindeki metin (tırnaklı ad)
+      ---
+      duration_ms: 37.102853
+      type: 'test'
+      ...
+    # Subtest: GEÇİR: H2 heredoc gövdesindeki metin (çıplak ad)
+    ok 21 - GEÇİR: H2 heredoc gövdesindeki metin (çıplak ad)
+      ---
+      duration_ms: 35.539797
+      type: 'test'
+      ...
+    # Subtest: GEÇİR: H4 heredoc <<- ile girintili sonlandırıcı
+    ok 22 - GEÇİR: H4 heredoc <<- ile girintili sonlandırıcı
+      ---
+      duration_ms: 32.987102
+      type: 'test'
+      ...
+    # Subtest: GEÇİR: H5 heredoc gövdesi birden çok satır, ikinci heredoc sonrası kalan
+    ok 23 - GEÇİR: H5 heredoc gövdesi birden çok satır, ikinci heredoc sonrası kalan
+      ---
+      duration_ms: 33.822043
+      type: 'test'
+      ...
+    # Subtest: ENGELLE: çıplak commit (oturum main)
+    ok 24 - ENGELLE: çıplak commit (oturum main)
+      ---
+      duration_ms: 41.215975
+      type: 'test'
+      ...
+    # Subtest: ENGELLE: cd <main> && commit
+    ok 25 - ENGELLE: cd <main> && commit
+      ---
+      duration_ms: 37.24948
+      type: 'test'
+      ...
+    # Subtest: ENGELLE: git -C <main> commit
+    ok 26 - ENGELLE: git -C <main> commit
+      ---
+      duration_ms: 43.751661
+      type: 'test'
+      ...
+    # Subtest: ENGELLE: ikinci cd main'e döner
+    ok 27 - ENGELLE: ikinci cd main'e döner
+      ---
+      duration_ms: 39.58226
+      type: 'test'
+      ...
+    # Subtest: ENGELLE: git -c ayar commit
+    ok 28 - ENGELLE: git -c ayar commit
+      ---
+      duration_ms: 36.222992
+      type: 'test'
+      ...
+    # Subtest: ENGELLE: env önekli
+    ok 29 - ENGELLE: env önekli
+      ---
+      duration_ms: 38.430464
+      type: 'test'
+      ...
+    # Subtest: ENGELLE: bash -c içinde commit
+    ok 30 - ENGELLE: bash -c içinde commit
+      ---
+      duration_ms: 38.087932
+      type: 'test'
+      ...
+    # Subtest: ENGELLE: çözülemeyen değişken → oturum dizini (temkinli)
+    ok 31 - ENGELLE: çözülemeyen değişken → oturum dizini (temkinli)
+      ---
+      duration_ms: 45.251488
+      type: 'test'
+      ...
+    # Subtest: ENGELLE: iş alanında add, main'de commit
+    ok 32 - ENGELLE: iş alanında add, main'de commit
+      ---
+      duration_ms: 38.500803
+      type: 'test'
+      ...
+    # Subtest: ENGELLE: $( … ) içinde commit (oturum main)
+    ok 33 - ENGELLE: $( … ) içinde commit (oturum main)
+      ---
+      duration_ms: 37.23982
+      type: 'test'
+      ...
+    # Subtest: ENGELLE: ters tırnak içinde commit
+    ok 34 - ENGELLE: ters tırnak içinde commit
+      ---
+      duration_ms: 36.703251
+      type: 'test'
+      ...
+    # Subtest: ENGELLE: alt kabuktaki cd dışarı taşınmaz
+    ok 35 - ENGELLE: alt kabuktaki cd dışarı taşınmaz
+      ---
+      duration_ms: 38.760748
+      type: 'test'
+      ...
+    # Subtest: ENGELLE: başarısız cd sonrası ; commit eski dizinde koşar (göz tur 1)
+    ok 36 - ENGELLE: başarısız cd sonrası ; commit eski dizinde koşar (göz tur 1)
+      ---
+      duration_ms: 41.051338
+      type: 'test'
+      ...
+    # Subtest: ENGELLE: iş alanından başarısız cd ile main'e kalan
+    ok 37 - ENGELLE: iş alanından başarısız cd ile main'e kalan
+      ---
+      duration_ms: 41.419931
+      type: 'test'
+      ...
+    # Subtest: ENGELLE: dal okunamayan hedef → oturum dizini (temkinli)
+    ok 38 - ENGELLE: dal okunamayan hedef → oturum dizini (temkinli)
+      ---
+      duration_ms: 46.783965
+      type: 'test'
+      ...
+    # Subtest: ENGELLE: false && cd <iş alanı>; commit (cd koşmaz)
+    ok 39 - ENGELLE: false && cd <iş alanı>; commit (cd koşmaz)
+      ---
+      duration_ms: 40.339033
+      type: 'test'
+      ...
+    # Subtest: ENGELLE: true || cd <iş alanı>; commit (cd koşmaz)
+    ok 40 - ENGELLE: true || cd <iş alanı>; commit (cd koşmaz)
+      ---
+      duration_ms: 40.52245
+      type: 'test'
+      ...
+    # Subtest: ENGELLE: boru içindeki cd üst kabuğu değiştirmez
+    ok 41 - ENGELLE: boru içindeki cd üst kabuğu değiştirmez
+      ---
+      duration_ms: 43.78148
+      type: 'test'
+      ...
+    # Subtest: ENGELLE: arka plandaki cd üst kabuğu değiştirmez
+    ok 42 - ENGELLE: arka plandaki cd üst kabuğu değiştirmez
+      ---
+      duration_ms: 38.503113
+      type: 'test'
+      ...
+    # Subtest: ENGELLE: || kolundaki commit: koşullu cd koşmamış olabilir
+    ok 43 - ENGELLE: || kolundaki commit: koşullu cd koşmamış olabilir
+      ---
+      duration_ms: 42.988336
+      type: 'test'
+      ...
+    # Subtest: ENGELLE: H3 heredoc dışındaki gerçek commit (gövdeden sonra)
+    ok 44 - ENGELLE: H3 heredoc dışındaki gerçek commit (gövdeden sonra)
+      ---
+      duration_ms: 49.421218
+      type: 'test'
+      ...
+    # Subtest: ENGELLE: H3b heredoc öncesi gerçek commit (aynı satır)
+    ok 45 - ENGELLE: H3b heredoc öncesi gerçek commit (aynı satır)
+      ---
+      duration_ms: 45.334937
+      type: 'test'
+      ...
+    # Subtest: ENGELLE: Z4 heredoc commit mesajı olarak verilir (komutun kendisi commit)
+    ok 46 - ENGELLE: Z4 heredoc commit mesajı olarak verilir (komutun kendisi commit)
+      ---
+      duration_ms: 40.280894
+      type: 'test'
+      ...
+    # Subtest: ENGELLE: H6 sonlandırıcı yoksa gövde sonuna dek veri, ama önceki commit yargılanır
+    ok 47 - ENGELLE: H6 sonlandırıcı yoksa gövde sonuna dek veri, ama önceki commit yargılanır
+      ---
+      duration_ms: 54.647707
+      type: 'test'
+      ...
+    1..47
+ok 3 - hook integration: commit dizini komuttan çözülür (5FAWK)
+  ---
+  duration_ms: 1942.46233
+  type: 'suite'
+  ...
+1..3
+# tests 61
+# suites 5
+# pass 61
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2397.193783
+--- stderr ---

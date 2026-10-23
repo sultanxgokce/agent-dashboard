@@ -1,0 +1,40 @@
+{
+  "is": "main-commit-kancasi-heredoc-kalan",
+  "cumle": "Heredoc gövdesi komut sayılmaz ve codex kopyası aynı mantığa getirilir; ana tasarım tur 3'te 5/5 E geçti, kalan yalnız bu delta",
+  "istedi": "SERDAR",
+  "aldi": "MİRAHUR",
+  "zaman": "2026-10-23T19:06:53+03:00",
+  "sinif_cevaplari": {
+    "geri_alinamaz": "h",
+    "para": "h",
+    "dis_yuzey": "h",
+    "yetki": "?"
+  },
+  "siniflar": [
+    "yetki"
+  ],
+  "sultan": true,
+  "kanit_nerede": "",
+  "oda": "",
+  "durum": "acik",
+  "gecmis": [
+    {
+      "zaman": "2026-10-23T19:06:53+03:00",
+      "olay": "daraltmadan dogdu",
+      "koken": "main-commit-kancasi-komut-cozumu"
+    }
+  ],
+  "canli_gerekir": false,
+  "canli_sebep": "--canli h (sahip: canlı kanıt gerekmez dedi)",
+  "koken": "main-commit-kancasi-komut-cozumu",
+  "baslama_izni": {
+    "durum": "basla",
+    "istendi": "2026-10-20T21:28:14+03:00",
+    "zaman": "2026-10-23T18:11:56+03:00",
+    "oturum": "session_01Ge4BawKcUrcm1pdV8WANyF",
+    "soz": "Evet, #2 ile devam (önerim)",
+    "beyan": "SERDAR",
+    "miras": "main-commit-kancasi-komut-cozumu"
+  },
+  "kural_surumu": "0.21.0"
+}

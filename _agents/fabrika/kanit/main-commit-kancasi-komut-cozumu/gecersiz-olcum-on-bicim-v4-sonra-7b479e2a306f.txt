@@ -1,0 +1,9 @@
+# GEÇERSİZ İLANI — özgün kayda dokunulmadı
+hedef: olcum-on-bicim-v4-sonra.txt
+hedef_sha256: e084506437f74ac78deaf3cac5ae3a8e13da844e2a9a6156041bacbd6bbd8d96
+hedef_zaman: 2026-10-23T18:23:17+03:00
+hedef_renk: yesil
+neden: kurulum hatası: ~ biçimi satırı HOME sabitlemesiz koşuldu (YANLIS 1/10), rc kodu bunu yakalamıyor; on-bicim-v5 HOME sabitli 10/10 ile yerine geçti
+kim: SERDAR
+karsi: olcum-on-bicim-v5-sonra.txt
+zaman: 2026-10-23T18:23:36+03:00

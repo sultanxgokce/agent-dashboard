@@ -1,0 +1,38 @@
+{
+  "tur": 2,
+  "is": "main-commit-kancasi-komut-cozumu",
+  "pr": "",
+  "yazan": "claude",
+  "denetci": "codex",
+  "zaman": "2026-10-20T21:39:51+03:00",
+  "kanit_durumu": "sağlam (araç imzalı, sha'lar tutuyor)",
+  "yedek": null,
+  "yazan_model": "sonnet",
+  "yazan_model_kaynak": "ayar-dosyasi",
+  "yedek_model": null,
+  "kirpildi": {
+    "oldu": false,
+    "istem_bayt": 50554,
+    "esik": 110000
+  },
+  "kanit_ayiklandi": {
+    "dosya": 16,
+    "bayt": 76608
+  },
+  "kareler": null,
+  "sonuc": {
+    "kod_puani": 2,
+    "dogru_sey": "E",
+    "ozet": "İstenen cd/değişken/~/git -C/ikinci cd/bash -c ve tırnak vakaları ele alınmış; verilen 10 biçimin önce/sonra ölçümü beş eski yanlış kararın kapandığını gösteriyor. Ancak çözümleyici `&&` ile `||` koşullarını sıradan ayraç gibi atıp sonraki komutları koşulsuz uygulanmış saydığı için ana daldaki commit kolayca geçirilebilir; önce bu ciddi deliği çözün.",
+    "bulgular": [
+      {
+        "ne": "Koşullu kabuk yürütmesi modellenmiyor; çalışmayacak bir `cd` çözümleyicinin dizinini yine değiştirerek ana daldaki gerçek commit'i gizleyebilir. Örneğin oturum main deposundayken `false && cd <özellik-dalı>; git commit -m x` komutunda kabuk `cd`yi çalıştırmaz ve commit main'de koşar, fakat çözümleyici `cd`yi uygulanmış sayıp commit'i özellik dalına bağlar ve kanca geçirir.",
+        "kanit": "`AYRAC` kümesi `&` ve `|` karakterlerini içeriyor; `lex` bunları tek tek yalnızca `komut()` ile ayırıyor, dolayısıyla `&&`/`||` anlamı kayboluyor. `commitDizinleri` ise ayrılan her `cd` kolunda önceki komutun başarı durumuna bakmadan `cur` değerini değiştiriyor. Eklenen testlerde `&&` kullanılan normal cd örnekleri var, fakat sol tarafı başarısız olan koşullu yürütme vakası yok.",
+        "konum": "adapters/claude-code/scripts/hooks/block-main-commit.js: AYRAC/lex ayraç kolu ve commitDizinleri cd/pushd kolu",
+        "agirlik": "ciddi",
+        "kutu_disi_yuzey": null
+      }
+    ],
+    "kanit_gorusu": "Manifest sağlam ve araç imzalı; sarı kayıt yok. `kanca-sinavi` kırmızıdan yeşile, `on-bicim` ise gerçek depo yollarıyla önce/sonra ölçüm sağlıyor; son ölçümde verilen biçimlerin tamamı doğru. Bununla birlikte `on-bicim` ölçüm betiği yanlış sonuçlar varken de rc=0/yeşil döndüğünden renk tek başına başarı kanıtı değil; doğrulama stdout satırlarından geliyor ve koşullu `&&`/`||` yürütme deliği ölçülmemiş."
+  }
+}

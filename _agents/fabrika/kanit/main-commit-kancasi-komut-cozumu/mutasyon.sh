@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+# block-main-commit.js bozmaları — her biri TAM ayrık kopyada (git worktree --detach HEAD), iş alanına dokunmaz.
+# Önce bozmasız kopya (pozitif kontrol: fail 0). Düşen kapılar ADIYLA; sonuç satırı yoksa ÖLÇÜLEMEDİ.
+set -u
+DEPO="$(git rev-parse --show-toplevel)"; K="$(mktemp -d)"
+trap 'for w in "$K"/w-*; do git -C "$DEPO" worktree remove --force "$w" >/dev/null 2>&1; done; rm -r -f -- "$K"' EXIT
+H=adapters/claude-code/scripts/hooks
+kos() {  # $1 ad · sonra (eski yeni) çiftleri
+  local ad="$1"; shift; local w="$K/w-$ad"
+  git -C "$DEPO" worktree add -q --detach "$w" HEAD || { echo "$ad: ÖLÇÜLEMEDİ (kopya)"; return; }
+  while [ $# -ge 2 ]; do
+    python3 -c 'import sys; p=sys.argv[1]; s=open(p).read(); assert sys.argv[2] in s, "desen yok: "+sys.argv[2][:40]; open(p,"w").write(s.replace(sys.argv[2],sys.argv[3],1))' "$w/$H/block-main-commit.js" "$1" "$2" \
+      || { echo "$ad: DESEN YOK"; return; }
+    shift 2
+  done
+  local o; o="$(cd "$w/$H" && timeout 200 node --test block-main-commit.test.js 2>&1)"
+  if ! printf '%s' "$o" | grep -q '^# fail'; then echo "$ad: ÖLÇÜLEMEDİ (sonuç satırı yok)"; return; fi
+  echo "$ad: $(printf '%s\n' "$o" | grep -E '^# (pass|fail)' | paste -sd' ') · düşen: $(printf '%s\n' "$o" | grep -E '^    not ok' | sed -E 's/^    not ok [0-9]+ - //' | paste -sd'|')"
+}
+kos pozitif-kontrol
+kos tirnak-komut-sayilir   "if (c === \"'\") {" "if (false) {"
+kos cd-izlenmez            "if ((ad === 'cd' || ad === 'pushd') && !altKabuk) {" "if (false) {"
+kos git-C-yok-sayilir      "if (s === '-C' && a + 1 < words.length) {" "if (false) {"
+kos bash-c-acilmaz         "if (KABUK.has(ad)) {" "if (false) {"
+kos alt-kabuk-sizar        "S = f.S; L = f.L;" "const ic = L.A; S = f.S; L = f.L;" \
+                           "genel(f.R, f.kesin, false);" "genel(ic, f.kesin, false);"
+kos altkomut-taranmaz      "for (const b of subs) for (const r of R)" "for (const b of []) for (const r of R)"
+kos bilinmez-gecirir       "branch = dalOku(hedef === BILINMEZ ? oturum : hedef);" "if (hedef === BILINMEZ) continue; branch = dalOku(hedef);"
+kos degisken-yok           "const v = Object.prototype.hasOwnProperty.call(vars, ad) ? vars[ad] : env[ad];" "const v = undefined;"
+kos ilk-surum-takilma      "    if (j === i) { t = src[i]; j = i + 1; }" "" \
+                           "if (c === '(') { komut();" "if (c === '(' && !parts) { komut();" \
+                           "if (c === ')') { komut();" "if (c === ')' && !parts) { komut();"
+kos basarisiz-cd-gecer     "if (y !== BILINMEZ && !dizinMi(y)) { hepsiVar = false; return r; }" ""
+kos okunamayan-dal-gecer   "try { branch = dalOku(oturum); } catch { continue; }" "continue;"
+kos kosul-yok-sayilir      "if (!kesin) L.det = false;" ""
+kos alt-kabukta-cd-etkili  "if ((ad === 'cd' || ad === 'pushd') && !altKabuk) {" "if (ad === 'cd' || ad === 'pushd') {"
+kos veya-kolu-dar          "bag === '||' ? L.U :" "bag === '||' ? L.A :"
+kos kesin-cd-oncesi-kalir  "L.U = kesin ? birlesim(yeni) : birlesim(L.U, yeni);" "L.U = birlesim(L.U, yeni);"
+kos heredoc-govdesi-komut-sayilir  "if (m) { heredoc.push(m[1] || m[2] || m[3]);" "if (false) { heredoc.push(m[1] || m[2] || m[3]);"
+kos heredoc-bitmez-hepsini-yutar   "if (satir.trim() === d) break;" ""
