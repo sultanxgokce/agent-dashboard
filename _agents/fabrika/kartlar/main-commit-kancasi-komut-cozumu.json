@@ -1,0 +1,77 @@
+{
+  "is": "main-commit-kancasi-komut-cozumu",
+  "cumle": "block-main-commit kancası heredoc gövdesindeki metni komut saymasın (başlık ve gövde sözcüklenir, tırnaklı ya da çıplak ad tanınır) ve codex kopyası aynı mantıkla çalışsın",
+  "istedi": "SERDAR",
+  "aldi": "MİRAHUR",
+  "zaman": "2026-10-20T21:28:14+03:00",
+  "sinif_cevaplari": {
+    "geri_alinamaz": "h",
+    "para": "h",
+    "dis_yuzey": "h",
+    "yetki": "?"
+  },
+  "siniflar": [
+    "yetki"
+  ],
+  "sultan": true,
+  "kanit_nerede": "",
+  "oda": "",
+  "durum": "acik",
+  "gecmis": [
+    {
+      "zaman": "2026-10-23T19:06:53+03:00",
+      "olay": "daralt",
+      "kalan_kart": "main-commit-kancasi-heredoc-kalan",
+      "tur_sifir": 3
+    }
+  ],
+  "canli_gerekir": false,
+  "canli_sebep": "--canli h (sahip: canlı kanıt gerekmez dedi)",
+  "kapsam_uyarilari": [],
+  "sultan_kararlari": [
+    {
+      "karar": "basla",
+      "oturum": "session_01Ge4BawKcUrcm1pdV8WANyF",
+      "soz": "Evet, #2 ile devam (önerim)",
+      "beyan": "SERDAR",
+      "gerekce": "Sultan 23 Eki başlama izni; hakem wf_fe01ce88 #2'yi seçti (çözülemeyen dizin → oturum dizini, fail-closed)",
+      "zaman": "2026-10-23T18:11:56+03:00"
+    }
+  ],
+  "baslama_izni": {
+    "durum": "basla",
+    "istendi": "2026-10-20T21:28:14+03:00",
+    "zaman": "2026-10-23T18:11:56+03:00",
+    "oturum": "session_01Ge4BawKcUrcm1pdV8WANyF",
+    "soz": "Evet, #2 ile devam (önerim)",
+    "beyan": "SERDAR"
+  },
+  "kural_surumu": "0.21.0",
+  "reis_kararlari": [
+    {
+      "karar": "daralt",
+      "reis": "MİRAHUR",
+      "oturum": "session_01Ge4BawKcUrcm1pdV8WANyF (reis kararı SERDAR: tıkandı yol 2; tur 4 yanlış depodaki PR farkını incelediği için geçersiz)",
+      "gerekce": "daraltma: kalan bulgu yeni karta (main-commit-kancasi-heredoc-kalan) — Heredoc gövdesi komut sayılmaz ve codex kopyası aynı mantığa getirilir; ana tasarım tur 3'te 5/5 E geçti, kalan yalnız bu delta",
+      "zaman": "2026-10-23T19:06:53+03:00",
+      "sinifli": true,
+      "izin": "basla"
+    }
+  ],
+  "cumle_gecmisi": [
+    {
+      "cumle": "block-main-commit kancası commit'in koşacağı dizini komutun kendisinden çözsün (cd/değişken/~/git -C/ikinci cd/bash -c) ve tırnak içindeki metni komut saymasın: 20 Eki ölçümü 10 biçimde 3 yanlış engel + 2 delik (5FAWK)",
+      "zaman": "2026-10-23T19:06:53+03:00",
+      "kalan_kart": "main-commit-kancasi-heredoc-kalan"
+    }
+  ],
+  "daraltmalar": [
+    {
+      "zaman": "2026-10-23T19:06:53+03:00",
+      "kalan_kart": "main-commit-kancasi-heredoc-kalan",
+      "kalan": "Heredoc gövdesi komut sayılmaz ve codex kopyası aynı mantığa getirilir; ana tasarım tur 3'te 5/5 E geçti, kalan yalnız bu delta",
+      "tur_sifir": 3,
+      "oturum": "session_01Ge4BawKcUrcm1pdV8WANyF (reis kararı SERDAR: tıkandı yol 2; tur 4 yanlış depodaki PR farkını incelediği için geçersiz)"
+    }
+  ]
+}
