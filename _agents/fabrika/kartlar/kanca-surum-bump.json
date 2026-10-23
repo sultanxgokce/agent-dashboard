@@ -1,0 +1,32 @@
+{
+  "is": "kanca-surum-bump",
+  "cumle": "agent-dashboard eklentisi 0.36.0: #2'nin kurulu kopyaya inmesi için sürüm artışı; kurulum Sultan eli",
+  "istedi": "SERDAR",
+  "aldi": "SERDAR",
+  "zaman": "2026-10-23T20:23:32+03:00",
+  "sinif_cevaplari": {
+    "geri_alinamaz": "h",
+    "para": "h",
+    "dis_yuzey": "h",
+    "yetki": "h"
+  },
+  "siniflar": [],
+  "sultan": false,
+  "kanit_nerede": "fork klonu _agents/fabrika/kanit/kanca-surum-bump",
+  "oda": "",
+  "durum": "acik",
+  "gecmis": [],
+  "canli_gerekir": false,
+  "canli_sebep": "",
+  "kapsam_uyarilari": [],
+  "gorev": "gorev_01M57ZV1ZAWA4V7JKWXBZ5FAWK",
+  "tahmin_dk": 60,
+  "sayi_uyarilari": [],
+  "gorev_yazimlari": [
+    {
+      "zaman": "2026-10-23T20:23:32+03:00",
+      "olay": "ac",
+      "sonuc": "yazıldı"
+    }
+  ]
+}

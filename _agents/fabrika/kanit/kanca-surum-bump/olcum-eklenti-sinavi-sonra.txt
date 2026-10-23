@@ -1,0 +1,16 @@
+$ bash -c cd adapters/claude-code && npm test 2>&1 | tail -12; exit ${PIPESTATUS[0]} --boru-izin npm test çıktısı uzun; PIPESTATUS[0] ile asıl çıkış kodu korunur, tail yalnız görüntü
+# rc=0 sure=7.2s zaman=2026-10-23T20:24:35+03:00
+--- stdout ---
+  duration_ms: 5.717538
+  type: 'suite'
+  ...
+1..72
+# tests 504
+# suites 94
+# pass 504
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 6712.657928
+--- stderr ---

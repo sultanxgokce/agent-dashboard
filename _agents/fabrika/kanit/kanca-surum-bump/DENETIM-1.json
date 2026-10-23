@@ -1,0 +1,50 @@
+{
+  "tur": 1,
+  "is": "kanca-surum-bump",
+  "pr": "",
+  "yazan": "claude",
+  "denetci": "codex",
+  "zaman": "2026-10-23T20:27:46+03:00",
+  "kanit_durumu": "sağlam (araç imzalı, sha'lar tutuyor)",
+  "depo": "/tmp/claude-1000/-config-projects-Nexus/4f6442d1-77db-445d-93ab-44b9fe1de9a0/scratchpad/is/repo-kanca-surum-0-36-0",
+  "dal": "kanca-surum-0-36-0",
+  "birincil_mi": false,
+  "yedek": null,
+  "yazan_model": "claude-fable-5-1[1m]",
+  "yazan_model_kaynak": "ayar-dosyasi",
+  "yedek_model": null,
+  "kirpildi": {
+    "oldu": false,
+    "istem_bayt": 14270,
+    "esik": 110000
+  },
+  "kanit_ayiklandi": {
+    "dosya": 5,
+    "bayt": 7454
+  },
+  "bas": null,
+  "duzeltme_farki": null,
+  "kareler": null,
+  "sonuc": {
+    "kod_puani": 5,
+    "dogru_sey": "E",
+    "ozet": "0.35.0 sürümü, dağıtımda kullanılan sürüm yüzeylerinde 0.36.0’a çıkarılmış ve değişiklik günlüğüne #2 eklenmiş. Kod tarafı üretime hazır; yalnız ölçüm çiftinin farklı kapsamlarla sayım yapması küçük bir kanıt rötuşu, Sultan’ın kurulu kopyayı güncellemesi ise ayrı yüzeyde kalan adımdır.",
+    "bulgular": [
+      {
+        "ne": "Önce ve sonra sürüm sayımları aynı dosya kapsamını ve aynı eşleşme ölçütünü kullanmıyor; bu nedenle 6’dan 10’a değişim doğrudan karşılaştırılabilir bir ölçüm çifti değil.",
+        "kanit": "Önce kaydı yalnız \"*.json\" içinde tırnaklı sürüm kalıplarını sayıyor; sonra kaydı tüm depoda sabit metni sayıyor ve sonuçlara ilgisiz go.mod/go.sum içindeki golang.org/x/oauth2 v0.36.0 satırlarını da katıyor.",
+        "konum": "olcum-surum-sayimi-once.txt ve olcum-surum-sayimi-sonra.txt",
+        "agirlik": "rotus",
+        "kutu_disi_yuzey": null
+      },
+      {
+        "ne": "0.36.0’ın Sultan’ın kurulu eklenti kopyasına indirilmesi bu konteynerde doğrulanmamış; kart zaten kurulumu Sultan’ın yapacağını belirtiyor.",
+        "kanit": "İş kartı cümlesi \"kurulum Sultan eli\" diyor; manifestte yalnız depo sürüm sayımı ve eklenti testleri var, kurulu kopyaya ilişkin ölçüm yok.",
+        "konum": "İŞ KARTI.cumle ve KANIT MANİFESTİ.kayitlar",
+        "agirlik": "kutu-disi",
+        "kutu_disi_yuzey": "Sultan'ın Mac'i"
+      }
+    ],
+    "kanit_gorusu": "Manifest araç imzalı ve sağlam; sarı kayıt yok. Diff, ilgili sürüm yüzeylerinin 0.36.0’a çıktığını doğrudan gösteriyor ve eklenti sınavı 504/504 geçiyor. Sürüm sayımında önce/sonra kapsamları farklı olduğu için ölçüm çifti kusursuz değil; ayrıca kurulu kopyaya iniş bu kutuda ölçülmemiş."
+  }
+}

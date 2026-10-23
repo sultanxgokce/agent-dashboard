@@ -1,0 +1,17 @@
+$ bash -c set -o pipefail; echo "0.35.0 sayısı (kaynak; CHANGELOG/kanıt/min.js hariç): $(git grep -h -F "0.35.0" -- . ":(exclude)_agents" ":(exclude)CHANGELOG.md" ":(exclude)*.min.js" | wc -l)"; echo "0.36.0 sayısı: $(git grep -h -F "0.36.0" -- . ":(exclude)_agents" ":(exclude)CHANGELOG.md" | wc -l)"; git grep -n -F "0.36.0" -- . ":(exclude)_agents"
+# rc=0 sure=0.2s zaman=2026-10-23T20:25:14+03:00
+--- stdout ---
+0.35.0 sayısı (kaynak; CHANGELOG/kanıt/min.js hariç): 0
+0.36.0 sayısı: 10
+.claude-plugin/marketplace.json:30:      "version": "0.36.0",
+.release-please-manifest.json:2:  ".": "0.36.0"
+CHANGELOG.md:3:## [0.36.0](https://github.com/sultanxgokce/agent-dashboard/compare/v0.35.0...v0.36.0) (2026-10-23)
+VERSION:1:0.36.0 # x-release-please-version
+adapters/claude-code/.claude-plugin/plugin.json:3:  "version": "0.36.0",
+adapters/claude-code/package.json:3:  "version": "0.36.0",
+adapters/codex/.codex-plugin/plugin.json:3:  "version": "0.36.0",
+adapters/codex/hooks/package.json:3:  "version": "0.36.0",
+go.mod:20:	golang.org/x/oauth2 v0.36.0
+go.sum:109:golang.org/x/oauth2 v0.36.0 h1:peZ/1z27fi9hUOFCAZaHyrpWG5lwe0RJEEEeH0ThlIs=
+go.sum:110:golang.org/x/oauth2 v0.36.0/go.mod h1:YDBUJMTkDnJS+A4BP4eZBjCqtokkg1hODuPjwiGPO7Q=
+--- stderr ---

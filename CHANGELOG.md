@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.36.0](https://github.com/sultanxgokce/agent-dashboard/compare/v0.35.0...v0.36.0) (2026-10-23)
+
+
+### Bug Fixes
+
+* block-main-commit: komutun koşacağı dizini komuttan çözer; heredoc gövdesi komut sayılmaz (#2)
+
 ## [0.35.0](https://github.com/bjornjee/agent-dashboard/compare/v0.34.1...v0.35.0) (2026-07-05)
 
 
