@@ -1,0 +1,35 @@
+{
+  "tur": 4,
+  "is": "main-commit-kancasi-komut-cozumu",
+  "pr": "",
+  "yazan": "claude",
+  "denetci": "codex",
+  "zaman": "2026-10-23T19:08:03+03:00",
+  "kanit_durumu": "sağlam (araç imzalı, sha'lar tutuyor) · 1 kayıt GEÇERSİZ ilan edildi, kanıt sayılmaz: olcum-on-bicim-v4-sonra.txt (yesil → gecersiz) — kurulum hatası: ~ biçimi satırı HOME sabitlemesiz koşuldu (YANLIS 1/10), rc kodu bunu yakalamıyor; on-bicim-v5 HOME sabitli 10/10 ile yerine geçti · SERDAR · karşı kanıt: olcum-on-bicim-v5-sonra.txt",
+  "depo": "/tmp/claude-1000/-config-projects-Nexus/4f6442d1-77db-445d-93ab-44b9fe1de9a0/scratchpad/is/repo",
+  "dal": "main-commit-kancasi-komut-cozumu",
+  "birincil_mi": true,
+  "yedek": null,
+  "yazan_model": "sonnet",
+  "yazan_model_kaynak": "ayar-dosyasi",
+  "yedek_model": null,
+  "kirpildi": {
+    "oldu": false,
+    "istem_bayt": 86786,
+    "esik": 110000
+  },
+  "kanit_ayiklandi": {
+    "dosya": 0,
+    "bayt": 0
+  },
+  "bas": null,
+  "duzeltme_farki": null,
+  "kareler": null,
+  "sonuc": {
+    "kod_puani": 5,
+    "dogru_sey": "E",
+    "ozet": "Heredoc başlıkları tırnaklı, çıplak ve <<- biçimlerinde sözcüklenmiş; gövdeler komut taramasından çıkarılırken heredoc öncesi ve sonrasındaki gerçek commit’ler yargılanmaya devam ediyor, aynı mantık Codex kopyasına da taşınmış. Sultanım, Claude sınavının 61/61 ve Codex sınavının 62/62 geçmesi, heredoc bozmasının adlandırılmış beş vakayı düşürmesi ve önceki turun bulgusuz kapanmış olması nedeniyle yalnız rötuş dahi gerektiren kanıtlı bir kusur görünmüyor.",
+    "bulgular": [],
+    "kanit_gorusu": "Manifest araç imzalı ve sha değerleri tutuyor; sarı kayıt yok. Geçersiz ilan edilen on-bicim-v4 değerlendirmeye alınmadı, yerine HOME sabitli on-bicim-v5 10/10 sonucu kullanıldı. Gerçek kod ölçümleri Claude tarafında 61/61, Codex tarafında 62/62 yeşil; bozma-adlari-v8 çıktısında pozitif kontrol 61/61 kalırken heredoc gövdesiyle ilgili dört geçir vakası ve gövde sonrasındaki gerçek commit vakası düşüyor. Bununla birlikte bozma kayıtlarında şemadaki `mutasyon: true` alanı bulunmadığından bunlar rubriğin resmî mutasyon kanıtı olarak sayılmadı; üretim kodunun sonucu yeşil gerçek sınav kayıtlarından okundu. Önceki turda bulgu olmadığı için kapanması gereken eski bulgu yok."
+  }
+}
