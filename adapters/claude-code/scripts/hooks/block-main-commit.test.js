@@ -127,6 +127,11 @@ describe('hook integration: commit dizini komuttan çözülür (5FAWK)', () => {
     ['koşullu cd ile AYNI zincirdeki commit (cd koştuysa koşar)', `false && cd ${dal} && ${G} ${C} -m x`],
     ['kesin cd sonrası başarısız olabilen komut, sonra ; commit', `cd ${dal} && ${G} add .; ${G} ${C} -m x`],
     ['kesin cd, sonra && false || commit (cd koştu, commit iş alanında)', `cd ${dal} && false || ${G} ${C} -m x`],
+    // heredoc gövdesi (hakem wf_fe01ce88 şartı): gövde satırları komut DEĞİL veridir — PR3 bol() deseninden taşındı
+    ['H1 heredoc gövdesindeki metin (tırnaklı ad)', `cat > n.md <<'EOF'\n${G} ${C} -m x\nEOF`],
+    ['H2 heredoc gövdesindeki metin (çıplak ad)', `cat > n.md <<EOF\n${G} ${C} -m x yasak\nEOF`],
+    ['H4 heredoc <<- ile girintili sonlandırıcı', `cat > n.md <<-"SON"\n\t${G} ${C} -m x\n\tSON`],
+    ['H5 heredoc gövdesi birden çok satır, ikinci heredoc sonrası kalan', `cat <<A > a.md; cat <<B > b.md\n${G} ${C} -m x\nA\n${G} ${C} -m y\nB`],
   ];
   const engelle = [
     ['çıplak commit (oturum main)', `${G} ${C} -m x`],
@@ -150,6 +155,11 @@ describe('hook integration: commit dizini komuttan çözülür (5FAWK)', () => {
     ['boru içindeki cd üst kabuğu değiştirmez', `echo | cd ${dal}; ${G} ${C} -m x`],
     ['arka plandaki cd üst kabuğu değiştirmez', `cd ${dal} & ${G} ${C} -m x`],
     ['|| kolundaki commit: koşullu cd koşmamış olabilir', `false && cd ${dal} || ${G} ${C} -m x`],
+    // heredoc sonrası gerçek komut hâlâ yargılanır (gövde atlama komut kaçırmaz)
+    ['H3 heredoc dışındaki gerçek commit (gövdeden sonra)', `cat > n.md <<'EOF'\nmetin\nEOF\n${G} ${C} -m x`],
+    ['H3b heredoc öncesi gerçek commit (aynı satır)', `${G} ${C} -m x && cat > n.md <<'EOF'\nmetin\nEOF`],
+    ['Z4 heredoc commit mesajı olarak verilir (komutun kendisi commit)', `${G} ${C} -F - <<'EOF'\nmesaj\nEOF`],
+    ['H6 sonlandırıcı yoksa gövde sonuna dek veri, ama önceki commit yargılanır', `${G} ${C} -m x; cat <<'EOF'\nmetin`],
   ];
   // 🔴 Kanca her Bash çağrısının önünde koşar: takılırsa bütün araç kilitlenir. İlk sürümde bitişik ')' sonsuz döngüye girdi
   //    (bellek tükendi) — bu kapı her karakterin her konumunu dener, hepsi hızlı bitmeli.

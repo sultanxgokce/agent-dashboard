@@ -55,6 +55,7 @@ function altKomut(src, i, kapanis) {
 function lex(src) {
   const cmds = [];
   let words = [], subs = [], parts = null, i = 0, bag = 'bas';
+  const heredoc = [];   // bekleyen heredoc sonlandırıcıları: gövde satırları komut DEĞİLDİR (PR3 bol() deseni)
   const kelime = () => { if (parts) { words.push(parts); parts = null; } };
   const komut = (bayrak) => {
     kelime();
@@ -82,7 +83,19 @@ function lex(src) {
     if (c === '\\' && i + 1 < src.length) { if (src[i + 1] !== '\n') ekle(src[i + 1], "'"); i += 2; continue; }
     if (c === '$' && src[i + 1] === '(') { const [b, n] = altKomut(src, i + 2, ')'); subs.push(b); ekle('$(…)', ''); i = n; continue; }
     if (c === '`') { const [b, n] = altKomut(src, i + 1, '`'); subs.push(b); ekle('$(…)', ''); i = n; continue; }
-    if (c === ';' || c === '\n') { komut(); bag = 'bas'; i++; continue; }
+    if (c === '<' && src[i + 1] === '<' && src[i + 2] !== '<') {
+      const m = src.slice(i + 2).match(/^-?\s*(?:'([^']+)'|"([^"]+)"|([A-Za-z_][A-Za-z0-9_]*))/);
+      if (m) { heredoc.push(m[1] || m[2] || m[3]); i += 2 + m[0].length; continue; }
+    }
+    if (c === '\n') {
+      komut(); bag = 'bas'; i++;
+      while (heredoc.length) {   // satır sonu: bekleyen gövdeleri sonlandırıcıya kadar atla
+        const d = heredoc.shift();
+        while (i < src.length) { const e = src.indexOf('\n', i); const satir = src.slice(i, e < 0 ? src.length : e); i = e < 0 ? src.length : e + 1; if (satir.trim() === d) break; }
+      }
+      continue;
+    }
+    if (c === ';') { komut(); bag = 'bas'; i++; continue; }
     if (c === '&') { if (src[i + 1] === '&') { komut(); bag = '&&'; i += 2; } else { komut('arka'); bag = 'bas'; i++; } continue; }
     if (c === '|') { if (src[i + 1] === '|') { komut(); bag = '||'; i += 2; } else { komut('boru'); bag = '|'; i++; } continue; }
     if (c === '(') { komut(); cmds.push({ paren: '(', bag }); bag = 'bas'; i++; continue; }   // alt kabuk girişi
