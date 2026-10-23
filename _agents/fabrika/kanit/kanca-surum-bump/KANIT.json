@@ -1,0 +1,64 @@
+{
+  "is": "kanca-surum-bump",
+  "arac": "kanit.py/0.5.0",
+  "guncelleme": "2026-10-23T20:25:14+03:00",
+  "kayitlar": [
+    {
+      "tur": "olcum",
+      "etiket": "surum-sayimi",
+      "asama": "once",
+      "dosya": "olcum-surum-sayimi-once.txt",
+      "sha256": "2d54660af6af4e42f33d04473b9d5ee5421570189328d7b959de3bd297290c60",
+      "komut": [
+        "bash",
+        "-c",
+        "set -o pipefail; echo \"0.35.0 sayısı: $(git grep -h -o \"\\\"0\\.35\\.0\\\"\\|\\\"\\.\\\": \\\"0\\.35\\.0\\\"\" -- \"*.json\" | wc -l)\"; echo \"0.36.0 sayısı: $(git grep -h -o \"\\\"0\\.36\\.0\\\"\" -- \"*.json\" | wc -l)\"; git grep -n \"0\\.35\\.0\" -- \"*.json\""
+      ],
+      "rc": 0,
+      "renk": "yesil",
+      "zaman": "2026-10-23T20:24:02+03:00",
+      "sure_sn": 0.0,
+      "boru_denetimi": "temiz",
+      "olcum_id": "175333e164fb49d881c3bbefe35241db"
+    },
+    {
+      "tur": "olcum",
+      "etiket": "surum-sayimi",
+      "asama": "sonra",
+      "dosya": "olcum-surum-sayimi-sonra.txt",
+      "sha256": "51ac2e04ada6bd6a6be971679f7e5344585fd00c641e9574637dfa44da28aa55",
+      "komut": [
+        "bash",
+        "-c",
+        "set -o pipefail; echo \"0.35.0 sayısı (kaynak; CHANGELOG/kanıt/min.js hariç): $(git grep -h -F \"0.35.0\" -- . \":(exclude)_agents\" \":(exclude)CHANGELOG.md\" \":(exclude)*.min.js\" | wc -l)\"; echo \"0.36.0 sayısı: $(git grep -h -F \"0.36.0\" -- . \":(exclude)_agents\" \":(exclude)CHANGELOG.md\" | wc -l)\"; git grep -n -F \"0.36.0\" -- . \":(exclude)_agents\""
+      ],
+      "rc": 0,
+      "renk": "yesil",
+      "zaman": "2026-10-23T20:25:14+03:00",
+      "sure_sn": 0.2,
+      "boru_denetimi": "temiz",
+      "olcum_id": "5b46fe73a05a4165a0e455dbbdda26c9"
+    },
+    {
+      "tur": "olcum",
+      "etiket": "eklenti-sinavi",
+      "asama": "sonra",
+      "dosya": "olcum-eklenti-sinavi-sonra.txt",
+      "sha256": "06d7c3a38eacb9457fd3bc2c00586fca4b7cd7c36d87bfc90c385537937b09ce",
+      "komut": [
+        "bash",
+        "-c",
+        "cd adapters/claude-code && npm test 2>&1 | tail -12; exit ${PIPESTATUS[0]}",
+        "--boru-izin",
+        "npm test çıktısı uzun; PIPESTATUS[0] ile asıl çıkış kodu korunur, tail yalnız görüntü"
+      ],
+      "rc": 0,
+      "renk": "yesil",
+      "zaman": "2026-10-23T20:24:35+03:00",
+      "sure_sn": 7.2,
+      "boru_denetimi": "temiz",
+      "olcum_id": "a6a9d2ae37994f9eb7af87c3cae048c4"
+    }
+  ],
+  "imza": "d03747637e9a24780e4700a0d27f1b015fb2fa32b36e57fb0bc98088bcf4e9cf"
+}

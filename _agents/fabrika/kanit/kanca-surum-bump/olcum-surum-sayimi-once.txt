@@ -1,0 +1,13 @@
+$ bash -c set -o pipefail; echo "0.35.0 sayısı: $(git grep -h -o "\"0\.35\.0\"\|\"\.\": \"0\.35\.0\"" -- "*.json" | wc -l)"; echo "0.36.0 sayısı: $(git grep -h -o "\"0\.36\.0\"" -- "*.json" | wc -l)"; git grep -n "0\.35\.0" -- "*.json"
+# rc=0 sure=0.0s zaman=2026-10-23T20:24:02+03:00
+--- stdout ---
+0.35.0 sayısı: 6
+0.36.0 sayısı: 0
+.claude-plugin/marketplace.json:30:      "version": "0.35.0",
+.release-please-manifest.json:2:  ".": "0.35.0"
+_agents/fabrika/kanit/main-commit-kancasi-komut-cozumu/KANIT.json:33:        "/config/.claude/plugins/cache/agent-dashboard/agent-dashboard/0.35.0/scripts/hooks/block-main-commit.js",
+adapters/claude-code/.claude-plugin/plugin.json:3:  "version": "0.35.0",
+adapters/claude-code/package.json:3:  "version": "0.35.0",
+adapters/codex/.codex-plugin/plugin.json:3:  "version": "0.35.0",
+adapters/codex/hooks/package.json:3:  "version": "0.35.0",
+--- stderr ---
