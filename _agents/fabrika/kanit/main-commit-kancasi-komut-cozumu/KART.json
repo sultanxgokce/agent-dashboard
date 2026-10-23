@@ -20,5 +20,24 @@
   "gecmis": [],
   "canli_gerekir": false,
   "canli_sebep": "--canli h (sahip: canlı kanıt gerekmez dedi)",
-  "kapsam_uyarilari": []
+  "kapsam_uyarilari": [],
+  "sultan_kararlari": [
+    {
+      "karar": "basla",
+      "oturum": "session_01Ge4BawKcUrcm1pdV8WANyF",
+      "soz": "Evet, #2 ile devam (önerim)",
+      "beyan": "SERDAR",
+      "gerekce": "Sultan 23 Eki başlama izni; hakem wf_fe01ce88 #2'yi seçti (çözülemeyen dizin → oturum dizini, fail-closed)",
+      "zaman": "2026-10-23T18:11:56+03:00"
+    }
+  ],
+  "baslama_izni": {
+    "durum": "basla",
+    "istendi": "2026-10-20T21:28:14+03:00",
+    "zaman": "2026-10-23T18:11:56+03:00",
+    "oturum": "session_01Ge4BawKcUrcm1pdV8WANyF",
+    "soz": "Evet, #2 ile devam (önerim)",
+    "beyan": "SERDAR"
+  },
+  "kural_surumu": "0.21.0"
 }

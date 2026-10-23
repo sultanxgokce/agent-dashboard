@@ -1,0 +1,14 @@
+$ bash _agents/fabrika/kanit/main-commit-kancasi-komut-cozumu/kanca-olc.sh adapters/claude-code/scripts/hooks/block-main-commit.js /tmp/claude-1000/-config-projects-Nexus/4f6442d1-77db-445d-93ab-44b9fe1de9a0/scratchpad/is/repo
+# rc=0 sure=0.6s zaman=2026-10-23T18:23:17+03:00
+--- stdout ---
+DOGRU  beklenen=GECIR   kanca=GECIR   :: cd /tmp/claude-1000/-config-projects-Nexus/4f6442d1-77db-445d-93ab-44b9fe1de9a0/scratchpad/is/repo && git commit -m x
+DOGRU  beklenen=GECIR   kanca=GECIR   :: git -C /tmp/claude-1000/-config-projects-Nexus/4f6442d1-77db-445d-93ab-44b9fe1de9a0/scratchpad/is/repo commit -m x
+DOGRU  beklenen=GECIR   kanca=GECIR   :: W=/tmp/claude-1000/-config-projects-Nexus/4f6442d1-77db-445d-93ab-44b9fe1de9a0/scratchpad/is/repo; cd $W && git commit -m x
+YANLIS beklenen=GECIR   kanca=ENGELLE :: cd ~/projects//tmp/claude-1000/-config-projects-Nexus/4f6442d1-77db-445d-93ab-44b9fe1de9a0/scratchpad/is/repo && git commit -m x
+DOGRU  beklenen=GECIR   kanca=GECIR   :: bash scripts/append-note.sh f "not; git commit yapıldı"
+DOGRU  beklenen=GECIR   kanca=GECIR   :: echo 'ders: main üstünde git commit yasak'
+DOGRU  beklenen=ENGELLE kanca=ENGELLE :: git commit -m x
+DOGRU  beklenen=ENGELLE kanca=ENGELLE :: cd /config/projects/Nexus && git commit -m x
+DOGRU  beklenen=ENGELLE kanca=ENGELLE :: git -C /config/projects/Nexus commit -m x
+DOGRU  beklenen=ENGELLE kanca=ENGELLE :: cd /tmp/claude-1000/-config-projects-Nexus/4f6442d1-77db-445d-93ab-44b9fe1de9a0/scratchpad/is/repo && cd /config/projects/Nexus && git commit -m x
+--- stderr ---
