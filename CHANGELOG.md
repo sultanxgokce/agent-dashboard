@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.36.1](https://github.com/sultanxgokce/agent-dashboard/compare/v0.36.0...v0.36.1) (2026-10-29)
+
+
+### Bug Fixes
+
+* pr-skill-gate: satır sonuyla ayrılmış komutlarda da `gh pr create` yakalanır; `cd $W` + yeni satır + `gh pr create` biçimi kapıyı artık atlamaz (#5)
+
 ## [0.36.0](https://github.com/sultanxgokce/agent-dashboard/compare/v0.35.0...v0.36.0) (2026-10-23)
 
 
