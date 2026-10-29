@@ -17,7 +17,7 @@
 
 const BYPASS_MARKER = /\bAGENT_DASHBOARD_PR_SKILL=1\b/;
 // `gh pr create` at the start of a shell segment, optionally preceded by
-// `VAR=value ` env-var assignments. Split on `[;&|]+` (pipes included) so
+// `VAR=value ` env-var assignments. Split on `[;&|\n]+` (pipes and line breaks included) so
 // `echo "gh pr create"` doesn't trigger.
 const PR_CREATE_RE = /^\s*(?:[A-Za-z_][A-Za-z0-9_]*=\S*\s+)*gh\s+pr\s+create\b/;
 
@@ -25,7 +25,7 @@ function isUngatedPRCreate(command) {
   if (!command || typeof command !== 'string') return false;
   if (process.env.SKIP_PR_SKILL_GATE === '1') return false;
 
-  const segments = command.split(/[;&|]+/);
+  const segments = command.split(/[;&|\n]+/);
   const matched = segments.some(seg => PR_CREATE_RE.test(seg));
   if (!matched) return false;
 
