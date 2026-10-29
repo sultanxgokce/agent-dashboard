@@ -17,12 +17,23 @@ describe('isUngatedPRCreate', () => {
       assert.equal(isUngatedPRCreate('git push && gh pr create --title foo'), true));
     it('with body heredoc', () =>
       assert.equal(isUngatedPRCreate('gh pr create --title "x" --body "y"'), true));
+    it('after a cd on its own line', () =>
+      assert.equal(isUngatedPRCreate('cd /tmp/wt\ngh pr create --title foo'), true));
+    it('after VAR=... assignments on earlier lines', () =>
+      assert.equal(isUngatedPRCreate('W=/tmp/wt; cd $W; S=x\ngh pr create --title foo'), true));
+    it('after a blank line and CRLF-free multi-line script', () =>
+      assert.equal(isUngatedPRCreate('git push -u origin foo\n\ngh pr create --title foo'), true));
   });
 
   describe('should NOT block when bypass marker present', () => {
     it('AGENT_DASHBOARD_PR_SKILL=1 prefix', () =>
       assert.equal(
         isUngatedPRCreate('AGENT_DASHBOARD_PR_SKILL=1 gh pr create --title x'),
+        false
+      ));
+    it('marker on the line that opens the PR (earlier line is a cd)', () =>
+      assert.equal(
+        isUngatedPRCreate('cd /tmp/wt\nAGENT_DASHBOARD_PR_SKILL=1 gh pr create --title x'),
         false
       ));
     it('marker after env line', () =>
@@ -41,6 +52,8 @@ describe('isUngatedPRCreate', () => {
       assert.equal(isUngatedPRCreate('gh pr merge --squash'), false));
     it('git commit', () =>
       assert.equal(isUngatedPRCreate('git commit -m "msg"'), false));
+    it('gh pr view on a later line', () =>
+      assert.equal(isUngatedPRCreate('cd /tmp/wt\ngh pr view 12'), false));
     it('echo with literal text', () =>
       assert.equal(isUngatedPRCreate('echo "gh pr create"'), false));
   });
