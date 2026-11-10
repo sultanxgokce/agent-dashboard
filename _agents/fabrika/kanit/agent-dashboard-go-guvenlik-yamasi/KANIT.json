@@ -1,7 +1,7 @@
 {
   "is": "agent-dashboard-go-guvenlik-yamasi",
   "arac": "kanit.py/0.10.0",
-  "guncelleme": "2026-11-10T11:09:11+03:00",
+  "guncelleme": "2026-11-10T11:12:09+03:00",
   "kayitlar": [
     {
       "tur": "olcum",
@@ -46,7 +46,51 @@
       "olculen_commit": "626d88b1ecf32f891fe1f19cdecb978253be8f8f",
       "olculen_kirli": false,
       "kirli_kurali": 1
+    },
+    {
+      "tur": "olcum",
+      "etiket": "vuln-once",
+      "asama": "once",
+      "dosya": "olcum-vuln-once-once.txt",
+      "sha256": "20da3fc1afec9d1254cfefdb283249affada2679f4f0dd7219fb15357bd38672",
+      "komut": [
+        "bash",
+        "/tmp/claude-1000/-config-projects-Nexus/6b97a4cc-dfd6-42fe-bdf4-cf1f9657563c/scratchpad/vuln-tara.sh",
+        "/config/projects/_wt/ad-vuln-eski"
+      ],
+      "rc": 1,
+      "renk": "kirmizi",
+      "zaman": "2026-11-10T11:11:47+03:00",
+      "sure_sn": 11.0,
+      "boru_denetimi": "kapsam-dışı (kabuk -c değil; dosya betiği içeriği denetlenmez)",
+      "girdi_anahtar": "2d59dfa9358de987b0b671becd819aac68e516bf80ab27acc9e640adb3966417",
+      "olcum_id": "7e51ee47142b4513a0964af5e4cd9325",
+      "olculen_commit": "4c9e0b2166c6e768e6bd4c2ea8242a324bbaf0ad",
+      "olculen_kirli": false,
+      "kirli_kurali": 1
+    },
+    {
+      "tur": "olcum",
+      "etiket": "vuln-sonra",
+      "asama": "sonra",
+      "dosya": "olcum-vuln-sonra-sonra.txt",
+      "sha256": "ca52bf2e1dea2d215f78f7aa5d8226223f04323d9c4d8aded27a3d05404c2bba",
+      "komut": [
+        "bash",
+        "/tmp/claude-1000/-config-projects-Nexus/6b97a4cc-dfd6-42fe-bdf4-cf1f9657563c/scratchpad/vuln-tara.sh",
+        "."
+      ],
+      "rc": 0,
+      "renk": "yesil",
+      "zaman": "2026-11-10T11:12:09+03:00",
+      "sure_sn": 10.7,
+      "boru_denetimi": "kapsam-dışı (kabuk -c değil; dosya betiği içeriği denetlenmez)",
+      "girdi_anahtar": "a56754a35e63ebfd2644af53e4ee3a3274977908bee99ccb2f4a6ac59d6b90d0",
+      "olcum_id": "973d0f9f8b0947dfb2cbafadbbdad7b2",
+      "olculen_commit": "4c9e0b2166c6e768e6bd4c2ea8242a324bbaf0ad",
+      "olculen_kirli": false,
+      "kirli_kurali": 1
     }
   ],
-  "imza": "1ac81716a6c271a8d982bada20c4b828cdb9922f8f769e2f43511b474420f472"
+  "imza": "3ccec23c731c8829e8cd585eef1481c8a411fb54c9fad51fd12c2043452e7257"
 }
