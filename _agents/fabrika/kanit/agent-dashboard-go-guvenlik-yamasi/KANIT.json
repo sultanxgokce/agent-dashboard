@@ -1,7 +1,7 @@
 {
   "is": "agent-dashboard-go-guvenlik-yamasi",
   "arac": "kanit.py/0.10.0",
-  "guncelleme": "2026-11-10T11:12:09+03:00",
+  "guncelleme": "2026-11-10T11:16:25+03:00",
   "kayitlar": [
     {
       "tur": "olcum",
@@ -30,7 +30,7 @@
       "etiket": "go-sonra",
       "asama": "sonra",
       "dosya": "olcum-go-sonra-sonra.txt",
-      "sha256": "718e4a3c3a79f9b5bb5671b467105d1b7455d1e6bee59ee9cd12aae6bac2f716",
+      "sha256": "a6f9caf1944d650e9cb40d34ff0729692641d4ad3070734ba245da493d50f63c",
       "komut": [
         "bash",
         "/tmp/claude-1000/-config-projects-Nexus/6b97a4cc-dfd6-42fe-bdf4-cf1f9657563c/scratchpad/vuln-say.sh",
@@ -38,12 +38,12 @@
       ],
       "rc": 0,
       "renk": "yesil",
-      "zaman": "2026-11-10T11:09:11+03:00",
+      "zaman": "2026-11-10T11:16:03+03:00",
       "sure_sn": 0.0,
       "boru_denetimi": "kapsam-dışı (kabuk -c değil; dosya betiği içeriği denetlenmez)",
-      "girdi_anahtar": "e4436a9f9ced9cf087ad969d9e3d0f8907b6cc07f41f6feaf7c92c94dd75991d",
-      "olcum_id": "23d4fa2c0f8b4361a16af922f7f02d51",
-      "olculen_commit": "626d88b1ecf32f891fe1f19cdecb978253be8f8f",
+      "girdi_anahtar": "2e66552965a4e6cd4b6ea0270e8e6596d4a308c965c563bbf127024f7215da99",
+      "olcum_id": "a07925fc0def4fc58ab9e5f1e063bc53",
+      "olculen_commit": "fd16a4e27d34db892e7e74d560dc4a444348330f",
       "olculen_kirli": false,
       "kirli_kurali": 1
     },
@@ -74,7 +74,7 @@
       "etiket": "vuln-sonra",
       "asama": "sonra",
       "dosya": "olcum-vuln-sonra-sonra.txt",
-      "sha256": "ca52bf2e1dea2d215f78f7aa5d8226223f04323d9c4d8aded27a3d05404c2bba",
+      "sha256": "de7473306691d60b1109eedf49274cad5e3931aa4f76e4db0899e43b6cb93393",
       "komut": [
         "bash",
         "/tmp/claude-1000/-config-projects-Nexus/6b97a4cc-dfd6-42fe-bdf4-cf1f9657563c/scratchpad/vuln-tara.sh",
@@ -82,15 +82,15 @@
       ],
       "rc": 0,
       "renk": "yesil",
-      "zaman": "2026-11-10T11:12:09+03:00",
-      "sure_sn": 10.7,
+      "zaman": "2026-11-10T11:16:25+03:00",
+      "sure_sn": 19.0,
       "boru_denetimi": "kapsam-dışı (kabuk -c değil; dosya betiği içeriği denetlenmez)",
       "girdi_anahtar": "a56754a35e63ebfd2644af53e4ee3a3274977908bee99ccb2f4a6ac59d6b90d0",
-      "olcum_id": "973d0f9f8b0947dfb2cbafadbbdad7b2",
-      "olculen_commit": "4c9e0b2166c6e768e6bd4c2ea8242a324bbaf0ad",
-      "olculen_kirli": false,
+      "olcum_id": "d9071575f35b4984a65369fe3895b2e0",
+      "olculen_commit": "fd16a4e27d34db892e7e74d560dc4a444348330f",
+      "olculen_kirli": true,
       "kirli_kurali": 1
     }
   ],
-  "imza": "3ccec23c731c8829e8cd585eef1481c8a411fb54c9fad51fd12c2043452e7257"
+  "imza": "a10c539227e125f8d4f189683bbbb2b791ed4df991f4957c1878e57ac96738af"
 }

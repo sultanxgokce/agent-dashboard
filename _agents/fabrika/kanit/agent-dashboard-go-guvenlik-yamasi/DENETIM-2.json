@@ -1,0 +1,63 @@
+{
+  "tur": 2,
+  "is": "agent-dashboard-go-guvenlik-yamasi",
+  "pr": "8",
+  "yazan": "claude",
+  "denetci": "codex",
+  "zaman": "2026-11-10T11:16:11+03:00",
+  "kanit_durumu": "sağlam (araç imzalı, sha'lar tutuyor)",
+  "depo": "/config/projects/_wt/agent-dashboard-vuln",
+  "dal": "agent-dashboard-go-guvenlik-yamasi",
+  "birincil_mi": true,
+  "yedek": null,
+  "yazan_model": "opus",
+  "yazan_model_kaynak": "ayar-dosyasi",
+  "yedek_model": null,
+  "kirpildi": {
+    "oldu": false,
+    "istem_bayt": 20357,
+    "esik": 110000
+  },
+  "kanit_ayiklandi": {
+    "dosya": 5,
+    "bayt": 7955
+  },
+  "dalgic": "uyumsuz",
+  "on_goz": {
+    "durum": "uyumsuz",
+    "dalgic": "uyumsuz",
+    "kanit_basi": "uyumsuz",
+    "kanit_eksik": "uyumlu",
+    "taban": "uyumlu",
+    "agac": "uyumlu",
+    "kapsam_dosya": "uyumlu",
+    "gecis_gerekcesi": null,
+    "zorunlu": "kapali",
+    "notlar": [
+      "A1 kanıt başı: 'go-sonra' (sonra) 626d88b1'de ölçülmüş, HEAD fd16a4e2; arada kanıt dışı 4 dosya (_agents/fabrika/karne.jsonl, _agents/fabrika/kartlar/agent-dashboard-go-guvenlik-yamasi.json, go.mod …) — kanıtı HEAD'de yeniden al"
+    ]
+  },
+  "bas": "fd16a4e27d34db892e7e74d560dc4a444348330f",
+  "duzeltme_farki": {
+    "onceki_bas": "1095d7b134360610f7a9165eee50ab4c08a35d4a",
+    "dosya": 9,
+    "bayt": 13739,
+    "tam_bayt": 17296
+  },
+  "kareler": null,
+  "sonuc": {
+    "kod_puani": 2,
+    "dogru_sey": "H",
+    "ozet": "Go sürümü 1.26.10’a alınmış ve gerçek güvenlik taramasında GO-2026-6809 kaybolmuş; önceki B1’in tarama kısmı kapanmış görünüyor. Ancak talepteki CI vulncheck işinin çalışıp yeşil geçtiğini gösteren kayıt yok, özel vuln-tara.sh koşusu ile CI işi aynı sınav olarak kanıtlanmadığı için önce bu kabulü ölçmek gerekir.",
+    "bulgular": [
+      {
+        "ne": "CI vulncheck işinin GO-2026-6809 vermeden yeşil geçtiği hâlâ kanıtlanmamış; yerel ve içeriği denetlenmeyen özel betik sonucu CI işinin sonucu yerine geçmiyor.",
+        "kanit": "vuln-sonra kaydı rc=0 ve “Your code is affected by 0 vulnerabilities.” çıktısıyla güvenlik taramasını gösteriyor; fakat komut CI işini değil scratchpad/vuln-tara.sh betiğini çağırıyor ve manifest betik içeriğinin denetlenmediğini açıkça belirtiyor. Kayıtlarda CI koşusu, iş adı veya CI sonucu bulunmuyor.",
+        "konum": "olcum-vuln-sonra-sonra.txt · manifest/vuln-sonra.boru_denetimi",
+        "agirlik": "ciddi",
+        "kutu_disi_yuzey": null
+      }
+    ],
+    "kanit_gorusu": "Manifest sağlam ve araç imzalıdır. vuln-once kırmızı/GO-2026-6809 ile vuln-sonra yeşil/sıfır açık çifti gerçek bir tarama iyileşmesini ölçüyor; ayrıca üretim kodu farkı sıfır olduğundan vuln-sonra commit ayrılığı sorun değildir. Buna karşılık go-sonra kaydı güncel baştan dört dosya geridedir ve daha önemlisi hiçbir kayıt talepte adı geçen CI vulncheck işini doğrudan ölçmemektedir."
+  }
+}
