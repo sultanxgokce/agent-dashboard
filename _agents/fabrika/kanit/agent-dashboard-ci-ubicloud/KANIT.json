@@ -1,0 +1,52 @@
+{
+  "is": "agent-dashboard-ci-ubicloud",
+  "arac": "kanit.py/0.10.0",
+  "guncelleme": "2026-11-10T10:44:15+03:00",
+  "kayitlar": [
+    {
+      "tur": "olcum",
+      "etiket": "ucretli-once",
+      "asama": "once",
+      "dosya": "olcum-ucretli-once-once.txt",
+      "sha256": "3f0ba94744b7dd88bb76345706241f08f23d66f0953e2cd5d277723ee9966bf4",
+      "komut": [
+        "bash",
+        "/tmp/claude-1000/-config-projects-Nexus/6b97a4cc-dfd6-42fe-bdf4-cf1f9657563c/scratchpad/ucretli-say.sh",
+        "/tmp/claude-1000/-config-projects-Nexus/6b97a4cc-dfd6-42fe-bdf4-cf1f9657563c/scratchpad/agent-dashboard-eski"
+      ],
+      "rc": 1,
+      "renk": "kirmizi",
+      "zaman": "2026-11-10T10:41:53+03:00",
+      "sure_sn": 50.4,
+      "boru_denetimi": "kapsam-dışı (kabuk -c değil; dosya betiği içeriği denetlenmez)",
+      "girdi_anahtar": "3c09c5868edaab72f67cf62efad5e207b0e13970b472aa3b4ae1a06a2fde62e4",
+      "olcum_id": "fe87181bb207409a8071217ea935fd17",
+      "olculen_commit": "84d8d607355cd13bc2ceadf8873e8f174083cc1b",
+      "olculen_kirli": false,
+      "kirli_kurali": 1
+    },
+    {
+      "tur": "olcum",
+      "etiket": "ucretli-sonra",
+      "asama": "sonra",
+      "dosya": "olcum-ucretli-sonra-sonra.txt",
+      "sha256": "a28a487a373f1dbedfea70abc876b9ad994cbc69c5ac8cb634167641657e5ac4",
+      "komut": [
+        "bash",
+        "/tmp/claude-1000/-config-projects-Nexus/6b97a4cc-dfd6-42fe-bdf4-cf1f9657563c/scratchpad/ucretli-say.sh",
+        "."
+      ],
+      "rc": 0,
+      "renk": "yesil",
+      "zaman": "2026-11-10T10:44:15+03:00",
+      "sure_sn": 141.1,
+      "boru_denetimi": "kapsam-dışı (kabuk -c değil; dosya betiği içeriği denetlenmez)",
+      "girdi_anahtar": "58e7546000190a5021e607a60be9e9d23eb0e0073f99314a0233267861bd5675",
+      "olcum_id": "ef50ac1e57824efd9a1485c3d858f57f",
+      "olculen_commit": "84d8d607355cd13bc2ceadf8873e8f174083cc1b",
+      "olculen_kirli": false,
+      "kirli_kurali": 1
+    }
+  ],
+  "imza": "5687f4b5712b130e7d31334943dbb69a2f031044feceb384fb948a6ac599893c"
+}
