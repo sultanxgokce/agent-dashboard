@@ -1,0 +1,5 @@
+$ bash /tmp/claude-1000/-config-projects-Nexus/6b97a4cc-dfd6-42fe-bdf4-cf1f9657563c/scratchpad/vuln-tara.sh .
+# rc=0 sure=11.0s zaman=2026-11-10T11:25:37+03:00
+--- stdout ---
+Your code is affected by 0 vulnerabilities.
+--- stderr ---

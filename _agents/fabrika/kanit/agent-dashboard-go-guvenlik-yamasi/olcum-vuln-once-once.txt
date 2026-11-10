@@ -1,0 +1,9 @@
+$ bash /tmp/claude-1000/-config-projects-Nexus/6b97a4cc-dfd6-42fe-bdf4-cf1f9657563c/scratchpad/vuln-tara.sh /config/projects/_wt/ad-vuln-eski
+# rc=1 sure=11.0s zaman=2026-11-10T11:11:47+03:00
+--- stdout ---
+Vulnerability #1: GO-2026-6809
+Vulnerability #2: GO-2026-6617
+Vulnerability #3: GO-2026-6613
+Vulnerability #4: GO-2026-6612
+Vulnerability #5: GO-2026-6611
+--- stderr ---

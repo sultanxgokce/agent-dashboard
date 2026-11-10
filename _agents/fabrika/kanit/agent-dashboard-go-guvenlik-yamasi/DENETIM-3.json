@@ -1,0 +1,66 @@
+{
+  "tur": 3,
+  "is": "agent-dashboard-go-guvenlik-yamasi",
+  "pr": "8",
+  "yazan": "claude",
+  "denetci": "codex",
+  "zaman": "2026-11-10T11:23:49+03:00",
+  "kanit_durumu": "sağlam (araç imzalı, sha'lar tutuyor)",
+  "depo": "/config/projects/_wt/agent-dashboard-vuln",
+  "dal": "agent-dashboard-go-guvenlik-yamasi",
+  "birincil_mi": true,
+  "yedek": null,
+  "yazan_model": "opus",
+  "yazan_model_kaynak": "ayar-dosyasi",
+  "yedek_model": null,
+  "kirpildi": {
+    "oldu": false,
+    "istem_bayt": 19178,
+    "esik": 110000
+  },
+  "kanit_ayiklandi": {
+    "dosya": 6,
+    "bayt": 10223
+  },
+  "dalgic": "uyumsuz",
+  "on_goz": {
+    "durum": "gecildi",
+    "dalgic": "uyumsuz",
+    "kanit_basi": "uyumsuz",
+    "kanit_eksik": "uyumlu",
+    "taban": "uyumlu",
+    "agac": "uyumlu",
+    "kapsam_dosya": "uyumlu",
+    "gecis_gerekcesi": "Fark go.mod/go.sum bağımlılık yükseltmelerini içeriyor: CI vulncheck GO-2026-5970 ve GO-2026-5320 verdi; kartın 'vulncheck yeşil geçer' yarısı bunları gerektirir; kanıt: ci-vulncheck, vuln-sonra.",
+    "zorunlu": "kapali",
+    "notlar": [
+      "A1 kanıt başı: 'go-sonra' (sonra) f79b613b'de ölçülmüş, HEAD 33b4fb88; arada kanıt dışı 1 dosya (_agents/fabrika/kartlar/agent-dashboard-go-guvenlik-yamasi.json) — kanıtı HEAD'de yeniden al",
+      "A1 kanıt başı: 'vuln-sonra' (sonra) f79b613b'de ölçülmüş, HEAD 33b4fb88; arada kanıt dışı 1 dosya (_agents/fabrika/kartlar/agent-dashboard-go-guvenlik-yamasi.json) — kanıtı HEAD'de yeniden al",
+      "A1 kanıt başı: 'ci-vulncheck' (sonra) f79b613b'de ölçülmüş, HEAD 33b4fb88; arada kanıt dışı 1 dosya (_agents/fabrika/kartlar/agent-dashboard-go-guvenlik-yamasi.json) — kanıtı HEAD'de yeniden al"
+    ],
+    "gecis_oncesi": "uyumsuz"
+  },
+  "bas": "33b4fb881e7249b6cc1d49d27332b6b521e1fd7b",
+  "duzeltme_farki": {
+    "onceki_bas": "fd16a4e27d34db892e7e74d560dc4a444348330f",
+    "dosya": 8,
+    "bayt": 12178,
+    "tam_bayt": 23056
+  },
+  "kareler": null,
+  "sonuc": {
+    "kod_puani": 2,
+    "dogru_sey": "H",
+    "ozet": "Go 1.26.10 ve yerel taramada sıfır açık ölçülmüş; ancak önceki B1 kapanmamış, çünkü “ci-vulncheck” kaydı yalnız özel bir betiğin “vulncheck completed success” sözünü gösteriyor, gerçek CI işi ile GO-2026-6809 çıktısını sınamıyor. Üstelik kayıtlar f79b613b başını ölçerken incelenen baş 33b4fb88 olduğundan güncel baş da doğrudan kanıtlı değil; önce CI işinin gerçek sonucunu ve güncel başı aynı güvenilir ölçümde gösterin.",
+    "bulgular": [
+      {
+        "ne": "Önceki B1 kapanmamış: CI vulncheck işinin GO-2026-6809 vermeden yeşil geçtiği kanıtlanmıyor.",
+        "kanit": "ci-vulncheck kaydı rc=0 olsa da yalnız içeriği denetlenmeyen scratchpad/ci-vuln.sh betiğini çalıştırıyor; çıktı “pr=8 baş=f79b613b…” ve “vulncheck completed success” diyor, fakat gerçek CI sağlayıcısı/iş kimliği, iş günlüğü veya GO-2026-6809’un bulunmadığını gösteren sınama yok. Ayrıca manifest bu kaydın f79b613b commitinde olduğunu, incelenen başın 33b4fb88 olduğunu ve arada kanıt dışı bir dosya bulunduğunu bildiriyor.",
+        "konum": "olcum-ci-vulncheck-sonra.txt · manifest/ci-vulncheck.boru_denetimi · ölçülen commit ↔ incelenen baş notu",
+        "agirlik": "ciddi",
+        "kutu_disi_yuzey": null
+      }
+    ],
+    "kanit_gorusu": "Manifest sağlam ve araç imzalıdır; go-once/go-sonra sürüm değişimini, vuln-once/vuln-sonra ise GO-2026-6809’dan sıfır açığa geçişi ölçüyor. Ancak CI iddiası ölçümün kendi içeriğiyle doğrulanmıyor ve bütün sonra kayıtları incelenen baştan bir commit geride olduğundan talebin tamamı için yeterli kanıt yoktur."
+  }
+}
