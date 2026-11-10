@@ -1,0 +1,46 @@
+{
+  "is": "agent-dashboard-ci-ubicloud",
+  "cumle": "agent-dashboard deposundaki 6 CI işi ücretli GitHub makinesinden ubicloud-standard-2 makinesine taşınır; PR başında işler Ubicloud koşucusunda (runner adı gr...) başlar",
+  "istedi": "Sultan",
+  "aldi": "BENNÂ",
+  "zaman": "2026-11-10T10:40:12+03:00",
+  "sinif_cevaplari": {
+    "geri_alinamaz": "h",
+    "para": "e",
+    "dis_yuzey": "h",
+    "yetki": "h"
+  },
+  "siniflar": [
+    "para"
+  ],
+  "sultan": true,
+  "kanit_nerede": "",
+  "oda": "code",
+  "durum": "acik",
+  "gecmis": [],
+  "canli_gerekir": false,
+  "canli_sebep": "",
+  "kapsam_uyarilari": [],
+  "baslama_izni": {
+    "durum": "bekliyor",
+    "istendi": "2026-11-10T10:40:12+03:00"
+  },
+  "kural_surumu": "0.21.0",
+  "gorev": "gorev_01M725564ER2JHCC5Y5RE29RJG",
+  "tahmin_dk": 20,
+  "sayi_uyarilari": [
+    "6 CI"
+  ],
+  "sayi_bicim_eksikleri": [
+    "şimdi → hedef iki SAYI olarak yok",
+    "(kaynak: <komut/ekran>, <gün>) parantezi yok"
+  ],
+  "sayi_bicim_uyarisi": true,
+  "gorev_yazimlari": [
+    {
+      "zaman": "2026-11-10T10:40:17+03:00",
+      "olay": "ac",
+      "sonuc": "yazıldı"
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 {
   "is": "agent-dashboard-ci-ubicloud",
   "arac": "kanit.py/0.10.0",
-  "guncelleme": "2026-11-10T10:51:13+03:00",
+  "guncelleme": "2026-11-10T10:52:08+03:00",
   "kayitlar": [
     {
       "tur": "olcum",
@@ -69,7 +69,51 @@
       "olculen_commit": "0e4d13db2869da84e946adcbc8f8034f8199f667",
       "olculen_kirli": false,
       "kirli_kurali": 1
+    },
+    {
+      "tur": "gecersiz",
+      "etiket": "canli-kosucu",
+      "asama": "tek",
+      "dosya": "gecersiz-olcum-canli-kosucu-sonra-22357311dca7.txt",
+      "sha256": "06179da07cd488606719d02c87db10bc77a73fc32d392b81d7a273d902638ec4",
+      "hedef_dosya": "olcum-canli-kosucu-sonra.txt",
+      "hedef_olcum_id": "43e7fc2add2041e6a2e423c5d252ebf3",
+      "hedef_sha256": "b0d6b3908beb27131ab98bfb98455ba10b15b46daec120cb1763009277b3717a",
+      "hedef_zaman": "2026-11-10T10:51:13+03:00",
+      "hedef_renk": "kirmizi",
+      "neden": "ilgisiz vulncheck açığı koşucu ölçümünü kırmızı gösterdi; koşucu-yalnız ölçümle yeniden alındı",
+      "kim": "BENNÂ",
+      "karsi": null,
+      "rc": 0,
+      "renk": "ilan",
+      "zaman": "2026-11-10T10:51:31+03:00",
+      "olcum_id": "07bf73ff69e94511ac1635c1a453d880",
+      "olculen_commit": "c9e67cdd7c5daca126a92911cefa95ccde2d3176",
+      "olculen_kirli": false
+    },
+    {
+      "tur": "olcum",
+      "etiket": "canli-kosucu2",
+      "asama": "sonra",
+      "dosya": "olcum-canli-kosucu2-sonra.txt",
+      "sha256": "c86222577604ef1f41956fe158c4c92f97b06ddf2e286d54f556a19d016630dd",
+      "komut": [
+        "bash",
+        "/tmp/claude-1000/-config-projects-Nexus/6b97a4cc-dfd6-42fe-bdf4-cf1f9657563c/scratchpad/canli-kosucu2.sh",
+        "sultanxgokce/agent-dashboard",
+        "7"
+      ],
+      "rc": 3,
+      "renk": "sari",
+      "zaman": "2026-11-10T10:52:08+03:00",
+      "sure_sn": 32.4,
+      "boru_denetimi": "kapsam-dışı (kabuk -c değil; dosya betiği içeriği denetlenmez)",
+      "girdi_anahtar": "623350d4a989b4c9ddd7ccd1fe84efcfece00548664d5f4df87f8634dc682a75",
+      "olcum_id": "23cfd1f062a04cf1b70abded0105049a",
+      "olculen_commit": "c9e67cdd7c5daca126a92911cefa95ccde2d3176",
+      "olculen_kirli": false,
+      "kirli_kurali": 1
     }
   ],
-  "imza": "4e5fe2147ecd2661bfa03da50f7c56b8bc0a77b5394a49551064a1f96eedcff1"
+  "imza": "d6809f2062f7eeeee2b8a3c3c5d8141e881941cff5fccbc88f519bef6d9a0488"
 }
