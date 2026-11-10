@@ -1,0 +1,5 @@
+$ bash /tmp/claude-1000/-config-projects-Nexus/6b97a4cc-dfd6-42fe-bdf4-cf1f9657563c/scratchpad/vuln-say.sh .
+# rc=0 sure=0.0s zaman=2026-11-10T11:09:11+03:00
+--- stdout ---
+go.mod go=1.26.10
+--- stderr ---

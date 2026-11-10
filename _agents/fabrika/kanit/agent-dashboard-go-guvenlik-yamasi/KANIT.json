@@ -1,0 +1,52 @@
+{
+  "is": "agent-dashboard-go-guvenlik-yamasi",
+  "arac": "kanit.py/0.10.0",
+  "guncelleme": "2026-11-10T11:09:11+03:00",
+  "kayitlar": [
+    {
+      "tur": "olcum",
+      "etiket": "go-once",
+      "asama": "once",
+      "dosya": "olcum-go-once-once.txt",
+      "sha256": "de629e682857463e3434dfa861e68dd5905d2eb3d0f4739ae154b6e64e3fbc2f",
+      "komut": [
+        "bash",
+        "/tmp/claude-1000/-config-projects-Nexus/6b97a4cc-dfd6-42fe-bdf4-cf1f9657563c/scratchpad/vuln-say.sh",
+        "/tmp/claude-1000/-config-projects-Nexus/6b97a4cc-dfd6-42fe-bdf4-cf1f9657563c/scratchpad/ad-eski"
+      ],
+      "rc": 1,
+      "renk": "kirmizi",
+      "zaman": "2026-11-10T11:09:11+03:00",
+      "sure_sn": 0.0,
+      "boru_denetimi": "kapsam-dışı (kabuk -c değil; dosya betiği içeriği denetlenmez)",
+      "girdi_anahtar": "902cd2aa8ef6ffa412da5c2b5c5559a621fd4d21e7f4e78bb8c4d1e3ae1fb6e1",
+      "olcum_id": "94d84a164b9e411ab3dd7ad97f180269",
+      "olculen_commit": "626d88b1ecf32f891fe1f19cdecb978253be8f8f",
+      "olculen_kirli": false,
+      "kirli_kurali": 1
+    },
+    {
+      "tur": "olcum",
+      "etiket": "go-sonra",
+      "asama": "sonra",
+      "dosya": "olcum-go-sonra-sonra.txt",
+      "sha256": "718e4a3c3a79f9b5bb5671b467105d1b7455d1e6bee59ee9cd12aae6bac2f716",
+      "komut": [
+        "bash",
+        "/tmp/claude-1000/-config-projects-Nexus/6b97a4cc-dfd6-42fe-bdf4-cf1f9657563c/scratchpad/vuln-say.sh",
+        "."
+      ],
+      "rc": 0,
+      "renk": "yesil",
+      "zaman": "2026-11-10T11:09:11+03:00",
+      "sure_sn": 0.0,
+      "boru_denetimi": "kapsam-dışı (kabuk -c değil; dosya betiği içeriği denetlenmez)",
+      "girdi_anahtar": "e4436a9f9ced9cf087ad969d9e3d0f8907b6cc07f41f6feaf7c92c94dd75991d",
+      "olcum_id": "23d4fa2c0f8b4361a16af922f7f02d51",
+      "olculen_commit": "626d88b1ecf32f891fe1f19cdecb978253be8f8f",
+      "olculen_kirli": false,
+      "kirli_kurali": 1
+    }
+  ],
+  "imza": "1ac81716a6c271a8d982bada20c4b828cdb9922f8f769e2f43511b474420f472"
+}
