@@ -1,0 +1,7 @@
+$ bash /tmp/claude-1000/-config-projects-Nexus/6b97a4cc-dfd6-42fe-bdf4-cf1f9657563c/scratchpad/canli-kosucu2.sh sultanxgokce/agent-dashboard 7
+# rc=1 sure=1.4s zaman=2026-11-10T10:51:13+03:00
+--- stdout ---
+  is=test etiket=ubicloud-standard-2 kosucu=gre7hhb4tkwp0n91fhp4ygv4m3 sonuc=success
+  is=vulncheck etiket=ubicloud-standard-2 kosucu=grwa4vq6xa6a3p8t0aathmc3hq sonuc=failure
+pr=7 sha=0e4d13db is=2 ubicloud_is=2 ucretli_is=0 basarisiz=1 bitmemis=0
+--- stderr ---
