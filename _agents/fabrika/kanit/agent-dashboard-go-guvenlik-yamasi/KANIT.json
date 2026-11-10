@@ -1,7 +1,7 @@
 {
   "is": "agent-dashboard-go-guvenlik-yamasi",
   "arac": "kanit.py/0.10.0",
-  "guncelleme": "2026-11-10T11:19:27+03:00",
+  "guncelleme": "2026-11-10T11:20:12+03:00",
   "kayitlar": [
     {
       "tur": "olcum",
@@ -30,7 +30,7 @@
       "etiket": "go-sonra",
       "asama": "sonra",
       "dosya": "olcum-go-sonra-sonra.txt",
-      "sha256": "a6f9caf1944d650e9cb40d34ff0729692641d4ad3070734ba245da493d50f63c",
+      "sha256": "29d05c25f50602c68d9f6d12a7d792f10725451184e5d9407fd9a206117ba5dd",
       "komut": [
         "bash",
         "/tmp/claude-1000/-config-projects-Nexus/6b97a4cc-dfd6-42fe-bdf4-cf1f9657563c/scratchpad/vuln-say.sh",
@@ -38,12 +38,12 @@
       ],
       "rc": 0,
       "renk": "yesil",
-      "zaman": "2026-11-10T11:16:03+03:00",
+      "zaman": "2026-11-10T11:19:56+03:00",
       "sure_sn": 0.0,
       "boru_denetimi": "kapsam-dışı (kabuk -c değil; dosya betiği içeriği denetlenmez)",
-      "girdi_anahtar": "2e66552965a4e6cd4b6ea0270e8e6596d4a308c965c563bbf127024f7215da99",
-      "olcum_id": "a07925fc0def4fc58ab9e5f1e063bc53",
-      "olculen_commit": "fd16a4e27d34db892e7e74d560dc4a444348330f",
+      "girdi_anahtar": "fdda62a234cbaf27ee51c51704c41d6bce205876049d11a71d527e81a4988550",
+      "olcum_id": "81220a021ef640a489e6f036eee69dba",
+      "olculen_commit": "f79b613b6a453b684221ae7fdba7a087abca1753",
       "olculen_kirli": false,
       "kirli_kurali": 1
     },
@@ -74,7 +74,7 @@
       "etiket": "vuln-sonra",
       "asama": "sonra",
       "dosya": "olcum-vuln-sonra-sonra.txt",
-      "sha256": "de7473306691d60b1109eedf49274cad5e3931aa4f76e4db0899e43b6cb93393",
+      "sha256": "bcf9b79df76fbde8aab12d532e8566269562c456af3748d6400da6f9941e0782",
       "komut": [
         "bash",
         "/tmp/claude-1000/-config-projects-Nexus/6b97a4cc-dfd6-42fe-bdf4-cf1f9657563c/scratchpad/vuln-tara.sh",
@@ -82,13 +82,13 @@
       ],
       "rc": 0,
       "renk": "yesil",
-      "zaman": "2026-11-10T11:16:25+03:00",
-      "sure_sn": 19.0,
+      "zaman": "2026-11-10T11:20:11+03:00",
+      "sure_sn": 14.8,
       "boru_denetimi": "kapsam-dışı (kabuk -c değil; dosya betiği içeriği denetlenmez)",
-      "girdi_anahtar": "a56754a35e63ebfd2644af53e4ee3a3274977908bee99ccb2f4a6ac59d6b90d0",
-      "olcum_id": "d9071575f35b4984a65369fe3895b2e0",
-      "olculen_commit": "fd16a4e27d34db892e7e74d560dc4a444348330f",
-      "olculen_kirli": true,
+      "girdi_anahtar": "beb97fe97c93002ae39711e14e7bc17eeffba975d846c92df77a0087811492ec",
+      "olcum_id": "b4ed43077c534ea9922ce959380d2d64",
+      "olculen_commit": "f79b613b6a453b684221ae7fdba7a087abca1753",
+      "olculen_kirli": false,
       "kirli_kurali": 1
     },
     {
@@ -96,7 +96,7 @@
       "etiket": "ci-vulncheck",
       "asama": "sonra",
       "dosya": "olcum-ci-vulncheck-sonra.txt",
-      "sha256": "2c0d0beb05c134882d27e050dfcefd2151ac83caa74e40fd641c59fc80536e25",
+      "sha256": "36c2da4015753f22d5e72c1e165bc665d4dd7055a4da26c86e9c59cbda39b048",
       "komut": [
         "bash",
         "/tmp/claude-1000/-config-projects-Nexus/6b97a4cc-dfd6-42fe-bdf4-cf1f9657563c/scratchpad/ci-vuln.sh",
@@ -104,15 +104,15 @@
       ],
       "rc": 0,
       "renk": "yesil",
-      "zaman": "2026-11-10T11:19:27+03:00",
-      "sure_sn": 1.1,
+      "zaman": "2026-11-10T11:20:12+03:00",
+      "sure_sn": 1.0,
       "boru_denetimi": "kapsam-dışı (kabuk -c değil; dosya betiği içeriği denetlenmez)",
       "girdi_anahtar": "31b1f38543c8bd77ee3dd4c353e06474b3fe15550ca1c66aa77b018b8738e0dd",
-      "olcum_id": "3ef5f12abdc64f0791bd3c80c6703e0b",
-      "olculen_commit": "9b0792c4ce00f599e60854570f5747eb0880ceca",
+      "olcum_id": "7924ad3ed768434db82d3f03c3561e06",
+      "olculen_commit": "f79b613b6a453b684221ae7fdba7a087abca1753",
       "olculen_kirli": false,
       "kirli_kurali": 1
     }
   ],
-  "imza": "c10ac7cc5667a3b1cc69d441e76b1c3ea7902ad5e083f8c3e84958a77cf7a568"
+  "imza": "a930d163576d81459b232345d7841db2ef4573b228a82fda4b7e5f33ae175729"
 }
