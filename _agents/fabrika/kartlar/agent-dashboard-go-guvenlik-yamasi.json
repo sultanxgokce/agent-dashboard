@@ -40,5 +40,14 @@
       "olay": "goz",
       "sonuc": "yazıldı"
     }
+  ],
+  "reis_kararlari": [
+    {
+      "karar": "devam",
+      "reis": "BENNÂ",
+      "oturum": "ulak_1794152584-4d0623aa",
+      "gerekce": "Tur 2 tek bulgusu (CI vulncheck işi kanıtı yok) kapandı: ci-vulncheck ölçümü eklendi, tüm sonra kayıtları son başta yeniden alındı; son tur.",
+      "zaman": "2026-11-10T11:22:03+03:00"
+    }
   ]
 }
