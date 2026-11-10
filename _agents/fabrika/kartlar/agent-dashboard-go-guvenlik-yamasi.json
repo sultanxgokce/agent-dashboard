@@ -51,6 +51,11 @@
       "zaman": "2026-11-10T11:23:50+03:00",
       "olay": "goz",
       "sonuc": "yazıldı"
+    },
+    {
+      "zaman": "2026-11-10T11:31:59+03:00",
+      "olay": "goz",
+      "sonuc": "yazıldı"
     }
   ],
   "reis_kararlari": [
@@ -76,6 +81,14 @@
       "oturum": "6b97a4cc-dfd6-42fe-bdf4-cf1f9657563c",
       "kim": "?",
       "tur": 3,
+      "on_goz": "uyumsuz"
+    },
+    {
+      "zaman": "2026-11-10T11:30:11+03:00",
+      "gerekce": "Ön göz kanıt dosyalarını görmüyor: yerel govulncheck 0 açık kaydı vuln-sonra ve go-sonra olarak HEAD'de. x/sync 0.21.0, x/mod 0.37.0, x/tools 0.47.0 x/text 0.39.0 go.mod gereksinimidir (doğrulandı); go.sum farkı budur.",
+      "oturum": "6b97a4cc-dfd6-42fe-bdf4-cf1f9657563c",
+      "kim": "?",
+      "tur": 4,
       "on_goz": "uyumsuz"
     }
   ],
