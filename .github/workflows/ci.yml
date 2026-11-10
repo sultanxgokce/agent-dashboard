@@ -13,7 +13,7 @@ permissions:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubicloud-standard-2   # MALİYET 10 Kas 2026 (Sultan kararı): ücretli GitHub makinesi bu depoda 0
     steps:
       - uses: actions/checkout@v4
 
@@ -28,7 +28,7 @@ jobs:
         run: go test -race ./...
 
   vulncheck:
-    runs-on: ubuntu-latest
+    runs-on: ubicloud-standard-2   # MALİYET 10 Kas 2026 (Sultan kararı): ücretli GitHub makinesi bu depoda 0
     steps:
       - uses: actions/checkout@v4
 

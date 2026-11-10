@@ -1,0 +1,54 @@
+{
+  "tur": 3,
+  "is": "agent-dashboard-ci-ubicloud",
+  "pr": "7",
+  "yazan": "claude",
+  "denetci": "codex",
+  "zaman": "2026-11-10T12:58:29+03:00",
+  "kanit_durumu": "sağlam (araç imzalı, sha'lar tutuyor) · 3 kayıt GEÇERSİZ ilan edildi, kanıt sayılmaz: olcum-canli-kosucu-sonra.txt (kirmizi → gecersiz) — ilgisiz vulncheck açığı koşucu ölçümünü kırmızı gösterdi; koşucu-yalnız ölçümle yeniden alındı · BENNÂ;olcum-canli-kosucu2-sonra.txt (sari → gecersiz) — ölçüm CI bitmeden alındı (bitmemiş iş, sarı); bitmiş başla yeniden alındı · BENNÂ;olcum-canli-kosucu4-sonra.txt (sari → gecersiz) — ölçüm yeni itilen başın CI'ı bitmeden alındı (sarı); bitmiş koşuyla yeniden alınır · BENNÂ",
+  "depo": "/config/projects/_wt/agent-dashboard-agent-dashboard-ci-ubicloud",
+  "dal": "agent-dashboard-ci-ubicloud",
+  "birincil_mi": true,
+  "yedek": null,
+  "yazan_model": "opus",
+  "yazan_model_kaynak": "ayar-dosyasi",
+  "yedek_model": null,
+  "kirpildi": {
+    "oldu": false,
+    "istem_bayt": 24492,
+    "esik": 110000
+  },
+  "kanit_ayiklandi": {
+    "dosya": 8,
+    "bayt": 19619
+  },
+  "dalgic": "uyumsuz",
+  "on_goz": {
+    "durum": "gecildi",
+    "dalgic": "uyumsuz",
+    "kanit_basi": "uyumlu",
+    "kanit_eksik": "uyumlu",
+    "taban": "uyumlu",
+    "agac": "uyumlu",
+    "kapsam_dosya": "uyumlu",
+    "gecis_gerekcesi": "Ön göz modeli yalnız iş akışı farkını görüyor; koşucu kanıtı fark dışında kanıt manifestinde: kosucu-tam ve canli-kosucu5 (PR başı ce882917, test ve vulncheck ubicloud-standard-2 gr koşucularda success, ücretli 0). A1-A5 mekanik kapılar uyumlu.",
+    "zorunlu": "kapali",
+    "notlar": [],
+    "gecis_oncesi": "uyumsuz"
+  },
+  "bas": "5c2e093170d7ec12d9c163eba2ae36e26dd8901b",
+  "duzeltme_farki": {
+    "onceki_bas": "18dfb71a350b8406442e723444221569aefb340c",
+    "dosya": 10,
+    "bayt": 24174,
+    "tam_bayt": 34057
+  },
+  "kareler": null,
+  "sonuc": {
+    "kod_puani": 5,
+    "dogru_sey": "E",
+    "ozet": "Sultan’ım, önceki turdaki B1 kapanmış: geçerli `canli-kosucu5` ve `kosucu-tam` kayıtları PR 7’nin başı `ce882917` üzerindeki test ve vulncheck işlerinin `ubicloud-standard-2` etiketli `gr...` koşucularında başarıyla tamamlandığını ve ücretli iş sayısının 0 olduğunu gösteriyor. Statik önce/sonra ölçümü de ücretli koşucu satırlarını 6 → 0, Ubicloud satırlarını 0 → 6 doğruladığından talep karşılanmış ve üretimi engelleyen kusur kalmamış.",
+    "bulgular": [],
+    "kanit_gorusu": "Manifest araç imzalı ve sağlamdır; geçersiz ilan edilen üç kayıt değerlendirmeye katılmamıştır. Geçerli statik ölçüm çifti 6 ücretli satırın 0’a, Ubicloud satırlarının 0’dan 6’ya geçtiğini; iki geçerli canlı kayıt ise aynı ölçülen committe PR işlerinin `gr...` adlı Ubicloud koşucularında çalıştığını, ücretli iş bulunmadığını ve işlerin bitmiş/başarılı olduğunu gösterir. Ölçülen commit ile baş arasındaki dört dosyanın yalnız kanıt dizininde olduğu araçça doğrulandığından üretim kodu eşleşmesi korunmaktadır."
+  }
+}

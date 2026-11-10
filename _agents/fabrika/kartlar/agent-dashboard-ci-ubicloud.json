@@ -1,0 +1,84 @@
+{
+  "is": "agent-dashboard-ci-ubicloud",
+  "cumle": "agent-dashboard deposundaki 6 CI işi ücretli GitHub makinesinden ubicloud-standard-2 makinesine taşınır; PR başında işler Ubicloud koşucusunda (runner adı gr...) başlar",
+  "istedi": "Sultan",
+  "aldi": "BENNÂ",
+  "zaman": "2026-11-10T10:40:12+03:00",
+  "sinif_cevaplari": {
+    "geri_alinamaz": "h",
+    "para": "e",
+    "dis_yuzey": "h",
+    "yetki": "h"
+  },
+  "siniflar": [
+    "para"
+  ],
+  "sultan": true,
+  "kanit_nerede": "",
+  "oda": "code",
+  "durum": "acik",
+  "gecmis": [],
+  "canli_gerekir": false,
+  "canli_sebep": "",
+  "kapsam_uyarilari": [],
+  "baslama_izni": {
+    "durum": "basla",
+    "istendi": "2026-11-10T10:40:12+03:00",
+    "zaman": "2026-11-10T10:53:14+03:00",
+    "yazildi": "2026-11-10T10:53:14+03:00",
+    "zaman_kaynagi": "yazim",
+    "oturum": "session_01Ge4BawKcUrcm1pdV8WANyF",
+    "soz": "tamamdır öneri a kabul edildi",
+    "beyan": "SERDAR"
+  },
+  "kural_surumu": "0.21.0",
+  "gorev": "gorev_01M725564ER2JHCC5Y5RE29RJG",
+  "tahmin_dk": 20,
+  "sayi_uyarilari": [
+    "6 CI"
+  ],
+  "sayi_bicim_eksikleri": [
+    "şimdi → hedef iki SAYI olarak yok",
+    "(kaynak: <komut/ekran>, <gün>) parantezi yok"
+  ],
+  "sayi_bicim_uyarisi": true,
+  "gorev_yazimlari": [
+    {
+      "zaman": "2026-11-10T10:40:17+03:00",
+      "olay": "ac",
+      "sonuc": "yazıldı"
+    },
+    {
+      "zaman": "2026-11-10T10:52:57+03:00",
+      "olay": "goz",
+      "sonuc": "yazıldı"
+    },
+    {
+      "zaman": "2026-11-10T10:54:29+03:00",
+      "olay": "goz",
+      "sonuc": "yazıldı"
+    }
+  ],
+  "sultan_kararlari": [
+    {
+      "karar": "basla",
+      "oturum": "session_01Ge4BawKcUrcm1pdV8WANyF",
+      "soz": "tamamdır öneri a kabul edildi",
+      "beyan": "SERDAR",
+      "gerekce": "",
+      "zaman": "2026-11-10T10:53:14+03:00",
+      "yazildi": "2026-11-10T10:53:14+03:00",
+      "zaman_kaynagi": "yazim"
+    },
+    {
+      "karar": "devam",
+      "oturum": "session_01Ge4BawKcUrcm1pdV8WANyF",
+      "soz": "evet, 3. tur",
+      "beyan": "SERDAR",
+      "gerekce": "Sultan 10 Kas 12:08 Senden ekranindan secti (gorev WP6R66): ilk iki goz olcumu yanlis anda alinmisti",
+      "zaman": "2026-11-10T12:09:40+03:00",
+      "yazildi": "2026-11-10T12:09:40+03:00",
+      "zaman_kaynagi": "yazim"
+    }
+  ]
+}

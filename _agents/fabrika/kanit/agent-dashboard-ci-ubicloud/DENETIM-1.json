@@ -1,0 +1,63 @@
+{
+  "tur": 1,
+  "is": "agent-dashboard-ci-ubicloud",
+  "pr": "7",
+  "yazan": "claude",
+  "denetci": "codex",
+  "zaman": "2026-11-10T10:52:56+03:00",
+  "kanit_durumu": "sağlam (araç imzalı, sha'lar tutuyor) · 1 kayıt GEÇERSİZ ilan edildi, kanıt sayılmaz: olcum-canli-kosucu-sonra.txt (kirmizi → gecersiz) — ilgisiz vulncheck açığı koşucu ölçümünü kırmızı gösterdi; koşucu-yalnız ölçümle yeniden alındı · BENNÂ",
+  "depo": "/config/projects/_wt/agent-dashboard-agent-dashboard-ci-ubicloud",
+  "dal": "agent-dashboard-ci-ubicloud",
+  "birincil_mi": true,
+  "yedek": null,
+  "yazan_model": "opus",
+  "yazan_model_kaynak": "ayar-dosyasi",
+  "yedek_model": null,
+  "kirpildi": {
+    "oldu": false,
+    "istem_bayt": 15483,
+    "esik": 110000
+  },
+  "kanit_ayiklandi": {
+    "dosya": 7,
+    "bayt": 10634
+  },
+  "dalgic": "uyumsuz",
+  "on_goz": {
+    "durum": "uyumsuz",
+    "dalgic": "uyumsuz",
+    "kanit_basi": "uyumlu",
+    "kanit_eksik": "uyumlu",
+    "taban": "uyumlu",
+    "agac": "uyumlu",
+    "kapsam_dosya": "uyumlu",
+    "gecis_gerekcesi": null,
+    "zorunlu": "kapali",
+    "notlar": []
+  },
+  "bas": "f0e0e4c813a6e962c1e66afdcfd743e7ef5f4e44",
+  "duzeltme_farki": null,
+  "kareler": null,
+  "sonuc": {
+    "kod_puani": 2,
+    "dogru_sey": "H",
+    "ozet": "Sultan’ım, altı `runs-on` satırı `ubuntu-latest`ten `ubicloud-standard-2`ye çevrilmiş ve statik ölçüm 6 → 0 ücretli, 0 → 6 Ubicloud sonucunu gösteriyor. Ancak PR koşucusu iddiasının tek geçerli kaydı sarı olduğu ve para sınıfındaki işe başlama izni hâlâ “bekliyor” göründüğü için önce kanıt ve yetki sorunları çözülmeden iş üretime hazır sayılamaz.",
+    "bulgular": [
+      {
+        "ne": "PR başında işlerin `gr...` adlı Ubicloud koşucularında başladığı iddiası geçerli kanıtla doğrulanmamış; bu nedenle talebin canlı davranış kısmı kanıtsızdır.",
+        "kanit": "`canli-kosucu2` kaydı rc=3 ve renk=sari; rubriğe göre sarı kayıt “ölçülemedi” demektir. Diğer canlı koşucu kaydı açıkça geçersiz ilan edilmiştir.",
+        "konum": "KANIT manifesti: canli-kosucu2; GEÇERSİZ İLAN EDİLENLER: canli-kosucu",
+        "agirlik": "ciddi",
+        "kutu_disi_yuzey": null
+      },
+      {
+        "ne": "Para etkili değişiklik, karttaki başlama izni verilmeden uygulanmış görünüyor; yetkisiz maliyet/işletim değişikliği riski var.",
+        "kanit": "İş kartında `siniflar` değeri `[\"para\"]`, buna karşılık `baslama_izni.durum` değeri `bekliyor`; diff altı üretim workflow koşucusunu değiştirmiştir.",
+        "konum": "İŞ KARTI: siniflar ve baslama_izni; diff: .github/workflows/ci.yml, pages.yml, release.yml",
+        "agirlik": "ciddi",
+        "kutu_disi_yuzey": null
+      }
+    ],
+    "kanit_gorusu": "Manifest araç imzalı ve sağlamdır. Statik önce/sonra ölçüm çifti altı ücretli satırın sıfıra, altı Ubicloud satırının oluşmasına yeterli kanıt sağlar; fakat canlı PR koşucusu kaydı sarıdır ve yeniden ölçülmelidir, geçersiz ilan edilen kırmızı kayıt da kanıt sayılamaz."
+  }
+}
