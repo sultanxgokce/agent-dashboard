@@ -1,0 +1,9 @@
+# GEÇERSİZ İLANI — özgün kayda dokunulmadı
+hedef: olcum-canli-kosucu4-sonra.txt
+hedef_sha256: c00dc7922336f6236ce9b3e31a4832c47c25c4e02342c370ab6228de8fe459fa
+hedef_zaman: 2026-11-10T10:54:51+03:00
+hedef_renk: sari
+neden: ölçüm yeni itilen başın CI'ı bitmeden alındı (sarı); bitmiş koşuyla yeniden alınır
+kim: BENNÂ
+karsi: -
+zaman: 2026-11-10T10:56:00+03:00
