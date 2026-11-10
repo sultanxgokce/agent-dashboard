@@ -1,0 +1,6 @@
+$ bash /tmp/claude-1000/-config-projects-Nexus/6b97a4cc-dfd6-42fe-bdf4-cf1f9657563c/scratchpad/ci-vuln.sh 8
+# rc=0 sure=1.1s zaman=2026-11-10T11:19:27+03:00
+--- stdout ---
+pr=8 baş=9b0792c4ce00f599e60854570f5747eb0880ceca
+vulncheck completed success
+--- stderr ---
