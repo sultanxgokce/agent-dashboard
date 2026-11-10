@@ -1,0 +1,28 @@
+{
+  "is": "agent-dashboard-go-guvenlik-yamasi-kalan",
+  "cumle": "CI vulncheck işinin günlükle kanıtı ve güncel başta tek turlu ölçüm: PR kontrolünde görünür, ayrı kanıt kaydı olmayacak",
+  "istedi": "BÂNİ",
+  "aldi": "BENNÂ",
+  "zaman": "2026-11-10T11:25:18+03:00",
+  "sinif_cevaplari": {
+    "geri_alinamaz": "h",
+    "para": "h",
+    "dis_yuzey": "h",
+    "yetki": "h"
+  },
+  "siniflar": [],
+  "sultan": false,
+  "kanit_nerede": "",
+  "oda": "code",
+  "durum": "acik",
+  "gecmis": [
+    {
+      "zaman": "2026-11-10T11:25:18+03:00",
+      "olay": "daraltmadan dogdu",
+      "koken": "agent-dashboard-go-guvenlik-yamasi"
+    }
+  ],
+  "canli_gerekir": false,
+  "canli_sebep": "",
+  "koken": "agent-dashboard-go-guvenlik-yamasi"
+}
