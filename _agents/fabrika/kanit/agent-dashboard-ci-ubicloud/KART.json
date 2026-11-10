@@ -52,6 +52,11 @@
       "zaman": "2026-11-10T10:52:57+03:00",
       "olay": "goz",
       "sonuc": "yazıldı"
+    },
+    {
+      "zaman": "2026-11-10T10:54:29+03:00",
+      "olay": "goz",
+      "sonuc": "yazıldı"
     }
   ],
   "sultan_kararlari": [
@@ -64,6 +69,26 @@
       "zaman": "2026-11-10T10:53:14+03:00",
       "yazildi": "2026-11-10T10:53:14+03:00",
       "zaman_kaynagi": "yazim"
+    },
+    {
+      "karar": "devam",
+      "oturum": "session_01Ge4BawKcUrcm1pdV8WANyF",
+      "soz": "evet, 3. tur",
+      "beyan": "SERDAR",
+      "gerekce": "Sultan 10 Kas 12:08 Senden ekranindan secti (gorev WP6R66): ilk iki goz olcumu yanlis anda alinmisti",
+      "zaman": "2026-11-10T12:09:40+03:00",
+      "yazildi": "2026-11-10T12:09:40+03:00",
+      "zaman_kaynagi": "yazim"
+    }
+  ],
+  "on_goz_gecisleri": [
+    {
+      "zaman": "2026-11-10T12:57:51+03:00",
+      "gerekce": "Ön göz modeli yalnız iş akışı farkını görüyor; koşucu kanıtı fark dışında kanıt manifestinde: kosucu-tam ve canli-kosucu5 (PR başı ce882917, test ve vulncheck ubicloud-standard-2 gr koşucularda success, ücretli 0). A1-A5 mekanik kapılar uyumlu.",
+      "oturum": "6b97a4cc-dfd6-42fe-bdf4-cf1f9657563c",
+      "kim": "?",
+      "tur": 3,
+      "on_goz": "uyumsuz"
     }
   ]
 }
