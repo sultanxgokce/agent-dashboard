@@ -1,0 +1,56 @@
+{
+  "tur": 1,
+  "is": "agent-dashboard-go-guvenlik-yamasi",
+  "pr": "8",
+  "yazan": "claude",
+  "denetci": "codex",
+  "zaman": "2026-11-10T11:11:22+03:00",
+  "kanit_durumu": "sağlam (araç imzalı, sha'lar tutuyor)",
+  "depo": "/config/projects/_wt/agent-dashboard-vuln",
+  "dal": "agent-dashboard-go-guvenlik-yamasi",
+  "birincil_mi": true,
+  "yedek": null,
+  "yazan_model": "opus",
+  "yazan_model_kaynak": "ayar-dosyasi",
+  "yedek_model": null,
+  "kirpildi": {
+    "oldu": false,
+    "istem_bayt": 10564,
+    "esik": 110000
+  },
+  "kanit_ayiklandi": {
+    "dosya": 3,
+    "bayt": 3554
+  },
+  "dalgic": "uyumsuz",
+  "on_goz": {
+    "durum": "uyumsuz",
+    "dalgic": "uyumsuz",
+    "kanit_basi": "uyumlu",
+    "kanit_eksik": "uyumlu",
+    "taban": "uyumlu",
+    "agac": "uyumlu",
+    "kapsam_dosya": "uyumlu",
+    "gecis_gerekcesi": null,
+    "zorunlu": "kapali",
+    "notlar": []
+  },
+  "bas": "1095d7b134360610f7a9165eee50ab4c08a35d4a",
+  "duzeltme_farki": null,
+  "kareler": null,
+  "sonuc": {
+    "kod_puani": 2,
+    "dogru_sey": "H",
+    "ozet": "Go sürümü 1.26.4’ten 1.26.10’a çevrilmiş; önce/sonra ölçümü yalnız bu satırın değiştiğini gösteriyor. Güvenlik işinin asıl kabulü olan gerçek CI vulncheck koşusu ve GO-2026-6809’un kaybolması ölçülmediği için iş üretime hazır sayılamaz.",
+    "bulgular": [
+      {
+        "ne": "CI vulncheck işinin GO-2026-6809 bulgusunu vermeden yeşil geçtiği kanıtlanmamış; ölçüm yalnız go.mod sürümünü okuyup buna göre sonuçlanıyor.",
+        "kanit": "go-sonra kaydı rc=0 olsa da çıktısında yalnız “go.mod go=1.26.10” var; vulncheck komutu, CI işi veya GO-2026-6809 tarama sonucu yok. Süre de 0.0 saniye.",
+        "konum": "olcum-go-sonra-sonra.txt",
+        "agirlik": "ciddi",
+        "kutu_disi_yuzey": null
+      }
+    ],
+    "kanit_gorusu": "Manifest sağlam ve araç imzalı; kırmızı önce/yeşil sonra çifti Go sürüm değişimini yeterince gösteriyor. Ancak yeşil kayıt talebin güvenlik kısmını sınamıyor: gerçek vulncheck çıktısı veya CI sonucu bulunmadığından GO-2026-6809’un giderildiği iddiası kanıtsız."
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "is": "agent-dashboard-go-guvenlik-yamasi",
+  "cumle": "agent-dashboard go.mod Go sürümü 1.26.10 a ve bağımlılıklar x/text 0.39.0, goldmark 1.7.17 ye yükseltilir; yerel govulncheck 0 açık gösterir",
+  "istedi": "BÂNİ",
+  "aldi": "BENNÂ",
+  "zaman": "2026-11-10T11:07:30+03:00",
+  "sinif_cevaplari": {
+    "geri_alinamaz": "h",
+    "para": "h",
+    "dis_yuzey": "h",
+    "yetki": "h"
+  },
+  "siniflar": [],
+  "sultan": false,
+  "kanit_nerede": "",
+  "oda": "code",
+  "durum": "acik",
+  "gecmis": [
+    {
+      "zaman": "2026-11-10T11:25:18+03:00",
+      "olay": "daralt",
+      "kalan_kart": "agent-dashboard-go-guvenlik-yamasi-kalan",
+      "tur_sifir": 3
+    }
+  ],
+  "canli_gerekir": false,
+  "canli_sebep": "",
+  "kapsam_uyarilari": [],
+  "gorev": "gorev_01M726X5HBE462PEY3SQK7GR0A",
+  "tahmin_dk": 20,
+  "sayi_uyarilari": [],
+  "sayi_bicim_eksikleri": [],
+  "sayi_bicim_uyarisi": false,
+  "gorev_yazimlari": [
+    {
+      "zaman": "2026-11-10T11:07:35+03:00",
+      "olay": "ac",
+      "sonuc": "yazılamadı: http 400 · ozet_cikista_gerekli · havuzdan çıkan iş de Sultan-dili özet ister: önce gorev.sh ozet gorev_01M726X5HBE462PEY3SQK7GR0A \"ad (5-10 kelime): sebep → ne olacak\", sonra durumu değiştir"
+    },
+    {
+      "zaman": "2026-11-10T11:11:22+03:00",
+      "olay": "goz",
+      "sonuc": "yazıldı"
+    },
+    {
+      "zaman": "2026-11-10T11:16:14+03:00",
+      "olay": "goz",
+      "sonuc": "yazıldı"
+    },
+    {
+      "zaman": "2026-11-10T11:23:50+03:00",
+      "olay": "goz",
+      "sonuc": "yazıldı"
+    }
+  ],
+  "reis_kararlari": [
+    {
+      "karar": "devam",
+      "reis": "BENNÂ",
+      "oturum": "ulak_1794152584-4d0623aa",
+      "gerekce": "Tur 2 tek bulgusu (CI vulncheck işi kanıtı yok) kapandı: ci-vulncheck ölçümü eklendi, tüm sonra kayıtları son başta yeniden alındı; son tur.",
+      "zaman": "2026-11-10T11:22:03+03:00"
+    },
+    {
+      "karar": "daralt",
+      "reis": "BENNÂ",
+      "oturum": "msg_01M728Y0J2V0NFW07X6TX5E5AR",
+      "gerekce": "daraltma: kalan bulgu yeni karta (agent-dashboard-go-guvenlik-yamasi-kalan) — CI vulncheck işinin günlükle kanıtı ve güncel başta tek turlu ölçüm: PR kontrolünde görünür, ayrı kanıt kaydı olmayacak",
+      "zaman": "2026-11-10T11:25:18+03:00"
+    }
+  ],
+  "on_goz_gecisleri": [
+    {
+      "zaman": "2026-11-10T11:23:31+03:00",
+      "gerekce": "Fark go.mod/go.sum bağımlılık yükseltmelerini içeriyor: CI vulncheck GO-2026-5970 ve GO-2026-5320 verdi; kartın 'vulncheck yeşil geçer' yarısı bunları gerektirir; kanıt: ci-vulncheck, vuln-sonra.",
+      "oturum": "6b97a4cc-dfd6-42fe-bdf4-cf1f9657563c",
+      "kim": "?",
+      "tur": 3,
+      "on_goz": "uyumsuz"
+    }
+  ],
+  "cumle_gecmisi": [
+    {
+      "cumle": "agent-dashboard go.mod Go sürümü 1.26.4 den 1.26.10 a yükseltilir; CI vulncheck işi GO-2026-6809 bulgusunu vermez ve yeşil geçer",
+      "zaman": "2026-11-10T11:25:18+03:00",
+      "kalan_kart": "agent-dashboard-go-guvenlik-yamasi-kalan"
+    }
+  ],
+  "daraltmalar": [
+    {
+      "zaman": "2026-11-10T11:25:18+03:00",
+      "kalan_kart": "agent-dashboard-go-guvenlik-yamasi-kalan",
+      "kalan": "CI vulncheck işinin günlükle kanıtı ve güncel başta tek turlu ölçüm: PR kontrolünde görünür, ayrı kanıt kaydı olmayacak",
+      "tur_sifir": 3,
+      "oturum": "msg_01M728Y0J2V0NFW07X6TX5E5AR"
+    }
+  ]
+}

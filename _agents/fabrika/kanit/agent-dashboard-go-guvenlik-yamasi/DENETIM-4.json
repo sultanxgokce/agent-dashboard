@@ -1,0 +1,49 @@
+{
+  "tur": 4,
+  "is": "agent-dashboard-go-guvenlik-yamasi",
+  "pr": "8",
+  "yazan": "claude",
+  "denetci": "codex",
+  "zaman": "2026-11-10T11:31:59+03:00",
+  "kanit_durumu": "sağlam (araç imzalı, sha'lar tutuyor)",
+  "depo": "/config/projects/_wt/agent-dashboard-vuln",
+  "dal": "agent-dashboard-go-guvenlik-yamasi",
+  "birincil_mi": true,
+  "yedek": null,
+  "yazan_model": "opus",
+  "yazan_model_kaynak": "ayar-dosyasi",
+  "yedek_model": null,
+  "kirpildi": {
+    "oldu": false,
+    "istem_bayt": 30428,
+    "esik": 110000
+  },
+  "kanit_ayiklandi": {
+    "dosya": 10,
+    "bayt": 20740
+  },
+  "dalgic": "uyumsuz",
+  "on_goz": {
+    "durum": "gecildi",
+    "dalgic": "uyumsuz",
+    "kanit_basi": "uyumlu",
+    "kanit_eksik": "uyumlu",
+    "taban": "uyumlu",
+    "agac": "uyumlu",
+    "kapsam_dosya": "uyumlu",
+    "gecis_gerekcesi": "Ön göz kanıt dosyalarını görmüyor: yerel govulncheck 0 açık kaydı vuln-sonra ve go-sonra olarak HEAD'de. x/sync 0.21.0, x/mod 0.37.0, x/tools 0.47.0 x/text 0.39.0 go.mod gereksinimidir (doğrulandı); go.sum farkı budur.",
+    "zorunlu": "kapali",
+    "notlar": [],
+    "gecis_oncesi": "uyumsuz"
+  },
+  "bas": "0ccc5e9744d02b5525390d5c3759d95d33f83792",
+  "duzeltme_farki": null,
+  "kareler": null,
+  "sonuc": {
+    "kod_puani": 5,
+    "dogru_sey": "E",
+    "ozet": "Go sürümü 1.26.10’a, x/text 0.39.0’a ve goldmark 1.7.17’ye yükseltilmiş; yerel govulncheck ölçümü sıfır açık veriyor. Önceki B1 bu kart bakımından kapanmış: CI iddiası ayrı kalan karta taşınmış, daraltılmış mevcut talep ise diff ve güncel başın üretim kodunu ölçen yeşil kayıtlarla eksiksiz karşılanmış.",
+    "bulgular": [],
+    "kanit_gorusu": "Manifest sağlam, araç imzalı ve sarı kayıt yok. go-once/go-sonra çifti 1.26.4 → 1.26.10 değişimini, vuln-once/vuln-sonra çifti beş açıktan “0 vulnerabilities” sonucuna geçişi gösteriyor; go.mod farkı ayrıca x/text 0.39.0 ve goldmark 1.7.17 sürümlerini doğrudan gösteriyor. Sonra ölçümlerinin commit ile incelenen baş arasındaki farkı yalnız kanıt dosyaları oluşturduğundan üretim kodu açısından güncellik korunuyor."
+  }
+}
