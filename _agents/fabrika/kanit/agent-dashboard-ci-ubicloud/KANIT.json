@@ -1,7 +1,7 @@
 {
   "is": "agent-dashboard-ci-ubicloud",
   "arac": "kanit.py/0.10.0",
-  "guncelleme": "2026-11-10T10:53:18+03:00",
+  "guncelleme": "2026-11-10T10:54:51+03:00",
   "kayitlar": [
     {
       "tur": "olcum",
@@ -134,7 +134,30 @@
       "olcum_id": "639e1cbace68423bbfb877573d8d009d",
       "olculen_commit": "f0e0e4c813a6e962c1e66afdcfd743e7ef5f4e44",
       "olculen_kirli": true
+    },
+    {
+      "tur": "olcum",
+      "etiket": "canli-kosucu4",
+      "asama": "sonra",
+      "dosya": "olcum-canli-kosucu4-sonra.txt",
+      "sha256": "c00dc7922336f6236ce9b3e31a4832c47c25c4e02342c370ab6228de8fe459fa",
+      "komut": [
+        "bash",
+        "/tmp/claude-1000/-config-projects-Nexus/6b97a4cc-dfd6-42fe-bdf4-cf1f9657563c/scratchpad/canli-kosucu2.sh",
+        "sultanxgokce/agent-dashboard",
+        "7"
+      ],
+      "rc": 3,
+      "renk": "sari",
+      "zaman": "2026-11-10T10:54:51+03:00",
+      "sure_sn": 1.4,
+      "boru_denetimi": "kapsam-dışı (kabuk -c değil; dosya betiği içeriği denetlenmez)",
+      "girdi_anahtar": "eb06f5f85839d92855162148cf4b08dc21a405c4af5909e0e9b5b82273f03387",
+      "olcum_id": "37f3ac4a85534c8ea4bbe7f2cc2e283c",
+      "olculen_commit": "a6e21853629ff0083d3335d98faf31c8999214c4",
+      "olculen_kirli": false,
+      "kirli_kurali": 1
     }
   ],
-  "imza": "482afc5ece9823eb0ce28523d9398c33735af78a1d9de4816a038f03f8c7c5d4"
+  "imza": "e5ee348767e858588e91e5cd2aefa19b6e6247b01c12ee8aa57d035fb4c8a5ff"
 }
