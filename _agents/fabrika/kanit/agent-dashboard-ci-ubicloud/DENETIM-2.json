@@ -1,0 +1,63 @@
+{
+  "tur": 2,
+  "is": "agent-dashboard-ci-ubicloud",
+  "pr": "7",
+  "yazan": "claude",
+  "denetci": "codex",
+  "zaman": "2026-11-10T10:54:26+03:00",
+  "kanit_durumu": "sağlam (araç imzalı, sha'lar tutuyor) · 2 kayıt GEÇERSİZ ilan edildi, kanıt sayılmaz: olcum-canli-kosucu-sonra.txt (kirmizi → gecersiz) — ilgisiz vulncheck açığı koşucu ölçümünü kırmızı gösterdi; koşucu-yalnız ölçümle yeniden alındı · BENNÂ;olcum-canli-kosucu2-sonra.txt (sari → gecersiz) — ölçüm CI bitmeden alındı (bitmemiş iş, sarı); bitmiş başla yeniden alındı · BENNÂ",
+  "depo": "/config/projects/_wt/agent-dashboard-agent-dashboard-ci-ubicloud",
+  "dal": "agent-dashboard-ci-ubicloud",
+  "birincil_mi": true,
+  "yedek": null,
+  "yazan_model": "opus",
+  "yazan_model_kaynak": "ayar-dosyasi",
+  "yedek_model": null,
+  "kirpildi": {
+    "oldu": false,
+    "istem_bayt": 17849,
+    "esik": 110000
+  },
+  "kanit_ayiklandi": {
+    "dosya": 3,
+    "bayt": 6085
+  },
+  "dalgic": "uyumsuz",
+  "on_goz": {
+    "durum": "uyumsuz",
+    "dalgic": "uyumsuz",
+    "kanit_basi": "uyumsuz",
+    "kanit_eksik": "uyumlu",
+    "taban": "uyumlu",
+    "agac": "uyumlu",
+    "kapsam_dosya": "uyumlu",
+    "gecis_gerekcesi": null,
+    "zorunlu": "kapali",
+    "notlar": [
+      "A1 kanıt başı: 'ucretli-sonra' (sonra) 84d8d607'de ölçülmüş, HEAD 18dfb71a; arada kanıt dışı 2 dosya (_agents/fabrika/karne.jsonl, _agents/fabrika/kartlar/agent-dashboard-ci-ubicloud.json) — kanıtı HEAD'de yeniden al"
+    ]
+  },
+  "bas": "18dfb71a350b8406442e723444221569aefb340c",
+  "duzeltme_farki": {
+    "onceki_bas": "f0e0e4c813a6e962c1e66afdcfd743e7ef5f4e44",
+    "dosya": 5,
+    "bayt": 8247,
+    "tam_bayt": 21029
+  },
+  "kareler": null,
+  "sonuc": {
+    "kod_puani": 2,
+    "dogru_sey": "H",
+    "ozet": "Sultan’ım, B2 kapanmış görünüyor: kart artık para sınıfındaki değişiklik için “başla” kararını kaydediyor; statik ölçüm de altı ücretli satırın 6 → 0, Ubicloud satırlarının 0 → 6 değiştiğini gösteriyor. Ancak B1 kapanmadı: PR başında işlerin `gr...` adlı Ubicloud koşucusunda başladığını gösteren iki kayıt da geçersiz ilan edildiğinden talebin açık canlı davranış iddiası kanıtsız, dolayısıyla iş henüz üretime hazır ve doğru şey tamamlanmış sayılamaz.",
+    "bulgular": [
+      {
+        "ne": "B1 kapanmadı: PR başında işlerin `gr...` adlı Ubicloud koşucusunda başladığına dair geçerli kanıt yoktur; talebin canlı davranış kısmı kanıtsızdır.",
+        "kanit": "`olcum-canli-kosucu-sonra.txt` kırmızı, `olcum-canli-kosucu2-sonra.txt` ise CI bitmeden alınmış sarı kayıt olduğu için açıkça geçersiz ilan edilmiş; gövdeleri de kanıt olarak sunulmamıştır. Geçerli iki ölçüm yalnız workflow satır sayılarını ölçmektedir.",
+        "konum": "KANIT MANİFESTİ — GEÇERSİZ İLAN EDİLENLER; olcum-ucretli-once-once.txt; olcum-ucretli-sonra-sonra.txt",
+        "agirlik": "ciddi",
+        "kutu_disi_yuzey": null
+      }
+    ],
+    "kanit_gorusu": "Manifest araç imzalı ve sağlamdır. Statik önce/sonra çifti 6 ücretli satırın 0’a, 0 Ubicloud satırının 6’ya dönüşmesini gösterir; ancak “sonra” kaydı baştan iki dosya geridedir ve daha önemlisi PR koşucusunun `gr...` adıyla başladığını ölçen geçerli kayıt yoktur. İki canlı kayıt da geçersizdir; sarı kayıt yeşil kanıt sayılamaz."
+  }
+}
