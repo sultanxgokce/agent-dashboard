@@ -19,7 +19,7 @@ concurrency:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubicloud-standard-2   # MALİYET 10 Kas 2026 (Sultan kararı): ücretli GitHub makinesi bu depoda 0
     steps:
       - uses: actions/checkout@v4
       - uses: actions/configure-pages@v5
@@ -31,7 +31,7 @@ jobs:
 
   deploy:
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: ubicloud-standard-2   # MALİYET 10 Kas 2026 (Sultan kararı): ücretli GitHub makinesi bu depoda 0
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
